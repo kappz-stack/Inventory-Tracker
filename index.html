@@ -22,9 +22,8 @@
     display: flex; align-items: center; justify-content: space-between;
     height: 60px; position: sticky; top: 0; z-index: 100;
   }
-  .logo { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; flex-shrink: 0; }
   .logo span { color: var(--accent2); }
-  .header-right { display: flex; align-items: center; gap: 16px; }
   .header-stats { display: flex; gap: 20px; }
   .hstat { text-align: center; }
   .hstat-val { font-size: 15px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--gold); }
@@ -149,7 +148,31 @@
   .empty { text-align: center; padding: 48px 24px; color: var(--muted); }
   .empty-icon { font-size: 40px; margin-bottom: 12px; }
   .empty p { font-size: 14px; }
-  @media (max-width: 680px) {
+  /* Confirm danger modal */
+  #confirm-modal .modal { max-width: 400px; }
+  #confirm-modal .modal h2 { color: var(--red); }
+  #confirm-modal .confirm-icon { font-size: 36px; margin-bottom: 12px; text-align: center; }
+  #confirm-modal .confirm-msg { font-size: 14px; color: var(--text); margin-bottom: 6px; font-weight: 500; }
+  #confirm-modal .confirm-sub { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .btn-confirm-del { background: var(--red); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 18px; cursor: pointer; transition: opacity .2s; }
+  .btn-confirm-del:hover { opacity: .85; }
+  /* Sort select */
+  .sort-select { background: var(--surface3); border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 12px; padding: 6px 10px; cursor: pointer; }
+
+  /* Multi-select bulk edit toolbar */
+  .bulk-bar {
+    display: none; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 10px 14px; background: var(--surface2); border: 1px solid var(--accent);
+    border-radius: var(--radius-sm); margin-bottom: 12px;
+  }
+  .bulk-bar.visible { display: flex; }
+  .bulk-bar .bulk-count { font-size: 13px; font-weight: 600; color: var(--accent2); flex-shrink: 0; }
+  .bulk-bar select, .bulk-bar input { font-size: 12px; padding: 5px 8px; min-width: 0; }
+  .bulk-bar .bulk-field { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .row-check { width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  .tbl td.check-cell, .tbl th.check-cell { width: 32px; padding: 0 8px; }
+  tr.selected-row td { background: rgba(123,110,246,0.08) !important; }
+
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
     .grid-2 { grid-template-columns: 1fr; }
@@ -190,21 +213,32 @@
   </div>
 </div>
 
+<!-- Confirm / Danger Modal -->
+<div class="modal-backdrop hidden" id="confirm-modal">
+  <div class="modal">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-msg" id="confirm-msg">Are you sure?</div>
+    <div class="confirm-sub" id="confirm-sub">This action cannot be undone.</div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-confirm-del" id="confirm-ok-btn">Yes, delete</button>
+    </div>
+  </div>
+</div>
+
 <header>
   <div class="logo">Poké<span>Tracker</span></div>
-  <div class="header-right">
-    <div class="header-stats">
-      <div class="hstat"><div class="hstat-val" id="h-packs">0</div><div class="hstat-lbl">Opened</div></div>
-      <div class="hstat"><div class="hstat-val" id="h-sealed" style="color:var(--holo)">0</div><div class="hstat-lbl">Sealed</div></div>
-      <div class="hstat"><div class="hstat-val" id="h-cards">0</div><div class="hstat-lbl">Cards</div></div>
-      <div class="hstat"><div class="hstat-val" id="h-hits">0</div><div class="hstat-lbl">Hits</div></div>
-    </div>
-    <div class="sync-group">
-      <div class="sync-dot" id="sync-dot" title="GitHub sync status"></div>
-      <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ Pull</button>
-      <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ Push</button>
-      <button class="sync-btn" onclick="openSyncModal()" title="Configure GitHub sync">⚙</button>
-    </div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-val" id="h-packs">0</div><div class="hstat-lbl">Opened</div></div>
+    <div class="hstat"><div class="hstat-val" id="h-sealed" style="color:var(--holo)">0</div><div class="hstat-lbl">Sealed</div></div>
+    <div class="hstat"><div class="hstat-val" id="h-cards">0</div><div class="hstat-lbl">Cards</div></div>
+    <div class="hstat"><div class="hstat-val" id="h-hits">0</div><div class="hstat-lbl">Hits</div></div>
+  </div>
+  <div class="sync-group">
+    <div class="sync-dot" id="sync-dot" title="GitHub sync status"></div>
+    <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ Pull</button>
+    <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ Push</button>
+    <button class="sync-btn" onclick="openSyncModal()" title="Configure GitHub sync">⚙</button>
   </div>
 </header>
 
@@ -220,14 +254,17 @@
   <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
     <div class="grid-4" style="margin-bottom:20px">
-      <div class="stat-card"><div class="label">Packs Opened</div><div class="value" id="d-packs" style="color:var(--accent2)">0</div><div class="sub">All sets combined</div></div>
       <div class="stat-card"><div class="label">Pack Cost</div><div class="value" id="d-spent" style="color:var(--red);font-size:20px">$0</div><div class="sub">Total spent opening</div></div>
       <div class="stat-card"><div class="label">Sealed Inventory</div><div class="value" id="d-sealed-cost" style="color:var(--ultra);font-size:20px">$0</div><div class="sub">Total sealed value</div></div>
       <div class="stat-card"><div class="label">Net Profit</div><div class="value" id="d-profit" style="color:var(--green);font-size:20px">$0</div><div class="sub" id="d-profit-sub">From sales</div></div>
+      <div class="stat-card"><div class="label">Total Spend</div><div class="value" id="d-total-spend" style="color:var(--gold);font-size:20px">$0</div><div class="sub">Pack + Sealed − Profit</div></div>
     </div>
-    <div class="grid-2" style="margin-bottom:16px">
-      <div class="card"><h3 class="mini">Pulls by rarity</h3><div id="rarity-bars"><div class="empty"><div class="empty-icon">📊</div><p>Open some packs to see pull rates.</p></div></div></div>
-      <div class="card"><h3 class="mini">Packs by set</h3><div id="set-bars"><div class="empty"><div class="empty-icon">📦</div><p>Log packs to see set breakdown.</p></div></div></div>
+    <div class="card" style="margin-bottom:16px">
+      <div class="section-head" style="margin-bottom:16px">
+        <h3 class="mini" style="margin-bottom:0">Monthly Overview — Spend &amp; Profit</h3>
+        <select class="sort-select" id="chart-year" onchange="renderCharts()" style="font-size:11px"></select>
+      </div>
+      <canvas id="chart-main" height="120"></canvas>
     </div>
     <div class="grid-2" style="margin-bottom:16px">
       <div class="stat-card" style="display:flex;align-items:center;gap:20px">
@@ -245,10 +282,13 @@
       </div>
     </div>
     <div class="grid-2">
-      <div class="card"><h3 class="mini">Recent pulls</h3><div id="recent-pulls"><div class="empty"><div class="empty-icon">✨</div><p>Your recent rare pulls will appear here.</p></div></div></div>
       <div class="card">
         <div class="section-head" style="margin-bottom:12px"><h3 class="mini" style="margin-bottom:0">Sealed stash</h3><button class="btn-ghost" style="font-size:11px" onclick="showPage('sealed')">View all →</button></div>
         <div id="d-sealed-list"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div></div>
+      </div>
+      <div class="card">
+        <div class="section-head" style="margin-bottom:12px"><h3 class="mini" style="margin-bottom:0">Top sales by profit</h3></div>
+        <div id="d-top-sales"><div class="empty"><div class="empty-icon">🏆</div><p>No sales recorded yet.</p></div></div>
       </div>
     </div>
   </div>
@@ -287,7 +327,32 @@
         <div class="upload-preview" id="up-packs"></div>
       </div>
       <div class="card">
-        <div class="section-head"><h2>Pack History</h2><button class="btn-ghost" onclick="clearPacks()" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button></div>
+        <div class="section-head">
+          <h2>Pack History</h2>
+          <div style="display:flex;gap:8px;align-items:center">
+            <select class="sort-select" id="packs-sort" onchange="renderPacks()">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="price-desc">Price: high → low</option>
+              <option value="price-asc">Price: low → high</option>
+              <option value="set-asc">Set name A→Z</option>
+            </select>
+            <button class="btn-ghost" onclick="confirmClear('packs')" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
+          </div>
+        </div>
+        <div class="bulk-bar" id="bulk-bar-packs">
+          <span class="bulk-count" id="bulk-count-packs">0 selected</span>
+          <span class="bulk-field">Set field:</span>
+          <select id="bulk-field-packs" onchange="updateBulkInput('packs')" style="width:110px">
+            <option value="set">Set Name</option>
+            <option value="date">Date</option>
+            <option value="price">Price ($)</option>
+            <option value="notes">Notes</option>
+          </select>
+          <input id="bulk-val-packs" type="text" placeholder="New value…" style="flex:1;min-width:120px">
+          <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('packs')">Apply to selected</button>
+          <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('packs')">Cancel</button>
+        </div>
         <div id="pack-list" style="max-height:400px;overflow-y:auto"><div class="empty"><div class="empty-icon">📦</div><p>No packs logged yet.</p></div></div>
       </div>
     </div>
@@ -319,10 +384,32 @@
         <div style="display:flex;gap:8px;align-items:center">
           <div class="search-wrap" style="width:220px"><span class="search-icon">🔍</span><input id="inv-search" type="text" placeholder="Search cards…" oninput="renderInventory()"></div>
           <select id="inv-filter" onchange="renderInventory()" style="width:130px"><option value="">All rarities</option><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select>
-          <button class="btn-ghost" onclick="clearInventory()" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
+          <select class="sort-select" id="inv-sort" onchange="renderInventory()">
+            <option value="rarity">By rarity</option>
+            <option value="name-asc">Name A→Z</option>
+            <option value="name-desc">Name Z→A</option>
+            <option value="qty-desc">Qty: high → low</option>
+            <option value="set-asc">Set A→Z</option>
+          </select>
+          <button class="btn-ghost" onclick="confirmClear('inventory')" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
         </div>
       </div>
-      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Card</th><th>Set</th><th>Rarity</th><th>Cond.</th><th class="num">Qty</th><th></th></tr></thead><tbody id="inv-table"><tr><td colspan="6"><div class="empty"><div class="empty-icon">🃏</div><p>No cards yet.</p></div></td></tr></tbody></table></div>
+      <div style="overflow-x:auto">
+        <div class="bulk-bar" id="bulk-bar-inventory">
+          <span class="bulk-count" id="bulk-count-inventory">0 selected</span>
+          <span class="bulk-field">Set field:</span>
+          <select id="bulk-field-inventory" onchange="updateBulkInput('inventory')" style="width:110px">
+            <option value="set">Set</option>
+            <option value="rarity">Rarity</option>
+            <option value="cond">Condition</option>
+            <option value="qty">Qty</option>
+          </select>
+          <input id="bulk-val-inventory" type="text" placeholder="New value…" style="flex:1;min-width:120px">
+          <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('inventory')">Apply to selected</button>
+          <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('inventory')">Cancel</button>
+        </div>
+        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-inventory" onchange="toggleSelectAll('inventory',this.checked)"></th><th>Card</th><th>Set</th><th>Rarity</th><th>Cond.</th><th class="num">Qty</th><th></th></tr></thead><tbody id="inv-table"><tr><td colspan="7"><div class="empty"><div class="empty-icon">🃏</div><p>No cards yet.</p></div></td></tr></tbody></table>
+      </div>
       <div id="inv-count" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:right"></div>
     </div>
   </div>
@@ -367,10 +454,35 @@
         <div style="display:flex;gap:8px;align-items:center">
           <div class="search-wrap" style="width:200px"><span class="search-icon">🔍</span><input id="sealed-search" type="text" placeholder="Search sets…" oninput="renderSealed()"></div>
           <select id="sealed-filter" onchange="renderSealed()" style="width:140px"><option value="">All types</option><option value="booster">Booster Pack</option><option value="etb">Elite Trainer Box</option><option value="blister">Blister / 3-pack</option><option value="bundle">Bundle / Booster Box</option><option value="promo">Promo Pack</option><option value="other">Other</option></select>
-          <button class="btn-ghost" onclick="clearSealed()" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
+          <select class="sort-select" id="sealed-sort" onchange="renderSealed()">
+            <option value="date-desc">Newest first</option>
+            <option value="date-asc">Oldest first</option>
+            <option value="price-desc">Price: high → low</option>
+            <option value="price-asc">Price: low → high</option>
+            <option value="qty-desc">Qty: high → low</option>
+            <option value="set-asc">Set A→Z</option>
+          </select>
+          <button class="btn-ghost" onclick="confirmClear('sealed')" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
         </div>
       </div>
-      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Set</th><th>Type</th><th>Acquired</th><th>Notes</th><th class="num">Price</th><th class="num">Qty</th><th></th></tr></thead><tbody id="sealed-table"><tr><td colspan="7"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs yet.</p></div></td></tr></tbody></table></div>
+      <div style="overflow-x:auto">
+        <div class="bulk-bar" id="bulk-bar-sealed">
+          <span class="bulk-count" id="bulk-count-sealed">0 selected</span>
+          <span class="bulk-field">Set field:</span>
+          <select id="bulk-field-sealed" onchange="updateBulkInput('sealed')" style="width:110px">
+            <option value="set">Set Name</option>
+            <option value="type">Type</option>
+            <option value="date">Date</option>
+            <option value="price">Price ($)</option>
+            <option value="qty">Qty</option>
+            <option value="notes">Notes</option>
+          </select>
+          <input id="bulk-val-sealed" type="text" placeholder="New value…" style="flex:1;min-width:120px">
+          <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('sealed')">Apply to selected</button>
+          <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('sealed')">Cancel</button>
+        </div>
+        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sealed" onchange="toggleSelectAll('sealed',this.checked)"></th><th>Set</th><th>Type</th><th>Acquired</th><th>Notes</th><th class="num">Price</th><th class="num">Qty</th><th></th></tr></thead><tbody id="sealed-table"><tr><td colspan="8"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs yet.</p></div></td></tr></tbody></table>
+      </div>
       <div id="sealed-count" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:right"></div>
     </div>
   </div>
@@ -419,15 +531,41 @@
         <div style="display:flex;gap:8px;align-items:center">
           <div class="search-wrap" style="width:200px"><span class="search-icon">🔍</span><input id="sl-search" type="text" placeholder="Search items…" oninput="renderSales()"></div>
           <select id="sl-filter-cat" onchange="renderSales()" style="width:130px"><option value="">All categories</option><option value="single">Single Card</option><option value="sealed">Sealed Pack</option><option value="lot">Card Lot</option><option value="graded">Graded Card</option><option value="bundle">Bundle / Box</option><option value="other">Other</option></select>
-          <button class="btn-ghost" onclick="clearSales()" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
+          <select class="sort-select" id="sales-sort" onchange="renderSales()">
+            <option value="date-desc">Newest first</option>
+            <option value="date-asc">Oldest first</option>
+            <option value="profit-desc">Profit: high → low</option>
+            <option value="profit-asc">Profit: low → high</option>
+            <option value="price-desc">Sale price: high → low</option>
+            <option value="name-asc">Name A→Z</option>
+          </select>
+          <button class="btn-ghost" onclick="confirmClear('sales')" style="color:var(--red);border-color:rgba(255,94,94,.3)">Clear all</button>
         </div>
       </div>
-      <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Item</th><th>Category</th><th>Platform</th><th>Date</th><th>Notes</th><th class="num">Cost</th><th class="num">Sale</th><th class="num">Profit</th><th></th></tr></thead><tbody id="sl-table"><tr><td colspan="9"><div class="empty"><div class="empty-icon">💰</div><p>No sales logged yet.</p></div></td></tr></tbody></table></div>
+      <div style="overflow-x:auto">
+        <div class="bulk-bar" id="bulk-bar-sales">
+          <span class="bulk-count" id="bulk-count-sales">0 selected</span>
+          <span class="bulk-field">Set field:</span>
+          <select id="bulk-field-sales" onchange="updateBulkInput('sales')" style="width:110px">
+            <option value="cat">Category</option>
+            <option value="platform">Platform</option>
+            <option value="date">Date</option>
+            <option value="cost">Cost ($)</option>
+            <option value="price">Sale Price ($)</option>
+            <option value="notes">Notes</option>
+          </select>
+          <input id="bulk-val-sales" type="text" placeholder="New value…" style="flex:1;min-width:120px">
+          <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('sales')">Apply to selected</button>
+          <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('sales')">Cancel</button>
+        </div>
+        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sales" onchange="toggleSelectAll('sales',this.checked)"></th><th>Item</th><th>Category</th><th>Platform</th><th>Date</th><th>Notes</th><th class="num">Cost</th><th class="num">Sale</th><th class="num">Profit</th><th></th></tr></thead><tbody id="sl-table"><tr><td colspan="10"><div class="empty"><div class="empty-icon">💰</div><p>No sales logged yet.</p></div></td></tr></tbody></table>
+      </div>
       <div id="sl-count-label" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:right"></div>
     </div>
   </div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 // ===== STATE =====
@@ -444,7 +582,37 @@ function toast(msg, dur=2400) {
   setTimeout(() => t.classList.remove('show'), dur);
 }
 
-// ===== GITHUB SYNC =====
+// ===== CONFIRM MODAL =====
+let _confirmCallback = null;
+function confirmClear(section) {
+  const labels = {
+    packs:     { msg: 'Clear all pack history?',       sub: 'All logged pack openings and pull data will be permanently deleted.' },
+    inventory: { msg: 'Clear entire card inventory?',  sub: 'All cards in your collection will be permanently removed.' },
+    sealed:    { msg: 'Clear entire sealed stash?',    sub: 'All sealed pack entries will be permanently deleted.' },
+    sales:     { msg: 'Clear all sales history?',      sub: 'Every sales transaction will be permanently removed.' },
+  };
+  const l = labels[section] || { msg: 'Are you sure?', sub: 'This cannot be undone.' };
+  document.getElementById('confirm-msg').textContent = l.msg;
+  document.getElementById('confirm-sub').textContent = l.sub;
+  _confirmCallback = () => {
+    if (section === 'packs')     { state.packs=[];     save(); renderPacks();     updateHeader(); if(isDash()) renderDashboard(); toast('Pack log cleared'); }
+    if (section === 'inventory') { state.cards=[];     save(); renderInventory(); updateHeader(); toast('Inventory cleared'); }
+    if (section === 'sealed')    { state.sealed=[];    save(); renderSealed();    updateHeader(); renderDashboard(); toast('Stash cleared'); }
+    if (section === 'sales')     { state.sales=[];     save(); renderSales();     renderDashboard(); toast('Sales cleared'); }
+    closeConfirm();
+  };
+  document.getElementById('confirm-ok-btn').onclick = _confirmCallback;
+  document.getElementById('confirm-modal').classList.remove('hidden');
+}
+function closeConfirm() {
+  document.getElementById('confirm-modal').classList.add('hidden');
+  _confirmCallback = null;
+}
+document.getElementById('confirm-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+
+
 const GH_KEY = 'pt_gh_config';
 const DATA_FILE = 'poketracker-data.json';
 
@@ -603,8 +771,16 @@ function logPack() {
 function renderPacks() {
   const el = document.getElementById('pack-list');
   if (!state.packs.length) { el.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No packs logged yet.</p></div>'; return; }
-  el.innerHTML = state.packs.slice(0,60).map(p=>`
-    <div class="pack-item">
+  const sort = document.getElementById('packs-sort')?.value || 'date-desc';
+  let packs = [...state.packs];
+  if (sort==='date-desc')  packs.sort((a,b)=>b.date.localeCompare(a.date));
+  else if (sort==='date-asc')   packs.sort((a,b)=>a.date.localeCompare(b.date));
+  else if (sort==='price-desc') packs.sort((a,b)=>(b.price||0)-(a.price||0));
+  else if (sort==='price-asc')  packs.sort((a,b)=>(a.price||0)-(b.price||0));
+  else if (sort==='set-asc')    packs.sort((a,b)=>a.set.localeCompare(b.set));
+  el.innerHTML = packs.slice(0,60).map(p=>`
+    <div class="pack-item" data-id="${p.id}" style="cursor:default">
+      <input type="checkbox" class="row-check" data-section="packs" data-id="${p.id}" onchange="onRowCheck('packs',${p.id},this.checked)" style="margin-right:4px">
       <div class="pack-icon">📦</div>
       <div class="pack-info">
         <div class="pack-name">${esc(p.set)} <span style="color:var(--muted);font-weight:400">×${p.count}</span>${p.price>0?`<span style="color:var(--green);font-size:11px;font-family:'DM Mono',monospace;margin-left:8px">$${p.price.toFixed(2)}</span>`:''}
@@ -616,7 +792,7 @@ function renderPacks() {
     </div>`).join('');
 }
 function deletePack(id) { state.packs=state.packs.filter(p=>p.id!==id); save(); renderPacks(); updateHeader(); if(isDash()) renderDashboard(); toast('Pack removed'); }
-function clearPacks() { if(!confirm('Clear all pack history?')) return; state.packs=[]; save(); renderPacks(); updateHeader(); renderDashboard(); toast('Pack log cleared'); }
+function clearPacks() { confirmClear('packs'); }
 
 // ===== INVENTORY =====
 function addCard() {
@@ -630,14 +806,21 @@ function addCard() {
   renderInventory(); updateHeader(); toast('✅ Card added!');
 }
 function deleteCard(id) { state.cards=state.cards.filter(c=>c.id!==id); save(); renderInventory(); updateHeader(); }
-function clearInventory() { if(!confirm('Clear entire inventory?')) return; state.cards=[]; save(); renderInventory(); updateHeader(); toast('Inventory cleared'); }
+function clearInventory() { confirmClear('inventory'); }
 function renderInventory() {
   const q=(document.getElementById('inv-search')?.value||'').toLowerCase(), rf=document.getElementById('inv-filter')?.value||'';
+  const sort=document.getElementById('inv-sort')?.value||'rarity';
   let cards=state.cards.filter(c=>(!q||c.name.toLowerCase().includes(q)||(c.set||'').toLowerCase().includes(q))&&(!rf||c.rarity===rf));
-  cards.sort((a,b)=>RARITY_ORDER.indexOf(a.rarity)-RARITY_ORDER.indexOf(b.rarity));
+  if (sort==='rarity')      cards.sort((a,b)=>RARITY_ORDER.indexOf(a.rarity)-RARITY_ORDER.indexOf(b.rarity));
+  else if (sort==='name-asc')  cards.sort((a,b)=>a.name.localeCompare(b.name));
+  else if (sort==='name-desc') cards.sort((a,b)=>b.name.localeCompare(a.name));
+  else if (sort==='qty-desc')  cards.sort((a,b)=>b.qty-a.qty);
+  else if (sort==='set-asc')   cards.sort((a,b)=>(a.set||'').localeCompare(b.set||''));
   const tbody=document.getElementById('inv-table'), count=document.getElementById('inv-count');
-  if(!cards.length){tbody.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🃏</div><p>${state.cards.length?'No matches.':'No cards yet.'}</p></div></td></tr>`;count.textContent='';return;}
-  tbody.innerHTML=cards.map(c=>`<tr><td style="font-weight:500">${esc(c.name)}</td><td style="color:var(--muted)">${esc(c.set||'—')}</td><td><span class="rarity r-${c.rarity}">${rarLabel(c.rarity)}</span></td><td style="color:var(--muted)">${c.cond}</td><td class="num" style="color:var(--gold)">${c.qty}</td><td><button class="btn-danger" onclick="deleteCard(${c.id})">✕</button></td></tr>`).join('');
+  if(!cards.length){tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-icon">🃏</div><p>${state.cards.length?'No matches.':'No cards yet.'}</p></div></td></tr>`;count.textContent='';return;}
+  tbody.innerHTML=cards.map(c=>`<tr data-id="${c.id}" class="${_selection.inventory.has(c.id)?'selected-row':''}">
+    <td class="check-cell"><input type="checkbox" class="row-check" data-section="inventory" data-id="${c.id}" ${_selection.inventory.has(c.id)?'checked':''} onchange="onRowCheck('inventory',${c.id},this.checked)"></td>
+    <td style="font-weight:500">${esc(c.name)}</td><td style="color:var(--muted)">${esc(c.set||'—')}</td><td><span class="rarity r-${c.rarity}">${rarLabel(c.rarity)}</span></td><td style="color:var(--muted)">${c.cond}</td><td class="num" style="color:var(--gold)">${c.qty}</td><td><button class="btn-danger" onclick="deleteCard(${c.id})">✕</button></td></tr>`).join('');
   const total=cards.reduce((s,c)=>s+c.qty,0); count.textContent=`${cards.length} unique card${cards.length!==1?'s':''} · ${total} total`;
 }
 
@@ -682,10 +865,17 @@ function _refreshSealedStats() {
   const maxType=Math.max(1,...Object.values(typeMap)), typeBarsEl=el('s-type-bars');
   if(typeBarsEl&&Object.keys(typeMap).length) typeBarsEl.innerHTML=Object.entries(typeMap).sort((a,b)=>b[1]-a[1]).map(([t,cnt])=>`<div class="bar-row"><span class="bar-label">${TYPE_LABELS[t]||t}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxType*100)}%;background:${TYPE_COLORS[t]}"></div></div><span class="bar-val">${cnt}</span></div>`).join('');
 }
-function clearSealed() { if(!confirm('Clear entire sealed stash?')) return; state.sealed=[]; save(); renderSealed(); updateHeader(); renderDashboard(); toast('Stash cleared'); }
+function clearSealed() { confirmClear('sealed'); }
 function renderSealed() {
   const q=(document.getElementById('sealed-search')?.value||'').toLowerCase(), tf=document.getElementById('sealed-filter')?.value||'';
-  let items=state.sealed.filter(s=>(!q||s.set.toLowerCase().includes(q)||(s.notes||'').toLowerCase().includes(q))&&(!tf||s.type===tf)).sort((a,b)=>b.date.localeCompare(a.date));
+  const sort=document.getElementById('sealed-sort')?.value||'date-desc';
+  let items=state.sealed.filter(s=>(!q||s.set.toLowerCase().includes(q)||(s.notes||'').toLowerCase().includes(q))&&(!tf||s.type===tf));
+  if (sort==='date-desc')   items.sort((a,b)=>b.date.localeCompare(a.date));
+  else if (sort==='date-asc')    items.sort((a,b)=>a.date.localeCompare(b.date));
+  else if (sort==='price-desc')  items.sort((a,b)=>(b.price||0)-(a.price||0));
+  else if (sort==='price-asc')   items.sort((a,b)=>(a.price||0)-(b.price||0));
+  else if (sort==='qty-desc')    items.sort((a,b)=>b.qty-a.qty);
+  else if (sort==='set-asc')     items.sort((a,b)=>a.set.localeCompare(b.set));
   const all=state.sealed, totalSealed=all.reduce((s,i)=>s+i.qty,0), totalSets=new Set(all.map(i=>i.set)).size, totalSpent=all.reduce((s,i)=>s+(i.price*i.qty),0);
   const el=id=>document.getElementById(id);
   if(el('s-stat-total')) el('s-stat-total').textContent=totalSealed;
@@ -695,8 +885,9 @@ function renderSealed() {
   const maxType=Math.max(1,...Object.values(typeMap)), typeBarsEl=el('s-type-bars');
   if(typeBarsEl){if(!Object.keys(typeMap).length){typeBarsEl.innerHTML='<div style="color:var(--muted);font-size:13px">No sealed packs yet.</div>';}else{typeBarsEl.innerHTML=Object.entries(typeMap).sort((a,b)=>b[1]-a[1]).map(([t,cnt])=>`<div class="bar-row"><span class="bar-label">${TYPE_LABELS[t]||t}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxType*100)}%;background:${TYPE_COLORS[t]}"></div></div><span class="bar-val">${cnt}</span></div>`).join('');}}
   const tbody=el('sealed-table'), count=el('sealed-count');
-  if(!items.length){tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-icon">📦</div><p>${state.sealed.length?'No matches.':'No sealed packs yet.'}</p></div></td></tr>`;if(count)count.textContent='';return;}
-  tbody.innerHTML=items.map(s=>`<tr data-id="${s.id}">
+  if(!items.length){tbody.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-icon">📦</div><p>${state.sealed.length?'No matches.':'No sealed packs yet.'}</p></div></td></tr>`;if(count)count.textContent='';return;}
+  tbody.innerHTML=items.map(s=>`<tr data-id="${s.id}" class="${_selection.sealed.has(s.id)?'selected-row':''}">
+    <td class="check-cell"><input type="checkbox" class="row-check" ${_selection.sealed.has(s.id)?'checked':''} onchange="onRowCheck('sealed',${s.id},this.checked)"></td>
     <td><input class="cell-edit" value="${esc(s.set)}" style="font-weight:500;width:100%;min-width:140px" oninput="updateSealed(${s.id},'set',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><select class="cell-edit" style="width:100%;min-width:90px" onchange="updateSealed(${s.id},'type',this.value)">${Object.entries(TYPE_LABELS).map(([v,l])=>`<option value="${v}"${s.type===v?' selected':''}>${l}</option>`).join('')}</select></td>
     <td><input class="cell-edit" type="date" value="${s.date}" style="width:100%" onchange="updateSealed(${s.id},'date',this.value)"></td>
@@ -753,10 +944,17 @@ function _refreshSalesStats() {
   const maxPlat=Math.max(1,...Object.values(platMap)), platBarsEl=ge('sl-platform-bars');
   if(platBarsEl&&Object.keys(platMap).length) platBarsEl.innerHTML=Object.entries(platMap).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<div class="bar-row"><span class="bar-label">${PLAT_LABELS[p]||p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxPlat*100)}%;background:${PLAT_COLORS[p]}"></div></div><span class="bar-val" style="font-size:11px">$${v.toFixed(0)}</span></div>`).join('');
 }
-function clearSales() { if(!confirm('Clear all sales history?')) return; state.sales=[]; save(); renderSales(); renderDashboard(); toast('Sales cleared'); }
+function clearSales() { confirmClear('sales'); }
 function renderSales() {
   const q=(document.getElementById('sl-search')?.value||'').toLowerCase(), cf=document.getElementById('sl-filter-cat')?.value||'';
+  const sort=document.getElementById('sales-sort')?.value||'date-desc';
   let items=state.sales.filter(s=>(!q||s.name.toLowerCase().includes(q)||(s.notes||'').toLowerCase().includes(q))&&(!cf||s.cat===cf));
+  if (sort==='date-desc')    items.sort((a,b)=>b.date.localeCompare(a.date));
+  else if (sort==='date-asc')     items.sort((a,b)=>a.date.localeCompare(b.date));
+  else if (sort==='profit-desc')  items.sort((a,b)=>(b.price-b.cost)-(a.price-a.cost));
+  else if (sort==='profit-asc')   items.sort((a,b)=>(a.price-a.cost)-(b.price-b.cost));
+  else if (sort==='price-desc')   items.sort((a,b)=>b.price-a.price);
+  else if (sort==='name-asc')     items.sort((a,b)=>a.name.localeCompare(b.name));
   const all=state.sales, revenue=all.reduce((s,i)=>s+i.price,0), cost=all.reduce((s,i)=>s+i.cost,0);
   const profit=revenue-cost, margin=revenue>0?((profit/revenue)*100).toFixed(1):null, avgSale=all.length?(revenue/all.length).toFixed(2):null;
   const ge=id=>document.getElementById(id);
@@ -772,12 +970,13 @@ function renderSales() {
   const maxPlat=Math.max(1,...Object.values(platMap)), platBarsEl=ge('sl-platform-bars');
   if(platBarsEl) platBarsEl.innerHTML=Object.keys(platMap).length?Object.entries(platMap).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<div class="bar-row"><span class="bar-label">${PLAT_LABELS[p]||p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxPlat*100)}%;background:${PLAT_COLORS[p]}"></div></div><span class="bar-val" style="font-size:11px">$${v.toFixed(0)}</span></div>`).join(''):'<div style="color:var(--muted);font-size:13px">No sales yet.</div>';
   const tbody=ge('sl-table'), countLbl=ge('sl-count-label');
-  if(!items.length){tbody.innerHTML=`<tr><td colspan="9"><div class="empty"><div class="empty-icon">💰</div><p>${state.sales.length?'No matches.':'No sales logged yet.'}</p></div></td></tr>`;if(countLbl)countLbl.textContent='';return;}
+  if(!items.length){tbody.innerHTML=`<tr><td colspan="10"><div class="empty"><div class="empty-icon">💰</div><p>${state.sales.length?'No matches.':'No sales logged yet.'}</p></div></td></tr>`;if(countLbl)countLbl.textContent='';return;}
   tbody.innerHTML=items.map(s=>{
     const p=s.price-s.cost, pColor=p>0?'var(--green)':p<0?'var(--red)':'var(--muted)';
     const catOpts=Object.entries(CAT_LABELS).map(([v,l])=>`<option value="${v}"${s.cat===v?' selected':''}>${l}</option>`).join('');
     const platOpts=Object.entries(PLAT_LABELS).map(([v,l])=>`<option value="${v}"${s.platform===v?' selected':''}>${l}</option>`).join('');
-    return `<tr data-id="${s.id}">
+    return `<tr data-id="${s.id}" class="${_selection.sales.has(s.id)?'selected-row':''}">
+      <td class="check-cell"><input type="checkbox" class="row-check" ${_selection.sales.has(s.id)?'checked':''} onchange="onRowCheck('sales',${s.id},this.checked)"></td>
       <td><input class="cell-edit" value="${esc(s.name)}" style="font-weight:500;min-width:140px;width:100%" oninput="updateSale(${s.id},'name',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
       <td><select class="cell-edit" style="min-width:80px" onchange="updateSale(${s.id},'cat',this.value)">${catOpts}</select></td>
       <td><select class="cell-edit" style="min-width:90px" onchange="updateSale(${s.id},'platform',this.value)">${platOpts}</select></td>
@@ -804,28 +1003,350 @@ function renderDashboard() {
   const totalRev=state.sales.reduce((s,sl)=>s+sl.price,0), totalSaleCost=state.sales.reduce((s,sl)=>s+sl.cost,0);
   const netProfit=totalRev-totalSaleCost, avgSale=state.sales.length?(totalRev/state.sales.length).toFixed(2):null;
   const ge=id=>document.getElementById(id);
-  ge('d-packs').textContent=totalPacks; ge('d-spent').textContent='$'+spentPacks.toFixed(2);
+  ge('d-spent').textContent='$'+spentPacks.toFixed(2);
   ge('d-sealed-cost').textContent='$'+sealedCost.toFixed(2);
   ge('d-profit').textContent=(netProfit>=0?'+':'')+'$'+Math.abs(netProfit).toFixed(2);
   ge('d-profit').style.color=netProfit>=0?'var(--green)':'var(--red)';
+  const totalSpend = spentPacks + sealedCost - netProfit;
+  if(ge('d-total-spend')) { ge('d-total-spend').textContent='$'+Math.abs(totalSpend).toFixed(2); ge('d-total-spend').style.color=totalSpend>0?'var(--gold)':'var(--green)'; }
   const plSub=ge('d-profit-sub'); if(plSub){const m=totalRev>0?((netProfit/totalRev)*100).toFixed(1):null;plSub.textContent=m?`Margin: ${m}%`:'From sales';}
   ge('d-cards').textContent=totalCards; ge('d-rate').textContent=rate; ge('d-sold').textContent=state.sales.length; ge('d-avg-sale').textContent=avgSale?'$'+avgSale:'—';
-  const rarMap={}; allPulls.forEach(pl=>{rarMap[pl.rarity]=(rarMap[pl.rarity]||0)+pl.qty;});
-  const rarEl=ge('rarity-bars'), rarOrder=['secret','ultra','ex','holo','rare','uncommon','common'], maxRar=Math.max(1,...Object.values(rarMap));
-  if(!Object.keys(rarMap).length){rarEl.innerHTML='<div class="empty"><div class="empty-icon">📊</div><p>Open some packs to see pull rates.</p></div>';}
-  else{rarEl.innerHTML=rarOrder.filter(r=>rarMap[r]).map(r=>{const colors={secret:'var(--secret)',ultra:'var(--ultra)',ex:'var(--ex)',holo:'var(--holo)',rare:'var(--rare)',uncommon:'var(--unc)',common:'var(--com)'};return`<div class="bar-row"><span class="bar-label">${rarLabel(r)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(rarMap[r]/maxRar*100)}%;background:${colors[r]}"></div></div><span class="bar-val">${rarMap[r]}</span></div>`;}).join('');}
-  const setMap={}; packs.forEach(p=>{setMap[p.set]=(setMap[p.set]||0)+p.count;});
-  const setEl=ge('set-bars'), sets=Object.entries(setMap).sort((a,b)=>b[1]-a[1]).slice(0,8), maxSet=Math.max(1,...sets.map(s=>s[1]));
-  if(!sets.length){setEl.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>Log packs to see set breakdown.</p></div>';}
-  else{setEl.innerHTML=sets.map(([name,cnt])=>`<div class="bar-row"><span class="bar-label" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(name)}">${esc(name)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxSet*100)}%;background:var(--accent)"></div></div><span class="bar-val">${cnt}</span></div>`).join('');}
-  const recEl=ge('recent-pulls'), hitPulls=packs.flatMap(p=>p.pulls.filter(pl=>HIT_RARITIES.has(pl.rarity)).map(pl=>({...pl,set:p.set,date:p.date}))).slice(0,12);
-  if(!hitPulls.length){recEl.innerHTML='<div class="empty"><div class="empty-icon">✨</div><p>Your recent rare pulls will appear here.</p></div>';}
-  else{recEl.innerHTML=`<div style="display:flex;flex-wrap:wrap;gap:8px">${hitPulls.map(pl=>`<div class="card-sm" style="flex:0 0 auto;min-width:130px;max-width:180px"><div style="font-size:12px;font-weight:600;margin-bottom:4px">${esc(pl.name)}</div><span class="rarity r-${pl.rarity}" style="font-size:9px">${rarLabel(pl.rarity)}</span><div style="font-size:11px;color:var(--muted);margin-top:6px">${esc(pl.set)}</div><div style="font-size:10px;color:var(--muted)">${pl.date}</div></div>`).join('')}</div>`;}
+
+  // Recent sales widget
   const salesWidgetEl=ge('d-sales-list');
-  if(salesWidgetEl){const recent=state.sales.slice(0,5);if(!recent.length){salesWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div>';}else{salesWidgetEl.innerHTML=recent.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)"><div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</div><div style="font-size:11px;color:${CAT_COLORS[s.cat]}">${CAT_LABELS[s.cat]||s.cat} · ${s.date}</div></div><span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);margin-left:12px;flex-shrink:0">$${s.price.toFixed(2)}</span></div>`).join('');}}
+  if(salesWidgetEl){const recent=state.sales.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);if(!recent.length){salesWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div>';}else{salesWidgetEl.innerHTML=recent.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)"><div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</div><div style="font-size:11px;color:${CAT_COLORS[s.cat]}">${CAT_LABELS[s.cat]||s.cat} · ${s.date}</div></div><span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);margin-left:12px;flex-shrink:0">$${s.price.toFixed(2)}</span></div>`).join('');}}
+
+  // Sealed stash widget
   const sealedWidgetEl=ge('d-sealed-list');
-  if(sealedWidgetEl){const top=state.sealed.slice().sort((a,b)=>b.qty-a.qty).slice(0,6);if(!top.length){sealedWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div>';}else{sealedWidgetEl.innerHTML=top.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:1px solid var(--border)"><div><div style="font-size:13px;font-weight:500">${esc(s.set)}</div><div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type}</div></div><span style="font-family:'DM Mono',monospace;font-size:14px;color:var(--gold)">${s.qty}</span></div>`).join('');}}
+  if(sealedWidgetEl){
+    const all=state.sealed;
+    if(!all.length){
+      sealedWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div>';
+    } else {
+      const top=all.slice().sort((a,b)=>(b.price*b.qty)-(a.price*a.qty)).slice(0,8);
+      const totalQty=all.reduce((s,i)=>s+i.qty,0);
+      const totalVal=all.reduce((s,i)=>s+(i.price*i.qty),0);
+      const rows=top.map(s=>{
+        const val=s.price*s.qty;
+        return `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)">
+          <div style="min-width:0;flex:1;overflow:hidden">
+            <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.set)}</div>
+            <div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type} · <span style="color:var(--muted)">×${s.qty} @ $${s.price.toFixed(2)}</span></div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--gold)">$${val.toFixed(2)}</div>
+            <div style="font-size:10px;color:var(--muted)">${s.qty} unit${s.qty!==1?'s':''}</div>
+          </div>
+        </div>`;
+      }).join('');
+      const footer=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--border2);margin-top:2px">
+        <span style="font-size:11px;color:var(--muted)">${all.length} items · ${totalQty} total units</span>
+        <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--ultra);font-weight:600">$${totalVal.toFixed(2)}</span>
+      </div>`;
+      sealedWidgetEl.innerHTML=rows+footer;
+    }
+  }
+
+  // Top sales by profit widget
+  const topSalesEl=ge('d-top-sales');
+  if(topSalesEl){const top=state.sales.slice().sort((a,b)=>(b.price-b.cost)-(a.price-a.cost)).slice(0,6);if(!top.length){topSalesEl.innerHTML='<div class="empty"><div class="empty-icon">🏆</div><p>No sales recorded yet.</p></div>';}else{topSalesEl.innerHTML=top.map((s,i)=>{const profit=s.price-s.cost;return`<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--border)"><span style="font-size:11px;color:var(--muted);min-width:16px">#${i+1}</span><div style="min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500">${esc(s.name)}</div><span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);flex-shrink:0">+$${profit.toFixed(2)}</span></div>`;}).join('');}}
+
+  // Charts
+  renderCharts();
 }
+
+// ===== CHARTS =====
+let _chartMain = null;
+
+function getAvailableYears() {
+  const years = new Set();
+  state.packs.forEach(p => { if(p.date) years.add(p.date.slice(0,4)); });
+  state.sales.forEach(s => { if(s.date) years.add(s.date.slice(0,4)); });
+  state.sealed.forEach(s => { if(s.date) years.add(s.date.slice(0,4)); });
+  if (!years.size) years.add(new Date().getFullYear().toString());
+  return [...years].sort().reverse();
+}
+
+function populateYearSelects() {
+  const years = getAvailableYears();
+  const curYear = new Date().getFullYear().toString();
+  const el = document.getElementById('chart-year'); if(!el) return;
+  const cur = el.value;
+  el.innerHTML = years.map(y=>`<option value="${y}"${(cur||curYear)===y?' selected':''}>${y}</option>`).join('');
+}
+
+function renderCharts() {
+  if (typeof Chart === 'undefined') return;
+  populateYearSelects();
+
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const year = document.getElementById('chart-year')?.value || new Date().getFullYear().toString();
+
+  // Build monthly data arrays
+  const packSpend   = Array(12).fill(0);
+  const sealedSpend = Array(12).fill(0);
+  const profitLine  = Array(12).fill(0);
+
+  state.packs.forEach(p => {
+    if (!p.date || p.date.slice(0,4) !== year) return;
+    packSpend[parseInt(p.date.slice(5,7))-1] += (p.price || 0);
+  });
+
+  state.sealed.forEach(s => {
+    if (!s.date || s.date.slice(0,4) !== year) return;
+    sealedSpend[parseInt(s.date.slice(5,7))-1] += (s.price * s.qty) || 0;
+  });
+
+  state.sales.forEach(s => {
+    if (!s.date || s.date.slice(0,4) !== year) return;
+    profitLine[parseInt(s.date.slice(5,7))-1] += ((s.price - s.cost) || 0);
+  });
+
+  const ctx = document.getElementById('chart-main');
+  if (!ctx) return;
+  if (_chartMain) _chartMain.destroy();
+
+  _chartMain = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        {
+          label: 'Pack Spend',
+          data: packSpend,
+          backgroundColor: 'rgba(123,110,246,0.75)',
+          borderColor: 'rgba(167,139,250,0.9)',
+          borderWidth: 1,
+          borderRadius: 3,
+          stack: 'spend',
+          order: 3,
+        },
+        {
+          label: 'Sealed Spend',
+          data: sealedSpend,
+          backgroundColor: 'rgba(255,157,74,0.75)',
+          borderColor: 'rgba(255,157,74,0.9)',
+          borderWidth: 1,
+          borderRadius: 3,
+          stack: 'spend',
+          order: 2,
+        },
+        {
+          label: 'Net Profit',
+          data: profitLine,
+          type: 'line',
+          borderColor: '#4ade80',
+          backgroundColor: 'rgba(74,222,128,0.1)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#4ade80',
+          pointBorderColor: '#0e0f14',
+          pointBorderWidth: 1.5,
+          pointRadius: 4,
+          tension: 0.4,
+          fill: false,
+          order: 1,
+          yAxisID: 'y',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            color: '#8889a8',
+            font: { family: 'Outfit', size: 11 },
+            boxWidth: 12,
+            padding: 16,
+            usePointStyle: true,
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const val = ctx.parsed.y;
+              const prefix = ctx.dataset.label === 'Net Profit' && val >= 0 ? '+' : '';
+              return `  ${ctx.dataset.label}: ${prefix}$${Math.abs(val).toFixed(2)}`;
+            },
+            footer: (items) => {
+              const packVal   = items.find(i=>i.dataset.label==='Pack Spend')?.parsed.y||0;
+              const sealedVal = items.find(i=>i.dataset.label==='Sealed Spend')?.parsed.y||0;
+              const total = packVal + sealedVal;
+              return total > 0 ? `  Total spend: $${total.toFixed(2)}` : '';
+            }
+          },
+          backgroundColor: 'rgba(30,32,48,0.95)',
+          titleColor: '#f0f0f8',
+          bodyColor: '#8889a8',
+          footerColor: '#f5c842',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          padding: 10,
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: '#8889a8', font: { family: 'Outfit', size: 11 } }
+        },
+        y: {
+          stacked: true,
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#8889a8',
+            font: { family: 'Outfit', size: 11 },
+            callback: v => '$' + v
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+
+// ===== MULTI-SELECT BULK EDIT =====
+const _selection = { packs: new Set(), inventory: new Set(), sealed: new Set(), sales: new Set() };
+
+// Field type config for smart input rendering
+const BULK_FIELD_CONFIG = {
+  packs:     { set:{type:'text'}, date:{type:'date'}, price:{type:'number'}, notes:{type:'text'} },
+  inventory: { set:{type:'text'}, rarity:{type:'select', opts:['common','uncommon','rare','holo','ex','ultra','secret']}, cond:{type:'select', opts:['NM','LP','MP','HP','DMG']}, qty:{type:'number'} },
+  sealed:    { set:{type:'text'}, type:{type:'select', opts:Object.keys(TYPE_LABELS)}, date:{type:'date'}, price:{type:'number'}, qty:{type:'number'}, notes:{type:'text'} },
+  sales:     { cat:{type:'select', opts:Object.keys(CAT_LABELS)}, platform:{type:'select', opts:Object.keys(PLAT_LABELS)}, date:{type:'date'}, cost:{type:'number'}, price:{type:'number'}, notes:{type:'text'} },
+};
+
+function updateBulkInput(section) {
+  const field = document.getElementById('bulk-field-'+section)?.value;
+  const cfg = BULK_FIELD_CONFIG[section]?.[field];
+  if (!cfg) return;
+  const container = document.getElementById('bulk-val-'+section);
+  if (!container) return;
+  if (cfg.type === 'select') {
+    const optMap = section==='sealed' ? TYPE_LABELS : section==='sales' && field==='cat' ? CAT_LABELS : section==='sales' && field==='platform' ? PLAT_LABELS : {};
+    const opts = cfg.opts.map(v => `<option value="${v}">${optMap[v]||v}</option>`).join('');
+    container.outerHTML = `<select id="bulk-val-${section}" style="flex:1;min-width:120px;font-size:12px;padding:5px 8px">${opts}</select>`;
+  } else {
+    const cur = document.getElementById('bulk-val-'+section);
+    if (cur.tagName === 'SELECT') {
+      cur.outerHTML = `<input id="bulk-val-${section}" type="${cfg.type}" placeholder="New value…" style="flex:1;min-width:120px">`;
+    } else {
+      cur.type = cfg.type;
+      cur.placeholder = cfg.type==='number' ? '0.00' : 'New value…';
+    }
+  }
+}
+
+function onRowCheck(section, id, checked) {
+  if (checked) _selection[section].add(id);
+  else _selection[section].delete(id);
+  updateBulkBar(section);
+  // Update row highlight
+  const row = document.querySelector(`[data-id="${id}"]`);
+  if (row) row.classList.toggle('selected-row', checked);
+  // Sync select-all checkbox state
+  const allChk = document.getElementById('chk-all-'+section);
+  if (allChk) {
+    const allIds = [...document.querySelectorAll(`#${section==='packs'?'pack-list':''}${section==='inventory'?'inv-table':''}${section==='sealed'?'sealed-table':''}${section==='sales'?'sl-table':''} [data-section="${section}"], tr[data-id] input.row-check`)];
+    allChk.indeterminate = _selection[section].size > 0;
+    allChk.checked = false;
+  }
+}
+
+function toggleSelectAll(section, checked) {
+  _selection[section].clear();
+  if (checked) {
+    // Collect all visible row ids
+    if (section === 'packs') {
+      document.querySelectorAll('#pack-list .pack-item').forEach(el => { const id=parseInt(el.dataset.id); if(id) _selection[section].add(id); });
+    } else {
+      const tbodyId = {inventory:'inv-table', sealed:'sealed-table', sales:'sl-table'}[section];
+      document.querySelectorAll(`#${tbodyId} tr[data-id]`).forEach(tr => _selection[section].add(parseInt(tr.dataset.id)));
+    }
+  }
+  // Re-render to reflect selection state without losing scroll position
+  if (section==='packs')     renderPacks();
+  if (section==='inventory') renderInventory();
+  if (section==='sealed')    renderSealed();
+  if (section==='sales')     renderSales();
+  updateBulkBar(section);
+}
+
+function updateBulkBar(section) {
+  const bar   = document.getElementById('bulk-bar-'+section);
+  const count = document.getElementById('bulk-count-'+section);
+  const n = _selection[section].size;
+  if (bar)   bar.classList.toggle('visible', n > 0);
+  if (count) count.textContent = `${n} row${n!==1?'s':''} selected`;
+}
+
+function clearSelection(section) {
+  _selection[section].clear();
+  // Uncheck all-checkbox
+  const allChk = document.getElementById('chk-all-'+section);
+  if (allChk) { allChk.checked=false; allChk.indeterminate=false; }
+  updateBulkBar(section);
+  if (section==='packs')     renderPacks();
+  if (section==='inventory') renderInventory();
+  if (section==='sealed')    renderSealed();
+  if (section==='sales')     renderSales();
+}
+
+function applyBulk(section) {
+  const ids = [..._selection[section]];
+  if (!ids.length) { toast('⚠ No rows selected'); return; }
+  const field = document.getElementById('bulk-field-'+section)?.value;
+  const rawVal = document.getElementById('bulk-val-'+section)?.value;
+  if (!field || rawVal === undefined || rawVal === '') { toast('⚠ Enter a value to apply'); return; }
+
+  const numFields = new Set(['price','cost','qty','count']);
+  const value = numFields.has(field) ? (parseFloat(rawVal)||0) : rawVal;
+
+  if (section === 'packs') {
+    ids.forEach(id => {
+      const item = state.packs.find(p=>p.id===id); if(!item) return;
+      if (field==='qty') item.count = Math.max(1, parseInt(value)||1);
+      else item[field] = value;
+    });
+    save(); renderPacks(); updateHeader(); if(isDash()) renderDashboard();
+  }
+  else if (section === 'inventory') {
+    ids.forEach(id => {
+      const item = state.cards.find(c=>c.id===id); if(!item) return;
+      if (field==='qty') item.qty = Math.max(1, parseInt(value)||1);
+      else item[field] = value;
+    });
+    save(); renderInventory(); updateHeader();
+  }
+  else if (section === 'sealed') {
+    ids.forEach(id => {
+      const item = state.sealed.find(s=>s.id===id); if(!item) return;
+      if (field==='qty') item.qty = Math.max(0, parseInt(value)||0);
+      else if (field==='price') item.price = parseFloat(value)||0;
+      else item[field] = value;
+    });
+    save(); renderSealed(); updateHeader(); if(isDash()) renderDashboard();
+  }
+  else if (section === 'sales') {
+    ids.forEach(id => {
+      const item = state.sales.find(s=>s.id===id); if(!item) return;
+      if (field==='cost' || field==='price') item[field] = parseFloat(value)||0;
+      else item[field] = value;
+    });
+    save(); renderSales(); if(isDash()) renderDashboard();
+  }
+
+  const allChk = document.getElementById('chk-all-'+section);
+  if (allChk) { allChk.checked=false; allChk.indeterminate=false; }
+  toast(`✅ Applied "${field}" to ${ids.length} row${ids.length!==1?'s':''}`);
+  // Keep selection visible after apply so user can do more edits
+  updateBulkBar(section);
+}
+
 
 function updateHeader() {
   const totalPacks=state.packs.reduce((s,p)=>s+p.count,0), allPulls=state.packs.flatMap(p=>p.pulls);
