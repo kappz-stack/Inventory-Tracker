@@ -272,6 +272,40 @@
   </div>
 </div>
 
+<!-- Numbers Export Guide Modal -->
+<div class="modal-backdrop hidden" id="numbers-modal">
+  <div class="modal" style="max-width:500px">
+    <h2>📱 Import from Mac Numbers</h2>
+    <div class="modal-sub">PokéTracker can't read <code>.numbers</code> files directly — Apple uses a proprietary format. Export your file first using one of these two methods:</div>
+    <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:600;color:var(--gold);margin-bottom:8px">Option 1 — Export as Excel (recommended)</div>
+      <ol style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:18px">
+        <li>Open your file in Numbers</li>
+        <li>Click <strong style="color:var(--text)">File → Export To → Excel…</strong></li>
+        <li>Keep default settings, click <strong style="color:var(--text)">Next</strong></li>
+        <li>Save the <code>.xlsx</code> file</li>
+        <li>Click Import below and choose that file</li>
+      </ol>
+    </div>
+    <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--holo);margin-bottom:8px">Option 2 — Export as CSV</div>
+      <ol style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:18px">
+        <li>Open your file in Numbers</li>
+        <li>Click <strong style="color:var(--text)">File → Export To → CSV…</strong></li>
+        <li>This exports <em>one sheet at a time</em> — export each tab separately</li>
+        <li>Click Import below and choose the CSV file</li>
+      </ol>
+    </div>
+    <div class="modal-note" style="margin-bottom:16px">
+      💡 <strong>Tip:</strong> The Excel export keeps all 4 sheets in one file and is the easiest option. If you use Numbers regularly, keep a copy of the exported <code>.xlsx</code> and just re-export when you want to import changes.
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeNumbersModal()">Cancel</button>
+      <button class="btn" onclick="closeNumbersModal();document.getElementById('import-file-input').click()">📥 Import file now</button>
+    </div>
+  </div>
+</div>
+
 <header>
   <div class="logo">Poké<span>Tracker</span></div>
   <div class="header-stats">
@@ -285,8 +319,8 @@
     <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ Pull</button>
     <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ Push</button>
     <button class="sync-btn" onclick="exportToExcel()" title="Export all data to Excel" style="border-color:rgba(82,212,208,.3)">📊 Export</button>
-    <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import data from Excel export" style="border-color:rgba(245,200,66,.3)">📥 Import</button>
-    <input type="file" id="import-file-input" accept=".xlsx,.xls" style="display:none" onchange="importFromExcel(this.files[0]);this.value=''">
+    <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import from Excel, CSV, or Numbers" style="border-color:rgba(245,200,66,.3)">📥 Import</button>
+    <input type="file" id="import-file-input" accept=".xlsx,.xls,.csv,.numbers" style="display:none" onchange="handleImportFile(this.files[0]);this.value=''">
     <button class="sync-btn" onclick="openSyncModal()" title="Configure GitHub sync">⚙</button>
   </div>
 </header>
@@ -1792,6 +1826,199 @@ function exportToExcel() {
 
 function _setColWidths(ws, widths) {
   ws['!cols'] = widths.map(w => ({ wch: w }));
+}
+
+// ===== IMPORT ROUTER =====
+function handleImportFile(file) {
+  if (!file) return;
+  const name = file.name.toLowerCase();
+
+  if (name.endsWith('.numbers')) {
+    // Can't parse .numbers — show the guide modal
+    document.getElementById('numbers-modal').classList.remove('hidden');
+    return;
+  }
+
+  if (name.endsWith('.csv')) {
+    importFromCSV(file);
+    return;
+  }
+
+  // Default: treat as Excel (.xlsx / .xls)
+  importFromExcel(file);
+}
+
+function closeNumbersModal() {
+  document.getElementById('numbers-modal').classList.add('hidden');
+}
+document.getElementById('numbers-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeNumbersModal();
+});
+
+// ===== IMPORT FROM CSV =====
+// Accepts a single CSV exported from Numbers or Excel.
+// Detects which sheet it matches by sniffing the header row.
+function importFromCSV(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const rows = _parseCSVtoObjects(e.target.result);
+      if (!rows.length) { toast('⚠ CSV appears empty'); return; }
+
+      const headers = Object.keys(rows[0]).map(h => h.toLowerCase());
+      let section = null;
+
+      // Detect which sheet this CSV matches by its columns
+      if (headers.includes('item name') || (headers.includes('set') && headers.includes('qty') && headers.includes('price each'))) {
+        section = 'sealed';
+      } else if (headers.includes('item') && headers.includes('sale price')) {
+        section = 'sales';
+      } else if (headers.includes('card name') || (headers.includes('rarity') && headers.includes('condition'))) {
+        section = 'inventory';
+      } else if (headers.includes('set') && headers.includes('count') && headers.includes('price paid')) {
+        section = 'packs';
+      } else if (headers.includes('set') && headers.includes('price paid')) {
+        section = 'packs';
+      }
+
+      if (!section) {
+        toast('⚠ Could not detect CSV type — check column headers match the export format', 5000);
+        return;
+      }
+
+      // Normalise keys to match what importFromExcel expects
+      // (Numbers may export with slightly different capitalisation)
+      const normalised = rows.map(r => {
+        const out = {};
+        Object.entries(r).forEach(([k, v]) => { out[k.trim()] = v; });
+        return out;
+      });
+
+      // Build a fake single-sheet workbook structure and reuse the Excel import logic
+      // by wrapping the parsed rows in the same shape importFromExcel uses
+      _importParsedRows(section, normalised);
+
+    } catch(err) {
+      toast('❌ CSV import failed: ' + err.message, 5000);
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function _parseCSVtoObjects(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  // Handle quoted fields
+  const parseRow = line => {
+    const result = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"' && line[i+1] === '"') { cur += '"'; i++; }
+      else if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { result.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    result.push(cur.trim());
+    return result;
+  };
+  const headers = parseRow(lines[0]);
+  return lines.slice(1)
+    .map(line => {
+      const vals = parseRow(line);
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = vals[i] !== undefined ? vals[i] : ''; });
+      return obj;
+    })
+    .filter(r => Object.values(r).some(v => v !== ''));
+}
+
+function _importParsedRows(section, rows) {
+  let updated = 0, added = 0;
+
+  if (section === 'sealed') {
+    const typeRev = Object.fromEntries(Object.entries(TYPE_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+    const typeLegacy = { 'blister':'blister3','blister3pack':'blister3','blister2pack':'blister2','booster':'booster-box','boosterpack':'booster-box','bundle':'bundle','promo':'other','boosterbox':'booster-box' };
+    rows.forEach((r, i) => {
+      const set = String(r['Item Name'] || r['Set'] || r['set'] || '').trim();
+      if (!set || /^totals$/i.test(set)) return;
+      const rid      = r['_id'] ? Number(r['_id']) : null;
+      const typeRaw  = String(r['Type'] || 'other').toLowerCase().replace(/[^a-z0-9]/g,'');
+      const typeNorm = String(r['Type'] || 'other').toLowerCase();
+      const type     = typeRev[typeNorm] || typeLegacy[typeRaw] || 'other';
+      const qty      = parseInt(r['Qty'] || 1) || 1;
+      const price    = parseFloat(r['Price Each'] || r['Price'] || 0) || 0;
+      const date     = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+      const notes    = String(r['Pokemon Set'] || r['Notes'] || '').trim();
+      const ex = rid ? state.sealed.find(s => s.id === rid) : state.sealed.find(s => s.set === set);
+      if (ex) { ex.set=set; ex.type=type; ex.qty=qty; ex.price=price; ex.date=date; ex.notes=notes; updated++; }
+      else { state.sealed.push({ id: Date.now()+added+i+4000, set, qty, type, date, price, notes }); added++; }
+    });
+    save(); renderSealed(); updateHeader();
+  }
+
+  else if (section === 'sales') {
+    const catRev   = Object.fromEntries(Object.entries(CAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+    const catLegacy = { blister:'sealed',etb:'sealed',booster:'sealed',bundle:'bundle',box:'bundle',pack:'sealed',card:'single' };
+    const platRev  = Object.fromEntries(Object.entries(PLAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+    rows.forEach((r, i) => {
+      const name = String(r['Item'] || r['name'] || '').trim();
+      if (!name || /^totals$/i.test(name)) return;
+      const rid      = r['_id'] ? Number(r['_id']) : null;
+      const catRaw   = String(r['Category'] || 'other').toLowerCase();
+      const platRaw  = String(r['Platform']  || 'other').toLowerCase();
+      const cat      = catRev[catRaw]  || catLegacy[catRaw.replace(/[^a-z]/g,'')] || 'other';
+      const platform = platRev[platRaw] || 'other';
+      const date     = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+      const cost     = parseFloat(r['Cost']       || 0) || 0;
+      const price    = parseFloat(r['Sale Price'] || 0) || 0;
+      const notes    = String(r['Notes'] || '').trim();
+      const ex = rid ? state.sales.find(s => s.id === rid) : null;
+      if (ex) { ex.name=name; ex.cat=cat; ex.platform=platform; ex.date=date; ex.cost=cost; ex.price=price; ex.notes=notes; updated++; }
+      else { state.sales.push({ id: Date.now()+added+i+6000, name, cat, price, cost, platform, date, notes }); added++; }
+    });
+    save(); renderSales();
+  }
+
+  else if (section === 'inventory') {
+    const rarMap = { common:'common',uncommon:'uncommon',rare:'rare',holo:'holo',ex:'ex',ultra:'ultra',secret:'secret',holov:'holo',exv:'ex',ultrarare:'ultra',secretrare:'secret' };
+    rows.forEach((r, i) => {
+      const name = String(r['Card Name'] || r['name'] || '').trim();
+      if (!name || /^totals$/i.test(name)) return;
+      const rid    = r['_id'] ? Number(r['_id']) : null;
+      const set    = String(r['Set']  || '').trim();
+      const rarRaw = String(r['Rarity'] || 'common').toLowerCase().replace(/[^a-z]/g,'');
+      const rarity = rarMap[rarRaw] || 'common';
+      const qty    = parseInt(r['Qty'] || 1) || 1;
+      const cond   = String(r['Condition'] || 'NM').toUpperCase().slice(0,3);
+      const ex = rid ? state.cards.find(c => c.id === rid) : state.cards.find(c => c.name===name && c.set===set && c.rarity===rarity && c.cond===cond);
+      if (ex) { ex.name=name; ex.set=set; ex.rarity=rarity; ex.qty=qty; ex.cond=cond; updated++; }
+      else { state.cards.push({ id: Date.now()+added+i+2000, name, set, rarity, qty, cond }); added++; }
+    });
+    save(); renderInventory(); updateHeader();
+  }
+
+  else if (section === 'packs') {
+    rows.forEach((r, i) => {
+      const set = String(r['Set'] || '').trim();
+      if (!set || /^totals$/i.test(set)) return;
+      const rid   = r['_id'] ? Number(r['_id']) : null;
+      const count = parseInt(r['Count'] || 1) || 1;
+      const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+      const price = parseFloat(r['Price Paid'] || 0) || 0;
+      const notes = String(r['Notes'] || '').trim();
+      const ex = rid ? state.packs.find(p => p.id === rid) : state.packs.find(p => p.set===set && p.date===date);
+      if (ex) { ex.set=set; ex.count=count; ex.date=date; ex.price=price; ex.notes=notes; updated++; }
+      else { state.packs.push({ id: Date.now()+added+i, set, count, date, price, notes, pulls:[] }); added++; }
+    });
+    save(); updateSetLists(); renderPacks(); updateHeader();
+  }
+
+  if (isDash()) renderDashboard();
+  const pg = document.querySelector('.page.active')?.id?.replace('page-','');
+  const labels = { sealed:'Sealed Packs', sales:'Sales', inventory:'Inventory', packs:'Pack Log' };
+  toast(`✅ CSV (${labels[section]||section}): ${updated} updated · ${added} new`, 4000);
 }
 
 // ===== IMPORT FROM EXCEL =====
