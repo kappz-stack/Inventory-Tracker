@@ -1850,18 +1850,30 @@ function importFromExcel(file) {
       // ---- Sealed Packs ----
       const sealedSheet = wb.SheetNames.find(n => /sealed/i.test(n));
       if (sealedSheet) {
+        // Build reverse map from label -> key, then add legacy raw-key aliases
         const typeRev = Object.fromEntries(Object.entries(TYPE_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        // Legacy aliases: old type keys that may appear in older exports or user-edited files
+        const typeLegacy = {
+          'blister':'blister3', 'blister3pack':'blister3', 'blister2pack':'blister2',
+          'booster':'booster-box', 'boosterpack':'booster-box', 'bundle':'bundle',
+          'promo':'other', 'boosterbox':'booster-box',
+        };
         sheetToRows(sealedSheet).forEach((r, i) => {
           const set = String(r['Item Name'] || r['Set'] || r['set'] || '').trim();
           if (!set || /^totals$/i.test(set)) return;
-          const rid   = r['_id'] ? Number(r['_id']) : null;
-          const typeRaw = String(r['Type'] || 'other').toLowerCase();
-          const type  = typeRev[typeRaw] || typeRaw || 'other';
+          const rid      = r['_id'] ? Number(r['_id']) : null;
+          const typeRaw  = String(r['Type'] || 'other').toLowerCase().replace(/[^a-z0-9]/g,'');
+          const typeNorm = String(r['Type'] || 'other').toLowerCase();
+          // Try label match first, then legacy key alias, then default to 'other'
+          const type  = typeRev[typeNorm] || typeLegacy[typeRaw] || 'other';
           const qty   = parseInt(r['Qty'] || 1) || 1;
           const price = parseFloat(r['Price Each'] || r['Price'] || 0) || 0;
           const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
           const notes = String(r['Pokemon Set'] || r['Notes'] || r['notes'] || '').trim();
-          const ex = rid ? state.sealed.find(s => s.id === rid) : state.sealed.find(s => s.set===set && s.type===type);
+          // Match by _id first, then fallback to item name only (ignore type in fallback to handle renamed types)
+          const ex = rid
+            ? state.sealed.find(s => s.id === rid)
+            : state.sealed.find(s => s.set === set);
           if (ex) { ex.set=set; ex.type=type; ex.qty=qty; ex.price=price; ex.date=date; ex.notes=notes; updated++; }
           else { state.sealed.push({ id: Date.now()+added+i+4000, set, qty, type, date, price, notes }); added++; }
         });
@@ -1871,15 +1883,18 @@ function importFromExcel(file) {
       const salesSheet = wb.SheetNames.find(n => /^sales$/i.test(n));
       if (salesSheet) {
         const catRev  = Object.fromEntries(Object.entries(CAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        // Legacy/raw category keys that may appear in user-edited files
+        const catLegacy = { blister:'sealed', etb:'sealed', booster:'sealed', bundle:'bundle', box:'bundle', pack:'sealed', card:'single', 'graded card':'graded', 'card lot':'lot', 'bundle / box':'bundle', 'sealed pack':'sealed', 'single card':'single' };
         const platRev = Object.fromEntries(Object.entries(PLAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        const platLegacy = { ebay:'ebay', tcgplayer:'tcgplayer', 'facebook marketplace':'facebook', 'local/lgs':'local', lgs:'local' };
         sheetToRows(salesSheet).forEach((r, i) => {
           const name = String(r['Item'] || r['name'] || '').trim();
           if (!name || /^totals$/i.test(name)) return;
           const rid      = r['_id'] ? Number(r['_id']) : null;
           const catRaw   = String(r['Category']  || 'other').toLowerCase();
           const platRaw  = String(r['Platform']   || 'other').toLowerCase();
-          const cat      = catRev[catRaw]   || 'other';
-          const platform = platRev[platRaw] || 'other';
+          const cat      = catRev[catRaw]   || catLegacy[catRaw.replace(/[^a-z/ ]/g,'')] || 'other';
+          const platform = platRev[platRaw] || platLegacy[platRaw] || 'other';
           const date     = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
           const cost     = parseFloat(r['Cost']       || 0) || 0;
           const price    = parseFloat(r['Sale Price'] || 0) || 0;
