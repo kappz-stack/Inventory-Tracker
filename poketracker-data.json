@@ -325,7 +325,7 @@
       "type": "etb",
       "date": "2026-03-21",
       "price": 61,
-      "notes": ""
+      "notes": "TM"
     },
     {
       "id": 1774122929049,
@@ -949,7 +949,7 @@
     {
       "id": 1774122939069,
       "name": "2 Pack AH x2",
-      "cat": "blister",
+      "cat": "other",
       "price": 50,
       "cost": 23,
       "platform": "ebay",
@@ -999,7 +999,7 @@
     {
       "id": 1774122939074,
       "name": "OP Sale 2 Pack",
-      "cat": "blister",
+      "cat": "other",
       "price": 18,
       "cost": 10.85,
       "platform": "ebay",
@@ -1009,7 +1009,7 @@
     {
       "id": 1774122939075,
       "name": "Ascended Heroes ETB",
-      "cat": "etb",
+      "cat": "other",
       "price": 100,
       "cost": 61.91,
       "platform": "ebay",
@@ -1069,7 +1069,7 @@
     {
       "id": 1774122939081,
       "name": "Ascended Heroes ETB",
-      "cat": "etb",
+      "cat": "other",
       "price": 100,
       "cost": 61.91,
       "platform": "ebay",
