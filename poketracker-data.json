@@ -717,6 +717,16 @@
   ],
   "sales": [
     {
+      "id": 1774123180977,
+      "name": "TEST SALE",
+      "cat": "sealed",
+      "price": 50,
+      "cost": 10,
+      "platform": "facebook",
+      "date": "2026-03-21",
+      "notes": ""
+    },
+    {
       "id": 1774122939046,
       "name": "Hoopa V",
       "cat": "single",
