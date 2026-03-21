@@ -159,7 +159,16 @@
   /* Sort select */
   .sort-select { background: var(--surface3); border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 12px; padding: 6px 10px; cursor: pointer; }
 
-  /* Multi-select bulk edit toolbar */
+  /* Sell modal */
+  #sell-modal .modal { max-width: 420px; }
+  .sell-item-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .sell-item-meta { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .sell-stock-badge { display: inline-block; background: var(--surface3); border-radius: 20px; padding: 2px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--gold); margin-left: 8px; }
+  .sell-calc { background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 12px; color: var(--muted); margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .sell-calc .profit-preview { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 600; }
+  .btn-sell { background: linear-gradient(135deg, var(--green), #22c55e); color: #0e0f14; border: none; border-radius: var(--radius-sm); font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; padding: 4px 10px; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+  .btn-sell:hover { opacity: .85; }
+
   .bulk-bar {
     display: none; align-items: center; gap: 10px; flex-wrap: wrap;
     padding: 10px 14px; background: var(--surface2); border: 1px solid var(--accent);
@@ -226,6 +235,43 @@
   </div>
 </div>
 
+<!-- Sell from Stash Modal -->
+<div class="modal-backdrop hidden" id="sell-modal">
+  <div class="modal">
+    <h2>💰 Log Sale from Stash</h2>
+    <div class="sell-item-name" id="sell-item-name">—</div>
+    <div class="sell-item-meta" id="sell-item-meta">—</div>
+    <div class="form-row" style="gap:12px">
+      <div class="form-group" style="flex:1;min-width:80px">
+        <label class="lbl">Qty to Sell <span class="sell-stock-badge" id="sell-stock-badge">0 in stock</span></label>
+        <input id="sell-qty" type="number" min="1" value="1" oninput="updateSellCalc()">
+      </div>
+      <div class="form-group" style="flex:1;min-width:100px">
+        <label class="lbl">Sale Price Each ($)</label>
+        <input id="sell-price" type="number" min="0" step="0.01" placeholder="0.00" oninput="updateSellCalc()">
+      </div>
+    </div>
+    <div class="form-row" style="gap:12px">
+      <div class="form-group" style="flex:1;min-width:110px">
+        <label class="lbl">Platform</label>
+        <select id="sell-platform"><option value="ebay">eBay</option><option value="tcgplayer">TCGPlayer</option><option value="facebook">Facebook</option><option value="local">Local / LGS</option><option value="friend">Friend</option><option value="other">Other</option></select>
+      </div>
+      <div class="form-group" style="flex:1;min-width:110px">
+        <label class="lbl">Sale Date</label>
+        <input id="sell-date" type="date">
+      </div>
+    </div>
+    <div class="sell-calc" id="sell-calc">
+      <span>Profit preview</span>
+      <span class="profit-preview" id="sell-profit-preview" style="color:var(--muted)">—</span>
+    </div>
+    <div class="modal-actions" style="margin-top:18px">
+      <button class="btn-ghost" onclick="closeSellModal()">Cancel</button>
+      <button class="btn" onclick="confirmSell()" style="background:var(--green);color:#0e0f14">💰 Confirm Sale</button>
+    </div>
+  </div>
+</div>
+
 <header>
   <div class="logo">Poké<span>Tracker</span></div>
   <div class="header-stats">
@@ -238,6 +284,9 @@
     <div class="sync-dot" id="sync-dot" title="GitHub sync status"></div>
     <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ Pull</button>
     <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ Push</button>
+    <button class="sync-btn" onclick="exportToExcel()" title="Export all data to Excel" style="border-color:rgba(82,212,208,.3)">📊 Export</button>
+    <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import data from Excel export" style="border-color:rgba(245,200,66,.3)">📥 Import</button>
+    <input type="file" id="import-file-input" accept=".xlsx,.xls" style="display:none" onchange="importFromExcel(this.files[0]);this.value=''">
     <button class="sync-btn" onclick="openSyncModal()" title="Configure GitHub sync">⚙</button>
   </div>
 </header>
@@ -267,19 +316,35 @@
       <canvas id="chart-main" height="120"></canvas>
     </div>
     <div class="grid-2" style="margin-bottom:16px">
-      <div class="stat-card" style="display:flex;align-items:center;gap:20px">
-        <div><div class="label">Cards Owned</div><div class="value" id="d-cards" style="color:var(--gold)">0</div><div class="sub">Collection</div></div>
-        <div style="width:1px;height:40px;background:var(--border)"></div>
-        <div><div class="label">Hit Rate</div><div class="value" id="d-rate" style="color:var(--accent2)">—</div><div class="sub">Per pack</div></div>
-        <div style="width:1px;height:40px;background:var(--border)"></div>
-        <div><div class="label">Items Sold</div><div class="value" id="d-sold" style="color:var(--holo)">0</div><div class="sub">All time</div></div>
-        <div style="width:1px;height:40px;background:var(--border)"></div>
-        <div><div class="label">Avg Sale</div><div class="value" id="d-avg-sale" style="color:var(--ultra);font-size:18px">—</div><div class="sub">Per transaction</div></div>
+      <div class="card">
+        <div class="section-head" style="margin-bottom:16px">
+          <h3 class="mini" style="margin-bottom:0">Stash Cost by Pokémon Set</h3>
+          <span id="stash-set-total" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold)"></span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:20px">
+          <div style="flex-shrink:0;width:180px;height:180px;position:relative">
+            <canvas id="chart-set-doughnut"></canvas>
+            <div id="chart-set-center" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Total</div>
+              <div id="chart-set-center-val" style="font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--gold)">$0</div>
+            </div>
+          </div>
+          <div id="chart-set-legend" style="flex:1;overflow-y:auto;max-height:180px;font-size:12px"></div>
+        </div>
       </div>
       <div class="card">
         <div class="section-head" style="margin-bottom:12px"><h3 class="mini" style="margin-bottom:0">Recent sales</h3><button class="btn-ghost" style="font-size:11px" onclick="showPage('sales')">View all →</button></div>
         <div id="d-sales-list"><div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div></div>
       </div>
+    </div>
+    <div class="stat-card" style="display:flex;align-items:center;gap:20px;margin-bottom:16px;flex-wrap:wrap">
+      <div><div class="label">Cards Owned</div><div class="value" id="d-cards" style="color:var(--gold)">0</div><div class="sub">Collection</div></div>
+      <div style="width:1px;height:40px;background:var(--border)"></div>
+      <div><div class="label">Hit Rate</div><div class="value" id="d-rate" style="color:var(--accent2)">—</div><div class="sub">Per pack</div></div>
+      <div style="width:1px;height:40px;background:var(--border)"></div>
+      <div><div class="label">Items Sold</div><div class="value" id="d-sold" style="color:var(--holo)">0</div><div class="sub">All time</div></div>
+      <div style="width:1px;height:40px;background:var(--border)"></div>
+      <div><div class="label">Avg Sale</div><div class="value" id="d-avg-sale" style="color:var(--ultra);font-size:18px">—</div><div class="sub">Per transaction</div></div>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -420,20 +485,20 @@
       <div class="card">
         <div class="section-head"><h2>Add Sealed Packs</h2></div>
         <div class="form-row">
-          <div class="form-group" style="flex:2"><label class="lbl">Set Name</label><input id="s-set" type="text" placeholder="e.g. Surging Sparks" list="set-list3"><datalist id="set-list3"></datalist></div>
+          <div class="form-group" style="flex:2"><label class="lbl">Item Name</label><input id="s-set" type="text" placeholder="e.g. Surging Sparks ETB" list="set-list3"><datalist id="set-list3"></datalist></div>
           <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Quantity</label><input id="s-qty" type="number" min="1" value="1"></div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Pack Type</label>
-            <select id="s-type"><option value="booster">Booster Pack</option><option value="etb">Elite Trainer Box</option><option value="blister">Blister / 3-pack</option><option value="bundle">Bundle / Booster Box</option><option value="promo">Promo Pack</option><option value="other">Other</option></select></div>
+            <select id="s-type"><option value="booster-box">Booster Box</option><option value="upc">Ultra Premium Collection</option><option value="bundle">Booster Bundle</option><option value="etb">ETB</option><option value="blister2">2 Pack Blister</option><option value="blister3">3 Pack Blister</option><option value="spc">SPC</option><option value="sleeves">Sleeves</option><option value="collection">Collection Box</option><option value="poster">Poster Box</option><option value="pins">Pins Box</option><option value="tin">Tin</option><option value="costco">Costco Box</option><option value="other">Other</option></select></div>
           <div class="form-group" style="flex:1;min-width:100px"><label class="lbl">Date Acquired</label><input id="s-date" type="date"></div>
           <div class="form-group" style="flex:1;min-width:90px"><label class="lbl">Price Paid ($)</label><input id="s-price" type="number" min="0" step="0.01" placeholder="0.00"></div>
         </div>
-        <div class="form-row"><div class="form-group" style="flex:1"><label class="lbl">Notes (optional)</label><input id="s-notes" type="text" placeholder="e.g. Target, gift, restock…"></div></div>
+        <div class="form-row"><div class="form-group" style="flex:1"><label class="lbl">Pokemon Set</label><input id="s-notes" type="text" placeholder="e.g. Surging Sparks"></div></div>
         <div style="display:flex;gap:8px;margin-top:4px"><button class="btn" onclick="addSealed()" style="margin-left:auto">Add to Stash →</button></div>
         <div class="upload-zone" id="uz-sealed" onclick="document.getElementById('uf-sealed').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="event.preventDefault();this.classList.remove('drag-over');handleUpload('sealed',event.dataTransfer.files[0])">
           <input type="file" id="uf-sealed" accept=".xlsx,.xls,.csv" onchange="handleUpload('sealed',this.files[0]);this.value=''">
-          <div class="uz-label">📥 Drop Excel/CSV or <strong>click to upload</strong> — columns: <code>set, qty, type, date, price, notes</code></div>
+          <div class="uz-label">📥 Drop Excel/CSV or <strong>click to upload</strong> — columns: <code>set (item name), qty, type, date, price, notes (pokemon set)</code></div>
         </div>
         <div class="upload-preview" id="up-sealed"></div>
       </div>
@@ -441,7 +506,7 @@
         <h3 class="mini">Stash Summary</h3>
         <div class="grid-2" style="margin-bottom:16px">
           <div class="stat-card"><div class="label">Total Sealed</div><div class="value" id="s-stat-total" style="color:var(--holo)">0</div><div class="sub">Packs in stash</div></div>
-          <div class="stat-card"><div class="label">Sets Tracked</div><div class="value" id="s-stat-sets" style="color:var(--accent2)">0</div><div class="sub">Unique sets</div></div>
+          <div class="stat-card"><div class="label">Pokémon Sets</div><div class="value" id="s-stat-sets" style="color:var(--accent2)">0</div><div class="sub">Unique Pokémon sets</div></div>
         </div>
         <div class="stat-card" style="margin-bottom:12px"><div class="label">Total Spent</div><div class="value" id="s-stat-spent" style="color:var(--gold);font-size:20px">$0.00</div><div class="sub">Across all sealed purchases</div></div>
         <h3 class="mini">By pack type</h3>
@@ -452,8 +517,8 @@
       <div class="section-head">
         <h2>My Sealed Stash</h2>
         <div style="display:flex;gap:8px;align-items:center">
-          <div class="search-wrap" style="width:200px"><span class="search-icon">🔍</span><input id="sealed-search" type="text" placeholder="Search sets…" oninput="renderSealed()"></div>
-          <select id="sealed-filter" onchange="renderSealed()" style="width:140px"><option value="">All types</option><option value="booster">Booster Pack</option><option value="etb">Elite Trainer Box</option><option value="blister">Blister / 3-pack</option><option value="bundle">Bundle / Booster Box</option><option value="promo">Promo Pack</option><option value="other">Other</option></select>
+          <div class="search-wrap" style="width:200px"><span class="search-icon">🔍</span><input id="sealed-search" type="text" placeholder="Search items…" oninput="renderSealed()"></div>
+          <select id="sealed-filter" onchange="renderSealed()" style="width:160px"><option value="">All types</option><option value="booster-box">Booster Box</option><option value="upc">Ultra Premium Collection</option><option value="bundle">Booster Bundle</option><option value="etb">ETB</option><option value="blister2">2 Pack Blister</option><option value="blister3">3 Pack Blister</option><option value="spc">SPC</option><option value="sleeves">Sleeves</option><option value="collection">Collection Box</option><option value="poster">Poster Box</option><option value="pins">Pins Box</option><option value="tin">Tin</option><option value="costco">Costco Box</option><option value="other">Other</option></select>
           <select class="sort-select" id="sealed-sort" onchange="renderSealed()">
             <option value="date-desc">Newest first</option>
             <option value="date-asc">Oldest first</option>
@@ -470,18 +535,18 @@
           <span class="bulk-count" id="bulk-count-sealed">0 selected</span>
           <span class="bulk-field">Set field:</span>
           <select id="bulk-field-sealed" onchange="updateBulkInput('sealed')" style="width:110px">
-            <option value="set">Set Name</option>
+            <option value="set">Item Name</option>
             <option value="type">Type</option>
             <option value="date">Date</option>
             <option value="price">Price ($)</option>
             <option value="qty">Qty</option>
-            <option value="notes">Notes</option>
+            <option value="notes">Pokémon Set</option>
           </select>
           <input id="bulk-val-sealed" type="text" placeholder="New value…" style="flex:1;min-width:120px">
           <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('sealed')">Apply to selected</button>
           <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('sealed')">Cancel</button>
         </div>
-        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sealed" onchange="toggleSelectAll('sealed',this.checked)"></th><th>Set</th><th>Type</th><th>Acquired</th><th>Notes</th><th class="num">Price</th><th class="num">Qty</th><th></th></tr></thead><tbody id="sealed-table"><tr><td colspan="8"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs yet.</p></div></td></tr></tbody></table>
+        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sealed" onchange="toggleSelectAll('sealed',this.checked)"></th><th>Item Name</th><th>Type</th><th>Acquired</th><th>Pokémon Set</th><th class="num">Price</th><th class="num">Qty</th><th></th><th></th></tr></thead><tbody id="sealed-table"><tr><td colspan="8"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs yet.</p></div></td></tr></tbody></table>
       </div>
       <div id="sealed-count" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:right"></div>
     </div>
@@ -825,8 +890,38 @@ function renderInventory() {
 }
 
 // ===== SEALED PACKS =====
-const TYPE_LABELS={booster:'Booster',etb:'ETB',blister:'Blister',bundle:'Bundle',promo:'Promo',other:'Other'};
-const TYPE_COLORS={booster:'var(--accent)',etb:'var(--gold)',blister:'var(--holo)',bundle:'var(--ex)',promo:'var(--ultra)',other:'var(--muted)'};
+const TYPE_LABELS={
+  'booster-box':'Booster Box',
+  upc:'Ultra Premium Collection',
+  bundle:'Booster Bundle',
+  etb:'ETB',
+  blister2:'2 Pack Blister',
+  blister3:'3 Pack Blister',
+  spc:'SPC',
+  sleeves:'Sleeves',
+  collection:'Collection Box',
+  poster:'Poster Box',
+  pins:'Pins Box',
+  tin:'Tin',
+  costco:'Costco Box',
+  other:'Other'
+};
+const TYPE_COLORS={
+  'booster-box':'var(--accent)',
+  upc:'var(--secret)',
+  bundle:'var(--ex)',
+  etb:'var(--gold)',
+  blister2:'var(--holo)',
+  blister3:'var(--holo)',
+  spc:'var(--rare)',
+  sleeves:'var(--com)',
+  collection:'var(--ultra)',
+  poster:'var(--unc)',
+  pins:'var(--accent2)',
+  tin:'var(--muted)',
+  costco:'#52b8d0',
+  other:'var(--muted)'
+};
 
 function addSealed() {
   const set=document.getElementById('s-set').value.trim(); if(!set){toast('⚠ Please enter a set name.');return;}
@@ -854,7 +949,7 @@ function updateSealed(id,field,value) {
   save(); updateHeader(); _refreshSealedStats(); if(isDash()) renderDashboard();
 }
 function _refreshSealedStats() {
-  const all=state.sealed, totalSealed=all.reduce((s,i)=>s+i.qty,0), totalSets=new Set(all.map(i=>i.set)).size, totalSpent=all.reduce((s,i)=>s+(i.price*i.qty),0);
+  const all=state.sealed, totalSealed=all.reduce((s,i)=>s+i.qty,0), totalSets=new Set(all.map(i=>i.notes).filter(Boolean)).size, totalSpent=all.reduce((s,i)=>s+(i.price*i.qty),0);
   const el=id=>document.getElementById(id);
   if(el('s-stat-total')) el('s-stat-total').textContent=totalSealed;
   if(el('s-stat-sets'))  el('s-stat-sets').textContent=totalSets;
@@ -876,7 +971,7 @@ function renderSealed() {
   else if (sort==='price-asc')   items.sort((a,b)=>(a.price||0)-(b.price||0));
   else if (sort==='qty-desc')    items.sort((a,b)=>b.qty-a.qty);
   else if (sort==='set-asc')     items.sort((a,b)=>a.set.localeCompare(b.set));
-  const all=state.sealed, totalSealed=all.reduce((s,i)=>s+i.qty,0), totalSets=new Set(all.map(i=>i.set)).size, totalSpent=all.reduce((s,i)=>s+(i.price*i.qty),0);
+  const all=state.sealed, totalSealed=all.reduce((s,i)=>s+i.qty,0), totalSets=new Set(all.map(i=>i.notes).filter(Boolean)).size, totalSpent=all.reduce((s,i)=>s+(i.price*i.qty),0);
   const el=id=>document.getElementById(id);
   if(el('s-stat-total')) el('s-stat-total').textContent=totalSealed;
   if(el('s-stat-sets'))  el('s-stat-sets').textContent=totalSets;
@@ -891,7 +986,7 @@ function renderSealed() {
     <td><input class="cell-edit" value="${esc(s.set)}" style="font-weight:500;width:100%;min-width:140px" oninput="updateSealed(${s.id},'set',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><select class="cell-edit" style="width:100%;min-width:90px" onchange="updateSealed(${s.id},'type',this.value)">${Object.entries(TYPE_LABELS).map(([v,l])=>`<option value="${v}"${s.type===v?' selected':''}>${l}</option>`).join('')}</select></td>
     <td><input class="cell-edit" type="date" value="${s.date}" style="width:100%" onchange="updateSealed(${s.id},'date',this.value)"></td>
-    <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="—" style="width:100%;min-width:100px;color:var(--muted)" oninput="updateSealed(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+    <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="e.g. Surging Sparks" style="width:100%;min-width:100px" oninput="updateSealed(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><div style="display:flex;align-items:center;gap:6px">
       <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},-1)">−</button>
@@ -899,6 +994,7 @@ function renderSealed() {
       <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},1)">+</button>
     </div></td>
     <td><button class="btn-danger" onclick="deleteSealed(${s.id})">✕</button></td>
+    <td><button class="btn-sell" onclick="openSellModal(${s.id})">💰 Sell</button></td>
   </tr>`).join('');
   const total=items.reduce((s,i)=>s+i.qty,0); if(count) count.textContent=`${items.length} entr${items.length!==1?'ies':'y'} · ${total} packs · click any cell to edit`;
 }
@@ -1031,7 +1127,7 @@ function renderDashboard() {
         return `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)">
           <div style="min-width:0;flex:1;overflow:hidden">
             <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.set)}</div>
-            <div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type} · <span style="color:var(--muted)">×${s.qty} @ $${s.price.toFixed(2)}</span></div>
+            <div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type}${s.notes?` · <span style="color:var(--muted)">${esc(s.notes)}</span>`:''} · <span style="color:var(--muted)">×${s.qty} @ $${s.price.toFixed(2)}</span></div>
           </div>
           <div style="text-align:right;flex-shrink:0;margin-left:12px">
             <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--gold)">$${val.toFixed(2)}</div>
@@ -1053,10 +1149,107 @@ function renderDashboard() {
 
   // Charts
   renderCharts();
+  renderSetBreakdownChart();
 }
 
 // ===== CHARTS =====
 let _chartMain = null;
+let _chartSetDoughnut = null;
+
+// Palette for the doughnut chart — enough distinct colors for many sets
+const SET_PALETTE = [
+  '#7b6ef6','#52d4d0','#f5c842','#ff7eb3','#4ade80','#ff9d4a',
+  '#6bcfff','#a98cff','#ffe46b','#ff5e5e','#a78bfa','#34d399',
+  '#fb923c','#60a5fa','#f472b6','#facc15','#2dd4bf','#c084fc',
+  '#8889a8','#94a3b8',
+];
+
+function renderSetBreakdownChart() {
+  if (typeof Chart === 'undefined') return;
+
+  const ge = id => document.getElementById(id);
+
+  // Aggregate stash cost by Pokemon Set (s.notes), fallback to 'Other'
+  const setMap = {};
+  state.sealed.forEach(s => {
+    const label = (s.notes && s.notes.trim()) ? s.notes.trim() : 'Other';
+    const cost = (s.price || 0) * (s.qty || 0);
+    setMap[label] = (setMap[label] || 0) + cost;
+  });
+
+  const totalCost = Object.values(setMap).reduce((a, b) => a + b, 0);
+
+  // Update center value
+  if (ge('chart-set-center-val')) ge('chart-set-center-val').textContent = '$' + totalCost.toFixed(0);
+
+  // Sort by value desc
+  const sorted = Object.entries(setMap).sort((a, b) => b[1] - a[1]);
+
+  if (!sorted.length) {
+    if (ge('chart-set-legend')) ge('chart-set-legend').innerHTML = '<div style="color:var(--muted);font-size:13px;padding-top:8px">No sealed data yet.</div>';
+    return;
+  }
+
+  const labels = sorted.map(([k]) => k);
+  const values = sorted.map(([, v]) => v);
+  const colors = sorted.map((_, i) => SET_PALETTE[i % SET_PALETTE.length]);
+
+  // Build legend with % and $
+  if (ge('chart-set-legend')) {
+    ge('chart-set-legend').innerHTML = sorted.map(([label, val], i) => {
+      const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
+      return `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)">
+        <span style="width:10px;height:10px;border-radius:50%;background:${colors[i]};flex-shrink:0"></span>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">${esc(label)}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0">${pct}%</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);flex-shrink:0;min-width:52px;text-align:right">$${val.toFixed(0)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  const ctx = ge('chart-set-doughnut');
+  if (!ctx) return;
+  if (_chartSetDoughnut) _chartSetDoughnut.destroy();
+
+  _chartSetDoughnut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderColor: '#161720',
+        borderWidth: 2,
+        hoverBorderWidth: 3,
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      cutout: '68%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const pct = totalCost > 0 ? ((ctx.parsed / totalCost) * 100).toFixed(1) : '0.0';
+              return `  $${ctx.parsed.toFixed(2)} (${pct}%)`;
+            }
+          },
+          backgroundColor: 'rgba(30,32,48,0.95)',
+          titleColor: '#f0f0f8',
+          bodyColor: '#8889a8',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          padding: 10,
+        }
+      }
+    }
+  });
+}
+
+
 
 function getAvailableYears() {
   const years = new Set();
@@ -1209,7 +1402,99 @@ function renderCharts() {
 }
 
 
-// ===== MULTI-SELECT BULK EDIT =====
+// ===== SELL FROM STASH =====
+let _sellId = null;
+
+function openSellModal(id) {
+  const item = state.sealed.find(s => s.id === id);
+  if (!item) return;
+  _sellId = id;
+  document.getElementById('sell-item-name').textContent = item.set;
+  document.getElementById('sell-item-meta').textContent =
+    `${TYPE_LABELS[item.type] || item.type}${item.notes ? ' · ' + item.notes : ''} · Cost $${item.price.toFixed(2)} each`;
+  document.getElementById('sell-stock-badge').textContent = `${item.qty} in stock`;
+  document.getElementById('sell-qty').value   = 1;
+  document.getElementById('sell-qty').max     = item.qty;
+  document.getElementById('sell-price').value = '';
+  document.getElementById('sell-date').value  = new Date().toISOString().slice(0, 10);
+  updateSellCalc();
+  document.getElementById('sell-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('sell-price').focus(), 80);
+}
+
+function closeSellModal() {
+  document.getElementById('sell-modal').classList.add('hidden');
+  _sellId = null;
+}
+
+function updateSellCalc() {
+  const item = _sellId ? state.sealed.find(s => s.id === _sellId) : null;
+  if (!item) return;
+  const qty        = Math.max(1, parseInt(document.getElementById('sell-qty').value) || 1);
+  const saleEach   = parseFloat(document.getElementById('sell-price').value) || 0;
+  const costEach   = item.price || 0;
+  const totalSale  = saleEach * qty;
+  const totalCost  = costEach * qty;
+  const profit     = totalSale - totalCost;
+  const el         = document.getElementById('sell-profit-preview');
+  const calcEl     = document.getElementById('sell-calc');
+  if (saleEach > 0) {
+    el.textContent  = `${profit >= 0 ? '+' : ''}$${profit.toFixed(2)} profit on $${totalSale.toFixed(2)} sale`;
+    el.style.color  = profit >= 0 ? 'var(--green)' : 'var(--red)';
+    calcEl.querySelector('span').textContent = `${qty} × $${saleEach.toFixed(2)} — cost $${totalCost.toFixed(2)}`;
+  } else {
+    el.textContent = '—';
+    el.style.color = 'var(--muted)';
+    calcEl.querySelector('span').textContent = 'Profit preview';
+  }
+}
+
+function confirmSell() {
+  const item = _sellId ? state.sealed.find(s => s.id === _sellId) : null;
+  if (!item) return;
+
+  const qty      = Math.max(1, parseInt(document.getElementById('sell-qty').value) || 1);
+  const saleEach = parseFloat(document.getElementById('sell-price').value) || 0;
+  const platform = document.getElementById('sell-platform').value;
+  const date     = document.getElementById('sell-date').value || new Date().toISOString().slice(0, 10);
+
+  if (saleEach <= 0) { toast('⚠ Enter a sale price'); return; }
+  if (qty > item.qty) { toast(`⚠ Only ${item.qty} in stock`); return; }
+
+  // Build sale label — use item name + qty if selling multiple
+  const saleName = qty > 1 ? `${item.set} ×${qty}` : item.set;
+  const costEach = item.price || 0;
+
+  // Add to sales
+  state.sales.unshift({
+    id:       Date.now(),
+    name:     saleName,
+    cat:      'sealed',
+    price:    +(saleEach * qty).toFixed(2),
+    cost:     +(costEach * qty).toFixed(2),
+    platform,
+    date,
+    notes:    item.notes || '',
+  });
+
+  // Deduct from sealed stash
+  item.qty -= qty;
+  if (item.qty <= 0) {
+    state.sealed = state.sealed.filter(s => s.id !== item.id);
+  }
+
+  save();
+  renderSealed();
+  if (isDash()) renderDashboard();
+  closeSellModal();
+  toast(`✅ Logged sale of ${saleName} · +$${(saleEach * qty).toFixed(2)}`);
+}
+
+document.getElementById('sell-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeSellModal();
+});
+
+
 const _selection = { packs: new Set(), inventory: new Set(), sealed: new Set(), sales: new Set() };
 
 // Field type config for smart input rendering
@@ -1389,35 +1674,270 @@ function importRows(section,rows){
   let added=0,skipped=0,preview=[];
   if(section==='packs'){rows.forEach(r=>{const set=norm(r,'set','setname','name');if(!set){skipped++;return;}const count=parseInt(norm(r,'count','packs','qty','quantity'))||1,date=norm(r,'date')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','paid','pricepaid'))||0,notes=norm(r,'notes','note');state.packs.unshift({id:Date.now()+added,set,count,date,price,notes,pulls:[]});preview.push([set,count,date,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderPacks();updateHeader();}
   else if(section==='inventory'){rows.forEach(r=>{const name=norm(r,'name','card','cardname');if(!name){skipped++;return;}const set=norm(r,'set','setname'),rarity=(norm(r,'rarity')||'common').toLowerCase().replace(/[^a-z]/g,'');const rarMap={common:'common',uncommon:'uncommon',rare:'rare',holo:'holo',ex:'ex',ultra:'ultra',secret:'secret',holorare:'holo',ultrarare:'ultra',secretrare:'secret',exv:'ex'};const rar=rarMap[rarity]||'common',qty=parseInt(norm(r,'qty','quantity','count'))||1,cond=(norm(r,'cond','condition')||'NM').toUpperCase().slice(0,3);const existing=state.cards.find(c=>c.name===name&&c.set===set&&c.rarity===rar&&c.cond===cond);if(existing)existing.qty+=qty;else state.cards.push({id:Date.now()+added,name,set,rarity:rar,qty,cond});preview.push([name,set||'—',rar,qty]);added++;});save();updateSetLists();renderInventory();updateHeader();}
-  else if(section==='sealed'){const typeMap={booster:'booster',etb:'etb',elitetrainerbox:'etb',blister:'blister',bundle:'bundle',boosterbox:'bundle',promo:'promo',other:'other'};rows.forEach(r=>{const set=norm(r,'set','setname','name','product');if(!set){skipped++;return;}const qty=parseInt(norm(r,'qty','quantity','count'))||1,type=typeMap[(norm(r,'type','packtype')||'other').toLowerCase().replace(/[^a-z]/g,'')]||'other',date=norm(r,'date','acquired')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','pricepaid','paid'))||0,notes=norm(r,'notes','note');const existing=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);if(existing)existing.qty+=qty;else state.sealed.push({id:Date.now()+added,set,qty,type,date,price,notes});preview.push([set,qty,type,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderSealed();updateHeader();}
+  else if(section==='sealed'){const typeMap={'boosterbox':'booster-box','booster-box':'booster-box','boosterpack':'booster-box','upc':'upc','ultrapremiumcollection':'upc','bundle':'bundle','boosterbundle':'bundle','etb':'etb','elitetrainerbox':'etb','blister2':'blister2','2packblister':'blister2','blister3':'blister3','3packblister':'blister3','spc':'spc','sleeves':'sleeves','sleeve':'sleeves','collection':'collection','collectionbox':'collection','poster':'poster','posterbox':'poster','pins':'pins','pinsbox':'pins','tin':'tin','tins':'tin','costco':'costco','costcobox':'costco','promo':'other','other':'other'};rows.forEach(r=>{const set=norm(r,'set','setname','name','product');if(!set){skipped++;return;}const qty=parseInt(norm(r,'qty','quantity','count'))||1,type=typeMap[(norm(r,'type','packtype')||'other').toLowerCase().replace(/[^a-z0-9]/g,'')]||'other',date=norm(r,'date','acquired')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','pricepaid','paid'))||0,notes=norm(r,'notes','note');const existing=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);if(existing)existing.qty+=qty;else state.sealed.push({id:Date.now()+added,set,qty,type,date,price,notes});preview.push([set,qty,type,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderSealed();updateHeader();}
   else if(section==='sales'){rows.forEach(r=>{const name=norm(r,'name','product','item');if(!name){skipped++;return;}let price,cost;const profitVal=norm(r,'profit'),soldVal=norm(r,'sold','saleprice','price','soldfor'),costVal=norm(r,'cost','costbasis');if(profitVal!==''&&soldVal!==''){price=parseFloat(soldVal)||0;cost=parseFloat(costVal)||Math.max(0,price-(parseFloat(profitVal)||0));}else{price=parseFloat(soldVal)||0;cost=parseFloat(costVal)||0;}const yearVal=norm(r,'year'),dateVal=norm(r,'date');let date=dateVal||(yearVal?yearVal+'-01-01':new Date().toISOString().slice(0,10));const catRaw=(norm(r,'cat','category','type')||'other').toLowerCase().replace(/[^a-z]/g,'');const catMap2={single:'single',sealed:'sealed',lot:'lot',graded:'graded',bundle:'bundle',blister:'blister',other:'other',card:'single',pack:'sealed',box:'bundle'};const cat=catMap2[catRaw]||'other';const platRaw=(norm(r,'platform','soldon','soldvia')||'other').toLowerCase().replace(/[^a-z]/g,'');const platMap2={ebay:'ebay',tcgplayer:'tcgplayer',facebook:'facebook',local:'local',friend:'friend',other:'other'};const platform=platMap2[platRaw]||'other';const notes=norm(r,'notes','note');state.sales.unshift({id:Date.now()+added,name,cat,price,cost,platform,date,notes});preview.push([name,'$'+price.toFixed(2),'$'+(price-cost).toFixed(2)]);added++;});save();renderSales();}
   if(isDash())renderDashboard();
   if(previewEl){const cols={packs:['Set','Count','Date','Price'],inventory:['Card','Set','Rarity','Qty'],sealed:['Set','Qty','Type','Price'],sales:['Item','Sold','Profit']};const hdrs=cols[section]||[];previewEl.innerHTML=`<div style="color:var(--green);margin-bottom:6px">✅ Imported <strong>${added}</strong> row${added!==1?'s':''}${skipped?' ('+skipped+' skipped)':''}</div>`+(preview.length?`<table><thead><tr>${hdrs.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+preview.slice(0,8).map(row=>`<tr>${row.map(v=>`<td>${esc(String(v))}</td>`).join('')}</tr>`).join('')+(preview.length>8?`<tr><td colspan="${hdrs.length}" style="color:var(--muted)">…and ${preview.length-8} more</td></tr>`:'')+`</tbody></table>`:'');setTimeout(()=>{if(previewEl)previewEl.innerHTML='';},8000);}
   toast(`✅ Imported ${added} ${section} row${added!==1?'s':''}`);
 }
 
-// ===== INIT =====
+// ===== EXPORT TO EXCEL =====
+function exportToExcel() {
+  if (typeof XLSX === 'undefined') { toast('⚠ SheetJS not loaded yet — try again in a moment'); return; }
+
+  const wb = XLSX.utils.book_new();
+
+  // ---- Pack Log sheet ----
+  const packRows = state.packs.map(p => ({
+    '_id':        p.id,
+    'Set':        p.set,
+    'Count':      p.count,
+    'Date':       p.date,
+    'Price Paid': p.price || 0,
+    'Notes':      p.notes || '',
+    'Pulls':      p.pulls.map(pl => `${pl.name} (${pl.rarity}${pl.qty>1?'×'+pl.qty:''})`).join(', '),
+  }));
+  if (packRows.length) {
+    const ws = XLSX.utils.json_to_sheet(packRows);
+    _setColWidths(ws, [14, 30, 8, 12, 12, 25, 50]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Pack Log');
+  }
+
+  // ---- Inventory sheet ----
+  const invRows = state.cards.map(c => ({
+    '_id':       c.id,
+    'Card Name': c.name,
+    'Set':       c.set || '',
+    'Rarity':    rarLabel(c.rarity),
+    'Condition': c.cond,
+    'Qty':       c.qty,
+  }));
+  if (invRows.length) {
+    const ws = XLSX.utils.json_to_sheet(invRows);
+    _setColWidths(ws, [14, 28, 28, 12, 10, 8]);
+    XLSX.utils.book_append_sheet(wb, ws, 'Inventory');
+  }
+
+  // ---- Sealed Packs sheet ----
+  const sealedRows = state.sealed.map(s => ({
+    '_id':           s.id,
+    'Item Name':     s.set,
+    'Type':          TYPE_LABELS[s.type] || s.type,
+    'Qty':           s.qty,
+    'Price Each':    s.price || 0,
+    'Total Value':   +(s.price * s.qty).toFixed(2),
+    'Date':          s.date,
+    'Pokemon Set':   s.notes || '',
+  }));
+  if (sealedRows.length) {
+    const ws = XLSX.utils.json_to_sheet(sealedRows);
+    _setColWidths(ws, [14, 30, 14, 8, 12, 14, 12, 25]);
+    const totalQty = state.sealed.reduce((s,i)=>s+i.qty, 0);
+    const totalVal = +state.sealed.reduce((s,i)=>s+(i.price*i.qty), 0).toFixed(2);
+    XLSX.utils.sheet_add_aoa(ws, [['', '', 'TOTALS', totalQty, '', totalVal, '', '']], { origin: -1 });
+    XLSX.utils.book_append_sheet(wb, ws, 'Sealed Packs');
+  }
+
+  // ---- Sales sheet ----
+  const salesRows = state.sales.map(s => ({
+    '_id':        s.id,
+    'Item':       s.name,
+    'Category':   CAT_LABELS[s.cat] || s.cat,
+    'Platform':   PLAT_LABELS[s.platform] || s.platform,
+    'Date':       s.date,
+    'Cost':       s.cost || 0,
+    'Sale Price': s.price || 0,
+    'Profit':     +(s.price - s.cost).toFixed(2),
+    'Notes':      s.notes || '',
+  }));
+  if (salesRows.length) {
+    const ws = XLSX.utils.json_to_sheet(salesRows);
+    _setColWidths(ws, [14, 32, 14, 14, 12, 12, 12, 12, 25]);
+    const totCost   = +state.sales.reduce((s,i)=>s+i.cost, 0).toFixed(2);
+    const totRev    = +state.sales.reduce((s,i)=>s+i.price, 0).toFixed(2);
+    const totProfit = +(totRev - totCost).toFixed(2);
+    XLSX.utils.sheet_add_aoa(ws, [['', '', '', '', 'TOTALS', totCost, totRev, totProfit, '']], { origin: -1 });
+    XLSX.utils.book_append_sheet(wb, ws, 'Sales');
+  }
+
+  // ---- Summary sheet ----
+  const spentPacks  = +state.packs.reduce((s,p)=>s+(p.price||0), 0).toFixed(2);
+  const sealedCost  = +state.sealed.reduce((s,i)=>s+(i.price*i.qty), 0).toFixed(2);
+  const totalRev    = +state.sales.reduce((s,sl)=>s+sl.price, 0).toFixed(2);
+  const totalCost   = +state.sales.reduce((s,sl)=>s+sl.cost, 0).toFixed(2);
+  const netProfit   = +(totalRev - totalCost).toFixed(2);
+  const totalSpend  = +(spentPacks + sealedCost - netProfit).toFixed(2);
+  const summaryRows = [
+    { 'Metric': 'Pack Cost (opened)',              'Value': spentPacks },
+    { 'Metric': 'Sealed Inventory Value',          'Value': sealedCost },
+    { 'Metric': 'Total Sales Revenue',             'Value': totalRev   },
+    { 'Metric': 'Total Sales Cost',                'Value': totalCost  },
+    { 'Metric': 'Net Profit',                      'Value': netProfit  },
+    { 'Metric': 'Total Spend (Pack+Sealed-Profit)','Value': totalSpend },
+    { 'Metric': '',                                 'Value': '' },
+    { 'Metric': 'Total Packs Opened',              'Value': state.packs.reduce((s,p)=>s+p.count, 0) },
+    { 'Metric': 'Cards in Inventory',              'Value': state.cards.reduce((s,c)=>s+c.qty, 0) },
+    { 'Metric': 'Sealed Items (unique)',            'Value': state.sealed.length },
+    { 'Metric': 'Sealed Units Total',              'Value': state.sealed.reduce((s,i)=>s+i.qty, 0) },
+    { 'Metric': 'Sales Transactions',              'Value': state.sales.length },
+  ];
+  const wsSummary = XLSX.utils.json_to_sheet(summaryRows);
+  _setColWidths(wsSummary, [36, 16]);
+  XLSX.utils.book_append_sheet(wb, wsSummary, 'Summary');
+
+  const date = new Date().toISOString().slice(0,10);
+  XLSX.writeFile(wb, `PokéTracker_${date}.xlsx`);
+  toast('✅ Exported to Excel!');
+}
+
+function _setColWidths(ws, widths) {
+  ws['!cols'] = widths.map(w => ({ wch: w }));
+}
+
+// ===== IMPORT FROM EXCEL =====
+function importFromExcel(file) {
+  if (!file) return;
+  if (typeof XLSX === 'undefined') { toast('⚠ SheetJS not loaded yet — try again in a moment'); return; }
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array', cellDates: true });
+      const sheetToRows = name => {
+        const ws = wb.Sheets[name]; if (!ws) return [];
+        return XLSX.utils.sheet_to_json(ws, { defval: '' })
+          .filter(r => Object.values(r).some(v => v !== '' && v !== null && v !== undefined));
+      };
+
+      let updated = 0, added = 0;
+
+      // ---- Pack Log ----
+      const packSheet = wb.SheetNames.find(n => /pack.?log/i.test(n) || /^packs$/i.test(n));
+      if (packSheet) {
+        sheetToRows(packSheet).forEach((r, i) => {
+          const set = String(r['Set'] || '').trim();
+          if (!set || /^totals$/i.test(set)) return;
+          const rid   = r['_id'] ? Number(r['_id']) : null;
+          const count = parseInt(r['Count'] || 1) || 1;
+          const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+          const price = parseFloat(r['Price Paid'] || 0) || 0;
+          const notes = String(r['Notes'] || '').trim();
+          const ex = rid ? state.packs.find(p => p.id === rid) : state.packs.find(p => p.set===set && p.date===date);
+          if (ex) { ex.set=set; ex.count=count; ex.date=date; ex.price=price; ex.notes=notes; updated++; }
+          else { state.packs.push({ id: Date.now()+added+i, set, count, date, price, notes, pulls:[] }); added++; }
+        });
+      }
+
+      // ---- Inventory ----
+      const invSheet = wb.SheetNames.find(n => /inventory/i.test(n));
+      if (invSheet) {
+        const rarMap = { common:'common',uncommon:'uncommon',rare:'rare',holo:'holo',ex:'ex',ultra:'ultra',secret:'secret',holov:'holo',exv:'ex',ultrarare:'ultra',secretrare:'secret' };
+        sheetToRows(invSheet).forEach((r, i) => {
+          const name = String(r['Card Name'] || r['name'] || '').trim();
+          if (!name || /^totals$/i.test(name)) return;
+          const rid    = r['_id'] ? Number(r['_id']) : null;
+          const set    = String(r['Set']  || '').trim();
+          const rarRaw = String(r['Rarity'] || 'common').toLowerCase().replace(/[^a-z]/g,'');
+          const rarity = rarMap[rarRaw] || 'common';
+          const qty    = parseInt(r['Qty'] || 1) || 1;
+          const cond   = String(r['Condition'] || 'NM').toUpperCase().slice(0,3);
+          const ex = rid ? state.cards.find(c => c.id === rid) : state.cards.find(c => c.name===name && c.set===set && c.rarity===rarity && c.cond===cond);
+          if (ex) { ex.name=name; ex.set=set; ex.rarity=rarity; ex.qty=qty; ex.cond=cond; updated++; }
+          else { state.cards.push({ id: Date.now()+added+i+2000, name, set, rarity, qty, cond }); added++; }
+        });
+      }
+
+      // ---- Sealed Packs ----
+      const sealedSheet = wb.SheetNames.find(n => /sealed/i.test(n));
+      if (sealedSheet) {
+        const typeRev = Object.fromEntries(Object.entries(TYPE_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        sheetToRows(sealedSheet).forEach((r, i) => {
+          const set = String(r['Item Name'] || r['Set'] || r['set'] || '').trim();
+          if (!set || /^totals$/i.test(set)) return;
+          const rid   = r['_id'] ? Number(r['_id']) : null;
+          const typeRaw = String(r['Type'] || 'other').toLowerCase();
+          const type  = typeRev[typeRaw] || typeRaw || 'other';
+          const qty   = parseInt(r['Qty'] || 1) || 1;
+          const price = parseFloat(r['Price Each'] || r['Price'] || 0) || 0;
+          const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+          const notes = String(r['Pokemon Set'] || r['Notes'] || r['notes'] || '').trim();
+          const ex = rid ? state.sealed.find(s => s.id === rid) : state.sealed.find(s => s.set===set && s.type===type);
+          if (ex) { ex.set=set; ex.type=type; ex.qty=qty; ex.price=price; ex.date=date; ex.notes=notes; updated++; }
+          else { state.sealed.push({ id: Date.now()+added+i+4000, set, qty, type, date, price, notes }); added++; }
+        });
+      }
+
+      // ---- Sales ----
+      const salesSheet = wb.SheetNames.find(n => /^sales$/i.test(n));
+      if (salesSheet) {
+        const catRev  = Object.fromEntries(Object.entries(CAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        const platRev = Object.fromEntries(Object.entries(PLAT_LABELS).map(([k,v])=>[v.toLowerCase(),k]));
+        sheetToRows(salesSheet).forEach((r, i) => {
+          const name = String(r['Item'] || r['name'] || '').trim();
+          if (!name || /^totals$/i.test(name)) return;
+          const rid      = r['_id'] ? Number(r['_id']) : null;
+          const catRaw   = String(r['Category']  || 'other').toLowerCase();
+          const platRaw  = String(r['Platform']   || 'other').toLowerCase();
+          const cat      = catRev[catRaw]   || 'other';
+          const platform = platRev[platRaw] || 'other';
+          const date     = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
+          const cost     = parseFloat(r['Cost']       || 0) || 0;
+          const price    = parseFloat(r['Sale Price'] || 0) || 0;
+          const notes    = String(r['Notes'] || '').trim();
+          const ex = rid ? state.sales.find(s => s.id === rid) : null;
+          if (ex) { ex.name=name; ex.cat=cat; ex.platform=platform; ex.date=date; ex.cost=cost; ex.price=price; ex.notes=notes; updated++; }
+          else { state.sales.push({ id: Date.now()+added+i+6000, name, cat, price, cost, platform, date, notes }); added++; }
+        });
+      }
+
+      save(); updateSetLists(); updateHeader(); renderDashboard();
+      const page = document.querySelector('.page.active')?.id?.replace('page-','');
+      if (page==='packs')     renderPacks();
+      if (page==='inventory') renderInventory();
+      if (page==='sealed')    renderSealed();
+      if (page==='sales')     renderSales();
+
+      toast(`✅ Import complete — ${updated} updated · ${added} new rows`, 4000);
+    } catch(err) {
+      toast('❌ Import failed: ' + err.message, 5000);
+      console.error(err);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function _parseDate(val) {
+  if (!val) return null;
+  if (val instanceof Date) return val.toISOString().slice(0,10);
+  const s = String(val).trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  const d = new Date(s);
+  if (!isNaN(d)) return d.toISOString().slice(0,10);
+  return null;
+}
+
+
 load();
 
 // Preload sealed if empty
 if(state.sealed.length===0){
   const today=new Date().toISOString().slice(0,10);
   const preload=[
-    {set:'Charizard UPC',qty:10,type:'bundle',price:113.50},{set:'PFL Booster Box',qty:3,type:'bundle',price:223.51},{set:'TM ETB - Sealed',qty:5,type:'etb',price:61.00},
-    {set:'Heavy Hitters Box',qty:7,type:'bundle',price:53.77},{set:'Mega Booster Box',qty:1,type:'bundle',price:217.74},{set:'DR Sleeves',qty:38,type:'other',price:6.24},
-    {set:'Perfect Order Booster Box',qty:2,type:'bundle',price:178.29},{set:'Prismatic Figure Collection',qty:2,type:'bundle',price:86.89},{set:'PKC Ascended Heroes ETB',qty:3,type:'etb',price:65.16},
-    {set:'PKC Perfect Order ETB',qty:2,type:'etb',price:65.16},{set:'Ascended Heroes Booster Bundle',qty:4,type:'bundle',price:29.26},{set:'Sword & Shield Legendary Heroes Box',qty:1,type:'bundle',price:114.31},
-    {set:'Perfect Order ETB',qty:2,type:'etb',price:58.00},{set:'3 Pack Blister PFL',qty:5,type:'blister',price:17.28},{set:'Paldean Box',qty:1,type:'bundle',price:81.09},
+    {set:'Charizard UPC',qty:10,type:'upc',price:113.50},{set:'PFL Booster Box',qty:3,type:'booster-box',price:223.51},{set:'TM ETB - Sealed',qty:5,type:'etb',price:61.00},
+    {set:'Heavy Hitters Box',qty:7,type:'bundle',price:53.77},{set:'Mega Booster Box',qty:1,type:'booster-box',price:217.74},{set:'DR Sleeves',qty:38,type:'sleeves',price:6.24},
+    {set:'Perfect Order Booster Box',qty:2,type:'booster-box',price:178.29},{set:'Prismatic Figure Collection',qty:2,type:'collection',price:86.89},{set:'PKC Ascended Heroes ETB',qty:3,type:'etb',price:65.16},
+    {set:'PKC Perfect Order ETB',qty:2,type:'etb',price:65.16},{set:'Ascended Heroes Booster Bundle',qty:4,type:'bundle',price:29.26},{set:'Sword & Shield Legendary Heroes Box',qty:1,type:'collection',price:114.31},
+    {set:'Perfect Order ETB',qty:2,type:'etb',price:58.00},{set:'3 Pack Blister PFL',qty:5,type:'blister3',price:17.28},{set:'Paldean Box',qty:1,type:'collection',price:81.09},
     {set:'PKC Stellar Crown ETB',qty:1,type:'etb',price:65.16},{set:'Prismatic ETB',qty:2,type:'etb',price:32.10},{set:'DR Booster Bundle',qty:3,type:'bundle',price:33.01},
-    {set:'Mega Guard ETB',qty:1,type:'etb',price:60.00},{set:'Perfect Order Booster Bundle',qty:2,type:'bundle',price:29.26},{set:'Latias Box',qty:2,type:'bundle',price:27.08},
-    {set:'Prismatic Poster Bundle',qty:3,type:'bundle',price:17.94},{set:'PFL ETBB',qty:1,type:'etb',price:53.77},{set:'Mega 2 Pack Tin',qty:4,type:'other',price:11.47},
-    {set:'Surging Sparks Booster Box',qty:1,type:'bundle',price:196.60},{set:'Prismatic Mini Tins',qty:2,type:'other',price:13.00},{set:'Pokemon Day Celebration Box',qty:7,type:'bundle',price:17.74},
-    {set:'Pokéballs',qty:18,type:'other',price:13.21},{set:'13 Pack Prismatic Sleeve',qty:11,type:'other',price:18.31},{set:'Prismatic Booster Bundle',qty:7,type:'bundle',price:31.12},
-    {set:'JT 3 Pack Sleeve',qty:2,type:'other',price:16.19},{set:'JT Booster Bundle',qty:2,type:'bundle',price:34.80},{set:'Mega Zygarde ex Premium Collection',qty:3,type:'bundle',price:44.99},
-    {set:'Charizard Tin',qty:2,type:'other',price:27.12},{set:'JT Sleeves',qty:2,type:'other',price:6.52},{set:'Ascended Heroes - Target',qty:4,type:'etb',price:61.91},
-    {set:'2 Pack PFL/Mega',qty:10,type:'blister',price:12.70},{set:'PFL Sleeves',qty:8,type:'other',price:5.43},{set:'2 Pack Wide PFL Mega',qty:4,type:'blister',price:10.86},
-    {set:'AH Tech Sticker 3 Pack',qty:2,type:'other',price:21.75},{set:'Erika 2 Pack',qty:5,type:'blister',price:10.82},{set:'Sams Club Prismatic Packs',qty:2,type:'bundle',price:43.43},
-    {set:'Astral Radiance Art Packs',qty:5,type:'booster',price:6.51},{set:'AH Deluxe Poster',qty:1,type:'other',price:59.73},{set:'AH Pins',qty:1,type:'other',price:32.58},
+    {set:'Mega Guard ETB',qty:1,type:'etb',price:60.00},{set:'Perfect Order Booster Bundle',qty:2,type:'bundle',price:29.26},{set:'Latias Box',qty:2,type:'collection',price:27.08},
+    {set:'Prismatic Poster Bundle',qty:3,type:'poster',price:17.94},{set:'PFL ETBB',qty:1,type:'etb',price:53.77},{set:'Mega 2 Pack Tin',qty:4,type:'tin',price:11.47},
+    {set:'Surging Sparks Booster Box',qty:1,type:'booster-box',price:196.60},{set:'Prismatic Mini Tins',qty:2,type:'tin',price:13.00},{set:'Pokemon Day Celebration Box',qty:7,type:'collection',price:17.74},
+    {set:'Pokéballs',qty:18,type:'other',price:13.21},{set:'13 Pack Prismatic Sleeve',qty:11,type:'sleeves',price:18.31},{set:'Prismatic Booster Bundle',qty:7,type:'bundle',price:31.12},
+    {set:'JT 3 Pack Sleeve',qty:2,type:'sleeves',price:16.19},{set:'JT Booster Bundle',qty:2,type:'bundle',price:34.80},{set:'Mega Zygarde ex Premium Collection',qty:3,type:'collection',price:44.99},
+    {set:'Charizard Tin',qty:2,type:'tin',price:27.12},{set:'JT Sleeves',qty:2,type:'sleeves',price:6.52},{set:'Ascended Heroes - Target',qty:4,type:'etb',price:61.91},
+    {set:'2 Pack PFL/Mega',qty:10,type:'blister2',price:12.70},{set:'PFL Sleeves',qty:8,type:'sleeves',price:5.43},{set:'2 Pack Wide PFL Mega',qty:4,type:'blister2',price:10.86},
+    {set:'AH Tech Sticker 3 Pack',qty:2,type:'blister3',price:21.75},{set:'Erika 2 Pack',qty:5,type:'blister2',price:10.82},{set:'Sams Club Prismatic Packs',qty:2,type:'booster-box',price:43.43},
+    {set:'Astral Radiance Art Packs',qty:5,type:'booster-box',price:6.51},{set:'AH Deluxe Poster',qty:1,type:'poster',price:59.73},{set:'AH Pins',qty:1,type:'pins',price:32.58},
     {set:'First Partners Pack',qty:1,type:'bundle',price:17.37}
   ];
   let idBase=Date.now();
