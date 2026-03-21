@@ -618,7 +618,7 @@
     {
       "id": 1774122929081,
       "set": "Ascended Heroes - Target",
-      "qty": 4,
+      "qty": 3,
       "type": "etb",
       "date": "2026-03-21",
       "price": 61.910000000000004,
@@ -628,7 +628,7 @@
       "id": 1774122929082,
       "set": "2 Pack PFL/Mega",
       "qty": 10,
-      "type": "blister",
+      "type": "blister2",
       "date": "2026-03-21",
       "price": 12.700000000000001,
       "notes": "PFL/ME"
@@ -637,7 +637,7 @@
       "id": 1774122929083,
       "set": "PFL Sleeves",
       "qty": 8,
-      "type": "other",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 5.43,
       "notes": "PFL"
@@ -646,7 +646,7 @@
       "id": 1774122929084,
       "set": "2 Pack Wide PFL Mega",
       "qty": 4,
-      "type": "blister",
+      "type": "blister2",
       "date": "2026-03-21",
       "price": 10.860000000000001,
       "notes": "PFL/ME"
@@ -655,7 +655,7 @@
       "id": 1774122929085,
       "set": "AH Tech Sticker 3 Pack",
       "qty": 2,
-      "type": "other",
+      "type": "blister3",
       "date": "2026-03-21",
       "price": 21.75,
       "notes": "AH"
@@ -664,7 +664,7 @@
       "id": 1774122929086,
       "set": "Erika 2 Pack",
       "qty": 5,
-      "type": "blister",
+      "type": "blister2",
       "date": "2026-03-21",
       "price": 10.82,
       "notes": "AH"
@@ -673,7 +673,7 @@
       "id": 1774122929087,
       "set": "Sams Club Prismatic Packs",
       "qty": 2,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 43.43,
       "notes": "Pris"
@@ -682,7 +682,7 @@
       "id": 1774122929088,
       "set": "Astral Radiance Art Packs",
       "qty": 5,
-      "type": "booster",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 6.51,
       "notes": "AR"
@@ -691,7 +691,7 @@
       "id": 1774122929089,
       "set": "AH Deluxe Poster",
       "qty": 1,
-      "type": "other",
+      "type": "poster",
       "date": "2026-03-21",
       "price": 59.730000000000004,
       "notes": "AH"
@@ -700,7 +700,7 @@
       "id": 1774122929090,
       "set": "AH Pins",
       "qty": 1,
-      "type": "other",
+      "type": "pins",
       "date": "2026-03-21",
       "price": 32.58,
       "notes": "AH"
@@ -709,7 +709,7 @@
       "id": 1774122929091,
       "set": "First Partners Pack",
       "qty": 1,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 17.37,
       "notes": "Mix"
