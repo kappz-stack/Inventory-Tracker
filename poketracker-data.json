@@ -511,7 +511,7 @@
       "id": 1774122929069,
       "set": "Mega 2 Pack Tin",
       "qty": 4,
-      "type": "other",
+      "type": "tin",
       "date": "2026-03-21",
       "price": 11.47,
       "notes": "ME"
@@ -520,7 +520,7 @@
       "id": 1774122929070,
       "set": "Surging Sparks Booster Box",
       "qty": 1,
-      "type": "bundle",
+      "type": "booster-box",
       "date": "2026-03-21",
       "price": 196.6,
       "notes": "SS"
@@ -529,7 +529,7 @@
       "id": 1774122929071,
       "set": "Prismatic Mini Tins",
       "qty": 2,
-      "type": "other",
+      "type": "tin",
       "date": "2026-03-21",
       "price": 13,
       "notes": "Pris"
@@ -538,7 +538,7 @@
       "id": 1774122929072,
       "set": "Pokemon Day Celebration Box",
       "qty": 7,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 17.740000000000002,
       "notes": "Mix"
@@ -547,7 +547,7 @@
       "id": 1774122929073,
       "set": "Pokéballs",
       "qty": 18,
-      "type": "other",
+      "type": "tin",
       "date": "2026-03-21",
       "price": 13.21,
       "notes": "Mix"
@@ -556,7 +556,7 @@
       "id": 1774122929074,
       "set": "13 Pack Prismatic Sleeve",
       "qty": 11,
-      "type": "other",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 18.310000000000002,
       "notes": "Pris"
@@ -574,7 +574,7 @@
       "id": 1774122929076,
       "set": "JT 3 Pack Sleeve",
       "qty": 2,
-      "type": "other",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 16.19,
       "notes": "JT"
@@ -601,7 +601,7 @@
       "id": 1774122929079,
       "set": "Charizard Tin",
       "qty": 2,
-      "type": "other",
+      "type": "tin",
       "date": "2026-03-21",
       "price": 27.12,
       "notes": "Mix"
@@ -610,7 +610,7 @@
       "id": 1774122929080,
       "set": "JT Sleeves",
       "qty": 2,
-      "type": "other",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 6.52,
       "notes": "JT"
