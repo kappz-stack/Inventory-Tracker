@@ -77,7 +77,7 @@
       "set": "Walmart $25 Pack",
       "count": 1,
       "date": "2026-03-21",
-      "price": 27.156,
+      "price": 27.156000000000002,
       "notes": "",
       "pulls": []
     },
@@ -221,7 +221,7 @@
       "set": "Prismatic 3 Pack",
       "count": 1,
       "date": "2026-03-21",
-      "price": 14.61,
+      "price": 14.610000000000001,
       "notes": "",
       "pulls": []
     },
@@ -248,7 +248,7 @@
       "set": "Pokemon Day",
       "count": 1,
       "date": "2026-03-21",
-      "price": 17.74,
+      "price": 17.740000000000002,
       "notes": "",
       "pulls": []
     },
@@ -266,7 +266,7 @@
       "set": "2 Pack PFL/Mega",
       "count": 1,
       "date": "2026-03-21",
-      "price": 12.7,
+      "price": 12.700000000000001,
       "notes": "",
       "pulls": []
     },
@@ -284,7 +284,7 @@
       "set": "2 Pack Wide PFL Mega",
       "count": 1,
       "date": "2026-03-21",
-      "price": 10.86,
+      "price": 10.860000000000001,
       "notes": "",
       "pulls": []
     },
@@ -334,7 +334,7 @@
       "type": "bundle",
       "date": "2026-03-21",
       "price": 53.77,
-      "notes": ""
+      "notes": "BBWF"
     },
     {
       "id": 1774122929050,
@@ -343,7 +343,7 @@
       "type": "bundle",
       "date": "2026-03-21",
       "price": 217.74,
-      "notes": ""
+      "notes": "ME"
     },
     {
       "id": 1774122929051,
@@ -486,7 +486,7 @@
       "qty": 2,
       "type": "bundle",
       "date": "2026-03-21",
-      "price": 27.08,
+      "price": 27.080000000000002,
       "notes": ""
     },
     {
@@ -540,7 +540,7 @@
       "qty": 7,
       "type": "bundle",
       "date": "2026-03-21",
-      "price": 17.74,
+      "price": 17.740000000000002,
       "notes": ""
     },
     {
@@ -558,7 +558,7 @@
       "qty": 11,
       "type": "other",
       "date": "2026-03-21",
-      "price": 18.31,
+      "price": 18.310000000000002,
       "notes": ""
     },
     {
@@ -585,7 +585,7 @@
       "qty": 2,
       "type": "bundle",
       "date": "2026-03-21",
-      "price": 34.8,
+      "price": 34.800000000000004,
       "notes": ""
     },
     {
@@ -621,7 +621,7 @@
       "qty": 4,
       "type": "etb",
       "date": "2026-03-21",
-      "price": 61.91,
+      "price": 61.910000000000004,
       "notes": ""
     },
     {
@@ -630,7 +630,7 @@
       "qty": 10,
       "type": "blister",
       "date": "2026-03-21",
-      "price": 12.7,
+      "price": 12.700000000000001,
       "notes": ""
     },
     {
@@ -648,7 +648,7 @@
       "qty": 4,
       "type": "blister",
       "date": "2026-03-21",
-      "price": 10.86,
+      "price": 10.860000000000001,
       "notes": ""
     },
     {
@@ -693,7 +693,7 @@
       "qty": 1,
       "type": "other",
       "date": "2026-03-21",
-      "price": 59.73,
+      "price": 59.730000000000004,
       "notes": ""
     },
     {
@@ -811,7 +811,7 @@
       "name": "Heavy Hitter x1",
       "cat": "bundle",
       "price": 70,
-      "cost": 61.885,
+      "cost": 61.885000000000005,
       "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
@@ -851,7 +851,7 @@
       "name": "Heavy Hitter x1",
       "cat": "bundle",
       "price": 70,
-      "cost": 61.885,
+      "cost": 61.885000000000005,
       "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
@@ -871,7 +871,7 @@
       "name": "Heavy Hitter x1",
       "cat": "bundle",
       "price": 70,
-      "cost": 61.885,
+      "cost": 61.885000000000005,
       "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
@@ -991,7 +991,7 @@
       "name": "OP Sale 4 Pack",
       "cat": "bundle",
       "price": 32,
-      "cost": 21.72,
+      "cost": 21.720000000000002,
       "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
@@ -1011,7 +1011,7 @@
       "name": "Ascended Heroes ETB",
       "cat": "other",
       "price": 100,
-      "cost": 61.91,
+      "cost": 61.910000000000004,
       "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
@@ -1021,7 +1021,7 @@
       "name": "Ascended Heroes Pin",
       "cat": "other",
       "price": 50,
-      "cost": 32.55,
+      "cost": 32.550000000000004,
       "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
@@ -1041,7 +1041,7 @@
       "name": "Venasaur Box 1/2",
       "cat": "bundle",
       "price": 27.5,
-      "cost": 24.31,
+      "cost": 24.310000000000002,
       "platform": "other",
       "date": "2026-01-01",
       "notes": ""
@@ -1071,7 +1071,7 @@
       "name": "Ascended Heroes ETB",
       "cat": "other",
       "price": 100,
-      "cost": 61.91,
+      "cost": 61.910000000000004,
       "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
