@@ -313,7 +313,7 @@
       "id": 1774122929047,
       "set": "PFL Booster Box",
       "qty": 3,
-      "type": "bundle",
+      "type": "booster-box",
       "date": "2026-03-21",
       "price": 223.51,
       "notes": "PFL"
@@ -331,7 +331,7 @@
       "id": 1774122929049,
       "set": "Heavy Hitters Box",
       "qty": 7,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 53.77,
       "notes": "BBWF"
@@ -340,7 +340,7 @@
       "id": 1774122929050,
       "set": "Mega Booster Box",
       "qty": 1,
-      "type": "bundle",
+      "type": "booster-box",
       "date": "2026-03-21",
       "price": 217.74,
       "notes": "ME"
@@ -349,7 +349,7 @@
       "id": 1774122929051,
       "set": "DR Sleeves",
       "qty": 38,
-      "type": "other",
+      "type": "sleeves",
       "date": "2026-03-21",
       "price": 6.24,
       "notes": "DR"
@@ -358,7 +358,7 @@
       "id": 1774122929052,
       "set": "Perfect Order Booster Box",
       "qty": 2,
-      "type": "bundle",
+      "type": "booster-box",
       "date": "2026-03-21",
       "price": 178.29,
       "notes": "PO"
@@ -367,7 +367,7 @@
       "id": 1774122929053,
       "set": "Prismatic Figure Collection",
       "qty": 2,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 86.89,
       "notes": "Pris"
