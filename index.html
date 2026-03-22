@@ -834,7 +834,7 @@
           <button class="btn" style="padding:6px 14px;font-size:12px" onclick="applyBulk('sales')">Apply to selected</button>
           <button class="btn-ghost" style="font-size:12px" onclick="clearSelection('sales')">Cancel</button>
         </div>
-        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sales" onchange="toggleSelectAll('sales',this.checked)"></th><th>Item</th><th>Category</th><th>Platform</th><th>Date</th><th>Notes</th><th class="num">Cost</th><th class="num">Sale</th><th class="num">Profit</th><th></th></tr></thead><tbody id="sl-table"><tr><td colspan="10"><div class="empty"><div class="empty-icon">💰</div><p>No sales logged yet.</p></div></td></tr></tbody></table>
+        <table class="tbl"><thead><tr><th class="check-cell"><input type="checkbox" class="row-check" id="chk-all-sales" onchange="toggleSelectAll('sales',this.checked)"></th><th>Item</th><th>Category</th><th>Platform</th><th>Date</th><th>Notes</th><th class="num">Cost</th><th class="num">Sale</th><th class="num">Profit</th><th class="num">Margin</th><th></th></tr></thead><tbody id="sl-table"><tr><td colspan="11"><div class="empty"><div class="empty-icon">💰</div><p>No sales logged yet.</p></div></td></tr></tbody></table>
       </div>
       <div id="sl-count-label" style="font-size:12px;color:var(--muted);margin-top:10px;text-align:right"></div>
     </div>
@@ -1249,8 +1249,11 @@ function deleteSale(id) { state.sales=state.sales.filter(s=>s.id!==id); save(); 
 function updateSale(id,field,value) {
   const item=state.sales.find(s=>s.id===id); if(!item) return; item[field]=value; save();
   const p=item.price-item.cost, pColor=p>0?'var(--green)':p<0?'var(--red)':'var(--muted)';
+  const margin=item.price>0?((p/item.price)*100).toFixed(1):null;
   const profitCell=document.getElementById('sl-profit-'+id);
   if(profitCell){profitCell.textContent=(p>=0?'+':'')+'$'+Math.abs(p).toFixed(2);profitCell.style.color=pColor;}
+  const marginCell=document.getElementById('sl-margin-'+id);
+  if(marginCell){marginCell.textContent=margin!==null?margin+'%':'—';}
   _refreshSalesStats(); if(isDash()) renderDashboard();
 }
 function _refreshSalesStats() {
@@ -1297,9 +1300,10 @@ function renderSales() {
   const maxPlat=Math.max(1,...Object.values(platMap)), platBarsEl=ge('sl-platform-bars');
   if(platBarsEl) platBarsEl.innerHTML=Object.keys(platMap).length?Object.entries(platMap).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<div class="bar-row"><span class="bar-label">${PLAT_LABELS[p]||p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxPlat*100)}%;background:${PLAT_COLORS[p]}"></div></div><span class="bar-val" style="font-size:11px">$${v.toFixed(0)}</span></div>`).join(''):'<div style="color:var(--muted);font-size:13px">No sales yet.</div>';
   const tbody=ge('sl-table'), countLbl=ge('sl-count-label');
-  if(!items.length){tbody.innerHTML=`<tr><td colspan="10"><div class="empty"><div class="empty-icon">💰</div><p>${state.sales.length?'No matches.':'No sales logged yet.'}</p></div></td></tr>`;if(countLbl)countLbl.textContent='';return;}
+  if(!items.length){tbody.innerHTML=`<tr><td colspan="11"><div class="empty"><div class="empty-icon">💰</div><p>${state.sales.length?'No matches.':'No sales logged yet.'}</p></div></td></tr>`;if(countLbl)countLbl.textContent='';return;}
   tbody.innerHTML=items.map(s=>{
     const p=s.price-s.cost, pColor=p>0?'var(--green)':p<0?'var(--red)':'var(--muted)';
+    const margin=s.price>0?((p/s.price)*100).toFixed(1):null;
     const catOpts=Object.entries(CAT_LABELS).map(([v,l])=>`<option value="${v}"${s.cat===v?' selected':''}>${l}</option>`).join('');
     const platOpts=Object.entries(PLAT_LABELS).map(([v,l])=>`<option value="${v}"${s.platform===v?' selected':''}>${l}</option>`).join('');
     return `<tr data-id="${s.id}" class="${_selection.sales.has(s.id)?'selected-row':''}">
@@ -1312,6 +1316,7 @@ function renderSales() {
       <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.cost||''}" placeholder="0.00" style="width:80px;text-align:right" oninput="updateSale(${s.id},'cost',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
       <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;color:var(--green)" oninput="updateSale(${s.id},'price',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
       <td class="num" style="color:${pColor};font-weight:600;white-space:nowrap" id="sl-profit-${s.id}">${(p>=0?'+':'')+'$'+Math.abs(p).toFixed(2)}</td>
+      <td class="num" style="color:var(--muted);white-space:nowrap" id="sl-margin-${s.id}">${margin!==null?margin+'%':'—'}</td>
       <td><button class="btn-danger" onclick="deleteSale(${s.id})">✕</button></td>
     </tr>`;
   }).join('');
@@ -1348,7 +1353,7 @@ function renderDashboard() {
 
   // Recent sales widget
   const salesWidgetEl=ge('d-sales-list');
-  if(salesWidgetEl){const recent=state.sales.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);if(!recent.length){salesWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div>';}else{salesWidgetEl.innerHTML=recent.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)"><div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</div><div style="font-size:11px;color:${CAT_COLORS[s.cat]}">${CAT_LABELS[s.cat]||s.cat} · ${s.date}</div></div><span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--green);margin-left:12px;flex-shrink:0">$${s.price.toFixed(2)}</span></div>`).join('');}}
+  if(salesWidgetEl){const recent=state.sales.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);if(!recent.length){salesWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div>';}else{salesWidgetEl.innerHTML=recent.map(s=>{const profit=s.price-s.cost,margin=s.price>0?((profit/s.price)*100).toFixed(1):null,pColor=profit>=0?'var(--green)':'var(--red)';return`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)"><div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</div><div style="font-size:11px;color:${CAT_COLORS[s.cat]}">${CAT_LABELS[s.cat]||s.cat} · ${s.date}</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px"><div style="font-family:'DM Mono',monospace;font-size:13px;color:${pColor}">${(profit>=0?'+':'')+'$'+Math.abs(profit).toFixed(2)}</div>${margin!==null?`<div style="font-size:10px;color:var(--muted)">${margin}% margin</div>`:''}</div></div>`;}).join('');}}
 
   // Sealed stash widget
   const sealedWidgetEl=ge('d-sealed-list');
