@@ -1448,17 +1448,67 @@ function renderSetBreakdownChart() {
   const values = sorted.map(([, v]) => v);
   const colors = sorted.map((_, i) => SET_PALETTE[i % SET_PALETTE.length]);
 
-  // Legend
-  if (ge('chart-set-legend')) {
-    ge('chart-set-legend').innerHTML = sorted.map(([label, val], i) => {
+  // Shared tooltip content builder (used by both chart hover and legend hover)
+  function buildSetTooltipHtml(lbl) {
+    const val = setMap[lbl] || 0;
+    const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
+    const totalQtyLabel = setQtyMap[lbl] != null ? ` · ×${setQtyMap[lbl]} units` : '';
+    let breakdownHtml = '';
+    if (setTypeMap[lbl]) {
+      const types = Object.entries(setTypeMap[lbl]).sort((a, b) => b[1].cost - a[1].cost);
+      const setTotal = setMap[lbl] || 1;
+      breakdownHtml = `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px">` +
+        types.map(([type, d]) => {
+          const tp = ((d.cost / setTotal) * 100).toFixed(0);
+          return `<div style="display:flex;justify-content:space-between;gap:16px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px">
+            <span style="color:#8889a8">${type}</span>
+            <span style="color:#f0f0f8">×${d.qty} &nbsp; $${d.cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
+          </div>`;
+        }).join('') + `</div>`;
+    }
+    return `
+      <div style="font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${lbl}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${val.toFixed(2)} <span style="color:#8889a8;font-size:11px">(${pct}%${totalQtyLabel})</span></div>
+      ${breakdownHtml}`;
+  }
+
+  // Legend — add data-set-label for hover
+  const legendEl = ge('chart-set-legend');
+  if (legendEl) {
+    legendEl.innerHTML = sorted.map(([label, val], i) => {
       const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
-      return `<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)">
+      return `<div data-set-label="${esc(label)}" style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border);cursor:default">
         <span style="width:10px;height:10px;border-radius:50%;background:${colors[i]};flex-shrink:0"></span>
         <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">${esc(label)}</span>
         <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0">${pct}%</span>
         <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);flex-shrink:0;min-width:52px;text-align:right">$${val.toFixed(0)}</span>
       </div>`;
     }).join('');
+
+    // Wire hover on legend rows
+    legendEl.querySelectorAll('[data-set-label]').forEach(row => {
+      row.addEventListener('mouseenter', e => {
+        const lbl = row.dataset.setLabel;
+        let ttEl = document.getElementById('chart-set-tooltip');
+        if (!ttEl) return;
+        ttEl.innerHTML = buildSetTooltipHtml(lbl);
+        ttEl.style.display = 'block';
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const ttW = ttEl.offsetWidth, ttH = ttEl.offsetHeight;
+        const rect = row.getBoundingClientRect();
+        // Show to the right of the legend row; fall back to left if needed
+        let left = rect.right + 12;
+        if (left + ttW > vw - 8) left = rect.left - ttW - 12;
+        let top = rect.top + (rect.height / 2) - (ttH / 2);
+        top = Math.max(8, Math.min(top, vh - ttH - 8));
+        ttEl.style.left = left + 'px';
+        ttEl.style.top  = top  + 'px';
+      });
+      row.addEventListener('mouseleave', () => {
+        const ttEl = document.getElementById('chart-set-tooltip');
+        if (ttEl) ttEl.style.display = 'none';
+      });
+    });
   }
 
   const ctx = ge('chart-set-doughnut');
@@ -1505,26 +1555,7 @@ function renderSetBreakdownChart() {
             const val   = dp.raw;                 // raw numeric value for doughnut
             const pct   = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
 
-            let breakdownHtml = '';
-            if (setTypeMap[lbl]) {
-              const types = Object.entries(setTypeMap[lbl]).sort((a, b) => b[1].cost - a[1].cost);
-              const setTotal = setMap[lbl] || 1;
-              const totalQty = setQtyMap[lbl] || 0;
-              breakdownHtml = `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px">` +
-                types.map(([type, d]) => {
-                  const tp = ((d.cost / setTotal) * 100).toFixed(0);
-                  return `<div style="display:flex;justify-content:space-between;gap:16px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px">
-                    <span style="color:#8889a8">${type}</span>
-                    <span style="color:#f0f0f8">×${d.qty} &nbsp; $${d.cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
-                  </div>`;
-                }).join('') + `</div>`;
-            }
-
-            const totalQtyLabel = setQtyMap[lbl] != null ? ` · ×${setQtyMap[lbl]} units` : '';
-            ttEl.innerHTML = `
-              <div style="font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${lbl}</div>
-              <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${val.toFixed(2)} <span style="color:#8889a8;font-size:11px">(${pct}%${totalQtyLabel})</span></div>
-              ${breakdownHtml}`;
+            ttEl.innerHTML = buildSetTooltipHtml(lbl);
 
             // Position to the right of the canvas, vertically centered
             const rect = chart.canvas.getBoundingClientRect();
