@@ -548,7 +548,7 @@
       "set": "Pokéballs",
       "qty": 18,
       "type": "tin",
-      "date": "2025-12-31",
+      "date": "2026-03-22",
       "price": 13.21,
       "notes": "Mix"
     },
@@ -602,7 +602,7 @@
       "set": "Charizard Tin",
       "qty": 2,
       "type": "tin",
-      "date": "2025-12-31",
+      "date": "2026-02-27",
       "price": 27.12,
       "notes": "Mix"
     },
@@ -618,7 +618,7 @@
     {
       "id": 1774122929081,
       "set": "Ascended Heroes",
-      "qty": 4,
+      "qty": 4.5,
       "type": "etb",
       "date": "2026-02-27",
       "price": 61.910000000000004,
