@@ -331,7 +331,7 @@
       "id": 1774122929049,
       "set": "Heavy Hitters Box",
       "qty": 7,
-      "type": "collection",
+      "type": "costco",
       "date": "2025-12-31",
       "price": 53.77,
       "notes": "BBWF"
@@ -574,7 +574,7 @@
       "id": 1774122929076,
       "set": "JT 3 Pack Sleeve",
       "qty": 2,
-      "type": "sleeves",
+      "type": "blister3",
       "date": "2025-12-31",
       "price": 16.19,
       "notes": "JT"
