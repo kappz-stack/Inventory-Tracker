@@ -305,7 +305,7 @@
       "set": "Charizard UPC",
       "qty": 10,
       "type": "upc",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 113.5,
       "notes": "Mix"
     },
@@ -314,7 +314,7 @@
       "set": "PFL Booster Box",
       "qty": 3,
       "type": "booster-box",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 223.51,
       "notes": "PFL"
     },
@@ -323,7 +323,7 @@
       "set": "TM ETB - Sealed",
       "qty": 5,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 61,
       "notes": "TM"
     },
@@ -332,7 +332,7 @@
       "set": "Heavy Hitters Box",
       "qty": 7,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 53.77,
       "notes": "BBWF"
     },
@@ -341,7 +341,7 @@
       "set": "Mega Booster Box",
       "qty": 1,
       "type": "booster-box",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 217.74,
       "notes": "ME"
     },
@@ -350,7 +350,7 @@
       "set": "DR Sleeves",
       "qty": 38,
       "type": "sleeves",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 6.24,
       "notes": "DR"
     },
@@ -359,7 +359,7 @@
       "set": "Perfect Order Booster Box",
       "qty": 2,
       "type": "booster-box",
-      "date": "2026-03-21",
+      "date": "2026-03-27",
       "price": 178.29,
       "notes": "PO"
     },
@@ -368,7 +368,7 @@
       "set": "Prismatic Figure Collection",
       "qty": 2,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 86.89,
       "notes": "Pris"
     },
@@ -377,7 +377,7 @@
       "set": "PKC Ascended Heroes ETB",
       "qty": 3,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 65.16,
       "notes": "AH"
     },
@@ -386,7 +386,7 @@
       "set": "PKC Perfect Order ETB",
       "qty": 2,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2026-03-27",
       "price": 65.16,
       "notes": "PO"
     },
@@ -395,7 +395,7 @@
       "set": "Ascended Heroes Booster Bundle",
       "qty": 4,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 29.26,
       "notes": "AH"
     },
@@ -404,7 +404,7 @@
       "set": "Sword & Shield Legendary Heroes Box",
       "qty": 1,
       "type": "upc",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 114.31,
       "notes": "Mix"
     },
@@ -413,7 +413,7 @@
       "set": "Perfect Order ETB",
       "qty": 3,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2026-03-27",
       "price": 58,
       "notes": "PO"
     },
@@ -422,7 +422,7 @@
       "set": "3 Pack Blister PFL",
       "qty": 5,
       "type": "blister3",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 17.28,
       "notes": "PFL"
     },
@@ -431,7 +431,7 @@
       "set": "Paldean Box",
       "qty": 1,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 81.09,
       "notes": "PAL"
     },
@@ -440,7 +440,7 @@
       "set": "PKC Stellar Crown ETB",
       "qty": 1,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 65.16,
       "notes": "SC"
     },
@@ -449,7 +449,7 @@
       "set": "Prismatic ETB",
       "qty": 2,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 32.1,
       "notes": "Pris"
     },
@@ -458,7 +458,7 @@
       "set": "DR Booster Bundle",
       "qty": 3,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 33.01,
       "notes": "DR"
     },
@@ -467,7 +467,7 @@
       "set": "Mega Guard ETB",
       "qty": 1,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 60,
       "notes": "ME"
     },
@@ -476,7 +476,7 @@
       "set": "Perfect Order Booster Bundle",
       "qty": 2,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2026-03-27",
       "price": 29.26,
       "notes": "PO"
     },
@@ -485,7 +485,7 @@
       "set": "Latias Box",
       "qty": 2,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 27.080000000000002,
       "notes": "Mix"
     },
@@ -494,7 +494,7 @@
       "set": "Prismatic Poster Bundle",
       "qty": 3,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 17.94,
       "notes": "Pris"
     },
@@ -503,7 +503,7 @@
       "set": "PFL ETBB",
       "qty": 1,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 53.77,
       "notes": "PFL"
     },
@@ -512,7 +512,7 @@
       "set": "Mega 2 Pack Tin",
       "qty": 4,
       "type": "tin",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 11.47,
       "notes": "ME"
     },
@@ -521,7 +521,7 @@
       "set": "Surging Sparks Booster Box",
       "qty": 1,
       "type": "booster-box",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 196.6,
       "notes": "SS"
     },
@@ -530,7 +530,7 @@
       "set": "Prismatic Mini Tins",
       "qty": 2,
       "type": "tin",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 13,
       "notes": "Pris"
     },
@@ -539,7 +539,7 @@
       "set": "Pokemon Day Celebration Box",
       "qty": 7,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 17.740000000000002,
       "notes": "Mix"
     },
@@ -548,7 +548,7 @@
       "set": "Pokéballs",
       "qty": 18,
       "type": "tin",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 13.21,
       "notes": "Mix"
     },
@@ -557,7 +557,7 @@
       "set": "3 Pack Prismatic Sleeve",
       "qty": 11,
       "type": "blister3",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 18.310000000000002,
       "notes": "Pris"
     },
@@ -566,7 +566,7 @@
       "set": "Prismatic Booster Bundle",
       "qty": 7,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 31.12,
       "notes": "Pris"
     },
@@ -575,7 +575,7 @@
       "set": "JT 3 Pack Sleeve",
       "qty": 2,
       "type": "sleeves",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 16.19,
       "notes": "JT"
     },
@@ -584,7 +584,7 @@
       "set": "JT Booster Bundle",
       "qty": 2,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 34.800000000000004,
       "notes": "JT"
     },
@@ -593,7 +593,7 @@
       "set": "Mega Zygarde ex Premium Collection",
       "qty": 3,
       "type": "bundle",
-      "date": "2026-03-21",
+      "date": "2026-03-27",
       "price": 44.99,
       "notes": "PO"
     },
@@ -602,7 +602,7 @@
       "set": "Charizard Tin",
       "qty": 2,
       "type": "tin",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 27.12,
       "notes": "Mix"
     },
@@ -611,7 +611,7 @@
       "set": "JT Sleeves",
       "qty": 2,
       "type": "sleeves",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 6.52,
       "notes": "JT"
     },
@@ -620,7 +620,7 @@
       "set": "Ascended Heroes",
       "qty": 4.5,
       "type": "etb",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 61.910000000000004,
       "notes": "AH"
     },
@@ -629,7 +629,7 @@
       "set": "2 Pack PFL/Mega",
       "qty": 10,
       "type": "blister2",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 12.700000000000001,
       "notes": "PFL/ME"
     },
@@ -638,7 +638,7 @@
       "set": "PFL Sleeves",
       "qty": 8,
       "type": "sleeves",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 5.43,
       "notes": "PFL"
     },
@@ -647,7 +647,7 @@
       "set": "2 Pack Wide PFL Mega",
       "qty": 4,
       "type": "blister2",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 10.860000000000001,
       "notes": "PFL/ME"
     },
@@ -656,7 +656,7 @@
       "set": "AH Tech Sticker 3 Pack",
       "qty": 2,
       "type": "blister3",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 21.75,
       "notes": "AH"
     },
@@ -665,7 +665,7 @@
       "set": "Erika 2 Pack",
       "qty": 5,
       "type": "blister2",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 10.82,
       "notes": "AH"
     },
@@ -674,7 +674,7 @@
       "set": "Sams Club Prismatic Packs",
       "qty": 2,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 43.43,
       "notes": "Pris"
     },
@@ -683,7 +683,7 @@
       "set": "Astral Radiance Art Packs",
       "qty": 5,
       "type": "sleeves",
-      "date": "2026-03-21",
+      "date": "2026-03-16",
       "price": 6.51,
       "notes": "AR"
     },
@@ -692,7 +692,7 @@
       "set": "AH Deluxe Poster",
       "qty": 1,
       "type": "poster",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 59.730000000000004,
       "notes": "AH"
     },
@@ -701,7 +701,7 @@
       "set": "AH Pins",
       "qty": 1,
       "type": "pins",
-      "date": "2026-03-21",
+      "date": "2026-02-27",
       "price": 32.58,
       "notes": "AH"
     },
@@ -710,7 +710,7 @@
       "set": "First Partners Pack",
       "qty": 1,
       "type": "collection",
-      "date": "2026-03-21",
+      "date": "2025-12-31",
       "price": 17.37,
       "notes": "Mix"
     }
