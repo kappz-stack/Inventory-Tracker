@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokéTracker — Email Import</title>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1a18;
+    --muted: #6b6a64;
+    --accent: #5a4fcf;
+    --accent-light: #eeedfe;
+    --accent-dark: #3c3489;
+    --success: #1d9e75;
+    --success-light: #e1f5ee;
+    --warning: #ba7517;
+    --warning-light: #faeeda;
+    --danger: #a32d2d;
+    --danger-light: #fcebeb;
+    --amber: #ef9f27;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --card: #252523;
+      --border: #3a3935;
+      --text: #e8e6de;
+      --muted: #9c9a92;
+      --accent: #7f77dd;
+      --accent-light: #26215c;
+      --accent-dark: #afa9ec;
+      --success-light: #04342c;
+      --warning-light: #412402;
+      --danger-light: #501313;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .app { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header span { font-size: 13px; color: var(--muted); }
+  .badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--accent-light); color: var(--accent-dark); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); }
+  .card h2 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .card .sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.85; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-danger { background: var(--danger-light); color: var(--danger); border: 1px solid var(--danger); }
+
+  .filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 16px; }
+  .filter-chip { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; font-size: 12px; font-weight: 500; background: var(--card); transition: all 0.15s; }
+  .filter-chip:hover { border-color: var(--accent); }
+  .filter-chip.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+  .filter-chip input { display: none; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .status-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+  .status-bar.info { background: var(--accent-light); color: var(--accent-dark); }
+  .status-bar.success { background: var(--success-light); color: var(--success); }
+  .status-bar.warning { background: var(--warning-light); color: var(--warning); }
+  .status-bar.error { background: var(--danger-light); color: var(--danger); }
+  .spinner { width: 14px; height: 14px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr.selected td { background: var(--accent-light); }
+  tr:hover td { background: var(--bg); }
+
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+  .tag-box { background: #e6f1fb; color: #0c447c; }
+  .tag-etb { background: #eeedfe; color: #3c3489; }
+  .tag-bundle { background: #eaf3de; color: #27500a; }
+  .tag-blister { background: #faeeda; color: #633806; }
+  .tag-other { background: var(--border); color: var(--muted); }
+
+  .check-all { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 12px; cursor: pointer; }
+  input[type=checkbox] { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
+
+  .action-bar { display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: var(--card); border-top: 1px solid var(--border); border-radius: 0 0 12px 12px; margin-top: -1px; }
+  .action-bar .count { font-size: 12px; color: var(--muted); flex: 1; }
+
+  .empty { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; }
+  .empty .icon { font-size: 32px; margin-bottom: 8px; }
+
+  .gh-row { display: flex; gap: 8px; margin-top: 8px; }
+  .gh-row input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: var(--bg); color: var(--text); }
+  .gh-row input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+  .progress-list { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .progress-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .p-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .p-dot.done { background: var(--success); }
+  .p-dot.active { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+  .p-dot.pending { background: var(--border); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .conf-row { display: flex; gap: 8px; align-items: center; }
+  .conf-row input, .conf-row select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--bg); color: var(--text); }
+  .conf-row input:focus, .conf-row select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+  #gh-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); display: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <h1>📧 PokéTracker Email Import</h1>
+      <span>Read purchase emails → auto-fill your sealed stash</span>
+    </div>
+    <span class="badge">AI-Powered</span>
+  </header>
+
+  <!-- Step 1: Configure -->
+  <div class="card" id="step1">
+    <h2>Step 1 — Scan your Gmail</h2>
+    <p class="sub">Select which retailers to check for order confirmation emails</p>
+
+    <div class="filter-grid" id="retailerChips"></div>
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <label style="font-size:12px;color:var(--muted);">Look back</label>
+      <select id="lookback" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;background:var(--bg);color:var(--text);">
+        <option value="7">Last 7 days</option>
+        <option value="14">Last 14 days</option>
+        <option value="30" selected>Last 30 days</option>
+        <option value="60">Last 60 days</option>
+        <option value="90">Last 90 days</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" id="scanBtn" onclick="startScan()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Scan Gmail
+    </button>
+  </div>
+
+  <!-- Progress -->
+  <div class="card" id="progressCard" style="display:none;">
+    <h2>Scanning emails…</h2>
+    <p class="sub">Fetching emails then using AI to identify Pokémon purchases</p>
+    <div class="progress-list" id="progressList"></div>
+  </div>
+
+  <!-- Status -->
+  <div id="statusBar" style="display:none;"></div>
+
+  <!-- Step 2: Review results -->
+  <div class="card" id="step2" style="display:none;">
+    <h2>Step 2 — Review detected purchases</h2>
+    <p class="sub">Claude AI has identified the following Pokémon items from your emails. Edit any field before importing.</p>
+
+    <label class="check-all">
+      <input type="checkbox" id="selectAll" onchange="toggleAll(this.checked)"> Select all
+    </label>
+
+    <div style="overflow-x:auto;">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th style="width:32px;"></th>
+            <th>Item name</th>
+            <th>Pokémon set</th>
+            <th>Pack type</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="action-bar" id="actionBar">
+      <span class="count" id="selCount">0 items selected</span>
+      <button class="btn btn-outline btn-sm" onclick="downloadCSV()">⬇ Download CSV</button>
+      <button class="btn btn-success btn-sm" onclick="showGHSection()">⬆ Push to GitHub</button>
+    </div>
+
+    <div id="gh-section">
+      <h2 style="font-size:13px;margin-bottom:4px;">Push to GitHub repo</h2>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">This will update <code>poketracker-data.json</code> in your repo's sealed stash section.</p>
+      <div class="gh-row">
+        <input id="ghUser" placeholder="GitHub username" />
+        <input id="ghRepo" placeholder="Repository name" />
+        <input id="ghToken" type="password" placeholder="Personal access token" />
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn btn-primary btn-sm" onclick="pushToGitHub()">Push selected to GitHub</button>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('gh-section').style.display='none'">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const RETAILERS = [
+  { id: 'amazon',        label: 'Amazon',         color: '#e8a119', keywords: ['amazon.com', 'Your Amazon.com order'] },
+  { id: 'target',        label: 'Target',          color: '#cc0000', keywords: ['target.com', 'Target order'] },
+  { id: 'walmart',       label: 'Walmart',         color: '#007dc6', keywords: ['walmart.com', 'Walmart order'] },
+  { id: 'pokemon-center',label: 'Pokémon Center',  color: '#e3350d', keywords: ['pokemoncenter.com', 'Pokémon Center order'] },
+  { id: 'bestbuy',       label: 'Best Buy',        color: '#003087', keywords: ['bestbuy.com', 'Best Buy order'] },
+  { id: 'walgreens',     label: 'Walgreens',       color: '#e31837', keywords: ['walgreens.com', 'Walgreens order'] },
+  { id: 'costco',        label: 'Costco',           color: '#005daa', keywords: ['costco.com', 'Costco order'] },
+];
+
+const PACK_TYPES = ['Booster Box','Ultra Premium Collection','Booster Bundle','ETB','2 Pack Blister','3 Pack Blister','SPC','Sleeves','Collection Box','Poster Box','Pins Box','Tin','Costco Box','Other'];
+
+let results = [];
+let selected = new Set();
+
+// Render retailer chips
+const chipsEl = document.getElementById('retailerChips');
+RETAILERS.forEach(r => {
+  const chip = document.createElement('label');
+  chip.className = 'filter-chip active';
+  chip.innerHTML = `<input type="checkbox" checked value="${r.id}"><span class="dot" style="background:${r.color}"></span>${r.label}`;
+  chip.querySelector('input').addEventListener('change', e => {
+    chip.classList.toggle('active', e.target.checked);
+  });
+  chipsEl.appendChild(chip);
+});
+
+function getSelectedRetailers() {
+  return RETAILERS.filter(r => document.querySelector(`input[value="${r.id}"]`)?.checked);
+}
+
+function setStatus(msg, type='info', loading=false) {
+  const el = document.getElementById('statusBar');
+  el.style.display = 'block';
+  el.innerHTML = `<div class="status-bar ${type}">${loading ? '<div class="spinner"></div>' : ''}<span>${msg}</span></div>`;
+}
+
+function clearStatus() { document.getElementById('statusBar').style.display='none'; }
+
+function showProgress(steps) {
+  const card = document.getElementById('progressCard');
+  const list = document.getElementById('progressList');
+  card.style.display = 'block';
+  list.innerHTML = steps.map((s,i) => `
+    <div class="progress-item" id="prog-${i}">
+      <div class="p-dot ${i===0?'active':'pending'}" id="pdot-${i}"></div>
+      <span id="ptxt-${i}" style="color:${i===0?'var(--text)':'var(--muted)'}">${s}</span>
+    </div>`).join('');
+}
+
+function advanceProgress(i, total) {
+  if (i > 0) {
+    document.getElementById(`pdot-${i-1}`)?.classList.replace('active','done');
+  }
+  if (i < total) {
+    const dot = document.getElementById(`pdot-${i}`);
+    const txt = document.getElementById(`ptxt-${i}`);
+    if (dot) dot.classList.replace('pending','active');
+    if (txt) txt.style.color = 'var(--text)';
+  }
+}
+
+async function startScan() {
+  const retailers = getSelectedRetailers();
+  if (!retailers.length) { setStatus('Please select at least one retailer.','warning'); return; }
+
+  document.getElementById('scanBtn').disabled = true;
+  document.getElementById('step2').style.display = 'none';
+  clearStatus();
+
+  const days = parseInt(document.getElementById('lookback').value);
+  const after = Math.floor((Date.now() - days * 86400000) / 1000);
+
+  const steps = [
+    'Connecting to Gmail…',
+    'Searching for order emails…',
+    'Reading email contents…',
+    'Running AI analysis…',
+    'Parsing Pokémon items…',
+  ];
+  showProgress(steps);
+
+  try {
+    advanceProgress(0, steps.length);
+    await sleep(400);
+
+    // Build Gmail search query
+    const fromTerms = retailers.map(r => `from:${r.keywords[0]}`).join(' OR ');
+    const subjectTerms = retailers.map(r => `subject:"${r.keywords[1] || r.label}"`).join(' OR ');
+    const query = `(${fromTerms} OR ${subjectTerms}) (pokemon OR pokémon OR tcg OR "trading card") after:${after}`;
+
+    advanceProgress(1, steps.length);
+
+    // Call Gmail via Claude with MCP
+    const gmailResponse = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 4000,
+        system: `You are a Gmail assistant. Use the Gmail MCP tool to search for emails matching the provided query. 
+Return a JSON array of email objects, each with: { id, subject, from, date, snippet, body }.
+Return ONLY valid JSON array, no markdown, no explanation.
+Limit to 20 most recent emails. If no emails found, return [].`,
+        messages: [{ role: "user", content: `Search Gmail for this query and return the emails as JSON:\n\n${query}` }],
+        mcp_servers: [{ type: "url", url: "https://gmail.mcp.claude.com/mcp", name: "gmail-mcp" }]
+      })
+    });
+
+    advanceProgress(2, steps.length);
+
+    let emails = [];
+    if (gmailResponse.ok) {
+      const gmailData = await gmailResponse.json();
+      const textBlocks = gmailData.content?.filter(b => b.type === 'text') || [];
+      for (const block of textBlocks) {
+        try {
+          const cleaned = block.text.replace(/```json|```/g,'').trim();
+          if (cleaned.startsWith('[')) {
+            emails = JSON.parse(cleaned);
+            break;
+          }
+        } catch {}
+      }
+      // Also check tool results
+      const toolResults = gmailData.content?.filter(b => b.type === 'mcp_tool_result') || [];
+      if (!emails.length && toolResults.length) {
+        for (const tr of toolResults) {
+          try {
+            const txt = tr.content?.[0]?.text || '';
+            const parsed = JSON.parse(txt);
+            if (Array.isArray(parsed)) { emails = parsed; break; }
+          } catch {}
+        }
+      }
+    }
+
+    advanceProgress(3, steps.length);
+
+    if (!emails.length) {
+      // Demo mode with mock data if no emails found
+      emails = getMockEmails(retailers, days);
+      setStatus(`No emails found in Gmail — showing demo data. In production, ensure Gmail is connected and orders exist in the last ${days} days.`, 'warning');
+    }
+
+    // Now send all emails to Claude to parse Pokemon items
+    const aiResponse = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 3000,
+        system: `You are a Pokémon TCG inventory expert. Analyze order confirmation emails and extract Pokémon card purchases.
+
+For each email, identify Pokémon TCG items and return a JSON array. Each item must have:
+{
+  "item_name": "full product name",
+  "pokemon_set": "set name like Scarlet & Violet, Surging Sparks, Twilight Masquerade, etc.",
+  "pack_type": one of ["Booster Box","Ultra Premium Collection","Booster Bundle","ETB","2 Pack Blister","3 Pack Blister","SPC","Sleeves","Collection Box","Poster Box","Pins Box","Tin","Costco Box","Other"],
+  "qty": number,
+  "price": number (per unit, not total),
+  "date": "YYYY-MM-DD",
+  "retailer": "Amazon|Target|Walmart|Pokemon Center|Best Buy|Walgreens",
+  "confidence": "high|medium|low"
+}
+
+If an email has no Pokémon items, skip it. Return ONLY valid JSON array, no markdown or explanation. If unsure about pack type, use "Other".`,
+        messages: [{ role: "user", content: `Parse these ${emails.length} order emails for Pokémon TCG purchases:\n\n${JSON.stringify(emails.map(e => ({ subject: e.subject, from: e.from, date: e.date, body: (e.body || e.snippet || '').substring(0, 1500) })))}` }]
+      })
+    });
+
+    advanceProgress(4, steps.length);
+    await sleep(300);
+
+    let parsed = [];
+    if (aiResponse.ok) {
+      const aiData = await aiResponse.json();
+      const txt = aiData.content?.find(b => b.type === 'text')?.text || '[]';
+      try {
+        const clean = txt.replace(/```json|```/g,'').trim();
+        parsed = JSON.parse(clean);
+      } catch { parsed = []; }
+    }
+
+    document.getElementById('progressCard').style.display = 'none';
+
+    if (!parsed.length) {
+      setStatus('No Pokémon purchases detected in the found emails. Try expanding the date range or check that your Gmail is connected.', 'warning');
+      document.getElementById('scanBtn').disabled = false;
+      return;
+    }
+
+    results = parsed.map((item, i) => ({ ...item, _id: i, _checked: true }));
+    selected = new Set(results.map(r => r._id));
+    renderTable();
+    document.getElementById('step2').style.display = 'block';
+    setStatus(`Found ${results.length} Pokémon purchase${results.length !== 1 ? 's' : ''} across ${emails.length} email${emails.length !== 1 ? 's' : ''}.`, 'success');
+
+  } catch (err) {
+    document.getElementById('progressCard').style.display = 'none';
+    setStatus(`Error: ${err.message}. Make sure Gmail is connected in your Claude settings.`, 'error');
+    console.error(err);
+  }
+
+  document.getElementById('scanBtn').disabled = false;
+}
+
+function getMockEmails(retailers, days) {
+  return [
+    { subject: "Your Amazon.com order of Pokémon Scarlet & Violet Surging Sparks Booster Box", from: "auto-confirm@amazon.com", date: new Date(Date.now() - 5*86400000).toISOString(), snippet: "Order #112-4521987-3321456. 1x Pokémon TCG: Scarlet & Violet Surging Sparks Booster Box $143.99. Estimated delivery Friday." },
+    { subject: "Your Target order is confirmed", from: "target@em.target.com", date: new Date(Date.now() - 12*86400000).toISOString(), snippet: "Order #102-3948571. Pokémon TCG Twilight Masquerade Elite Trainer Box x2 @ $49.99 each. Pokémon Scarlet & Violet 151 Booster Bundle x1 @ $27.99." },
+    { subject: "Your Pokemon Center order confirmation", from: "noreply@pokemoncenter.com", date: new Date(Date.now() - 18*86400000).toISOString(), snippet: "Order PC-88821. Scarlet & Violet Prismatic Evolutions Ultra Premium Collection x1 $124.99. Thank you for your order!" },
+    { subject: "Walmart order confirmation", from: "help@walmart.com", date: new Date(Date.now() - 25*86400000).toISOString(), snippet: "Order #3000112847291. Pokémon TCG: Scarlet & Violet Shrouded Fable 3-Pack Blister x3 @ $14.99 each." },
+    { subject: "Your Costco.com order confirmation", from: "customer.service@costco.com", date: new Date(Date.now() - 20*86400000).toISOString(), snippet: "Order #24481203. Pokémon TCG Scarlet & Violet Costco Exclusive Booster Box Bundle x1 @ $64.99. Thank you for shopping at Costco!" },
+  ];
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function packTypeTag(type) {
+  const map = { 'Booster Box':'tag-box','Ultra Premium Collection':'tag-etb','ETB':'tag-etb','Booster Bundle':'tag-bundle','2 Pack Blister':'tag-blister','3 Pack Blister':'tag-blister','SPC':'tag-blister' };
+  return `<span class="tag ${map[type]||'tag-other'}">${type}</span>`;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('resultsBody');
+  tbody.innerHTML = results.map(item => `
+    <tr class="${selected.has(item._id)?'selected':''}" id="row-${item._id}">
+      <td><input type="checkbox" ${selected.has(item._id)?'checked':''} onchange="toggleRow(${item._id},this.checked)"></td>
+      <td><input class="conf-row" style="width:200px;" value="${esc(item.item_name)}" onchange="updateField(${item._id},'item_name',this.value)"></td>
+      <td><input class="conf-row" style="width:160px;" value="${esc(item.pokemon_set)}" onchange="updateField(${item._id},'pokemon_set',this.value)"></td>
+      <td>
+        <select class="conf-row" onchange="updateField(${item._id},'pack_type',this.value)">
+          ${PACK_TYPES.map(t=>`<option ${t===item.pack_type?'selected':''}>${t}</option>`).join('')}
+        </select>
+      </td>
+      <td><input type="number" class="conf-row" style="width:52px;" value="${item.qty}" min="1" onchange="updateField(${item._id},'qty',+this.value)"></td>
+      <td><input type="number" class="conf-row" style="width:70px;" step="0.01" value="${item.price}" onchange="updateField(${item._id},'price',+this.value)"></td>
+      <td><input type="date" class="conf-row" value="${item.date}" onchange="updateField(${item._id},'date',this.value)"></td>
+      <td style="color:var(--muted);font-size:11px;">${item.retailer||''}</td>
+    </tr>`).join('');
+  updateSelCount();
+}
+
+function esc(s) { return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function toggleRow(id, checked) {
+  if (checked) selected.add(id); else selected.delete(id);
+  document.getElementById(`row-${id}`)?.classList.toggle('selected', checked);
+  updateSelCount();
+}
+
+function toggleAll(checked) {
+  results.forEach(r => {
+    if (checked) selected.add(r._id); else selected.delete(r._id);
+    document.getElementById(`row-${r._id}`)?.classList.toggle('selected', checked);
+    const cb = document.querySelector(`#row-${r._id} input[type=checkbox]`);
+    if (cb) cb.checked = checked;
+  });
+  updateSelCount();
+}
+
+function updateField(id, field, val) {
+  const item = results.find(r => r._id === id);
+  if (item) item[field] = val;
+}
+
+function updateSelCount() {
+  document.getElementById('selCount').textContent = `${selected.size} of ${results.length} selected`;
+  document.getElementById('selectAll').checked = selected.size === results.length;
+  document.getElementById('selectAll').indeterminate = selected.size > 0 && selected.size < results.length;
+}
+
+function getSelectedItems() {
+  return results.filter(r => selected.has(r._id));
+}
+
+function downloadCSV() {
+  const items = getSelectedItems();
+  if (!items.length) { setStatus('Select at least one item to export.','warning'); return; }
+  const headers = ['set (item name)','qty','type','date','price','notes (pokemon set)'];
+  const rows = items.map(i => [
+    `"${i.item_name}"`,
+    i.qty,
+    `"${i.pack_type}"`,
+    i.date,
+    i.price,
+    `"${i.pokemon_set}"`
+  ].join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = `poketracker-import-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  setStatus(`Downloaded CSV with ${items.length} item${items.length!==1?'s':''} — ready to import into PokéTracker.`, 'success');
+}
+
+function showGHSection() {
+  const sec = document.getElementById('gh-section');
+  sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+}
+
+async function pushToGitHub() {
+  const user = document.getElementById('ghUser').value.trim();
+  const repo = document.getElementById('ghRepo').value.trim();
+  const token = document.getElementById('ghToken').value.trim();
+  if (!user || !repo || !token) { setStatus('Fill in all GitHub fields.', 'warning'); return; }
+
+  const items = getSelectedItems();
+  if (!items.length) { setStatus('Select at least one item to push.', 'warning'); return; }
+
+  setStatus('Fetching current poketracker-data.json from GitHub…', 'info', true);
+
+  try {
+    const fileUrl = `https://api.github.com/repos/${user}/${repo}/contents/poketracker-data.json`;
+    const headers = { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+
+    const getRes = await fetch(fileUrl, { headers });
+    let existingData = { sealedPacks: [] };
+    let sha = null;
+
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      existingData = JSON.parse(atob(fileData.content.replace(/\n/g,'')));
+    }
+
+    if (!existingData.sealedPacks) existingData.sealedPacks = [];
+
+    const newEntries = items.map(i => ({
+      id: `email-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,
+      name: i.item_name,
+      qty: i.qty,
+      type: i.pack_type,
+      date: i.date,
+      price: i.price,
+      pokemonSet: i.pokemon_set,
+      source: `Email import (${i.retailer})`,
+      addedAt: new Date().toISOString()
+    }));
+
+    existingData.sealedPacks.push(...newEntries);
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(existingData, null, 2))));
+    const body = { message: `Add ${items.length} sealed pack(s) from email import`, content, ...(sha ? { sha } : {}) };
+
+    setStatus('Pushing to GitHub…', 'info', true);
+    const putRes = await fetch(fileUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || 'GitHub push failed');
+    }
+
+    setStatus(`✓ Pushed ${items.length} item${items.length!==1?'s':''} to ${user}/${repo}. Pull in PokéTracker to sync!`, 'success');
+    document.getElementById('gh-section').style.display = 'none';
+
+  } catch (err) {
+    setStatus(`GitHub error: ${err.message}`, 'error');
+  }
+}
+</script>
+</body>
+</html>
