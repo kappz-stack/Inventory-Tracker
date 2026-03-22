@@ -189,6 +189,140 @@
     .form-row { flex-direction: column; }
     .sync-group span.sync-label { display: none; }
   }
+  /* =====================================================
+     RESPONSIVE / MOBILE STYLES
+     ===================================================== */
+
+  /* Tablet — 2-col grids collapse, nav wraps */
+  @media (max-width: 768px) {
+    main { padding: 16px 12px; }
+
+    .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .grid-2 { grid-template-columns: 1fr; gap: 12px; }
+
+    .stat-card .value { font-size: 20px !important; }
+
+    /* Dashboard stat row — stack vertically on tablet */
+    .stat-card[style*="flex"] { flex-direction: column; align-items: flex-start; gap: 12px !important; }
+    .stat-card[style*="flex"] > div[style*="width:1px"] { display: none; }
+
+    /* Charts */
+    #chart-set-doughnut { width: 140px !important; height: 140px !important; }
+  }
+
+  /* Mobile — full single column, compact header */
+  @media (max-width: 540px) {
+    /* Header */
+    header { padding: 0 12px; height: auto; min-height: 52px; flex-wrap: wrap; gap: 6px; padding-top: 8px; padding-bottom: 8px; }
+    .logo { font-size: 16px; }
+    .header-stats { display: none; }
+    .sync-group { gap: 4px; flex-wrap: wrap; }
+    .sync-btn { font-size: 11px; padding: 5px 8px; gap: 4px; }
+    /* Hide text labels on sync buttons, show only icons */
+    .sync-btn .sync-label { display: none; }
+
+    /* Nav — scrollable horizontal strip */
+    nav {
+      padding: 0 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav button {
+      font-size: 12px;
+      padding: 0 12px;
+      height: 40px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Main content */
+    main { padding: 12px 10px; }
+
+    /* Grids — all single column */
+    .grid-4 { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; gap: 10px; }
+
+    /* Stat cards */
+    .stat-card { padding: 12px 14px; }
+    .stat-card .value { font-size: 18px !important; }
+    .stat-card .label { font-size: 10px; }
+
+    /* Cards */
+    .card { padding: 14px 12px; border-radius: var(--radius-sm); }
+
+    /* Section headers — stack on mobile */
+    .section-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .section-head > div { flex-wrap: wrap; gap: 6px; width: 100%; }
+    .section-head .search-wrap { width: 100% !important; }
+    .section-head select { width: auto; flex: 1; min-width: 100px; }
+
+    /* Forms */
+    .form-row { flex-direction: column; gap: 8px; }
+    .form-group { min-width: 0 !important; flex: 1 1 100% !important; }
+    label.lbl { font-size: 12px; }
+    input, select, textarea { font-size: 14px; padding: 10px 12px; }
+
+    /* Tables — horizontal scroll with minimum readable width */
+    .tbl-wrap, [style*="overflow-x:auto"] { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
+    .tbl { font-size: 12px; min-width: 480px; }
+    .tbl th { font-size: 10px; padding: 0 8px 8px; }
+    .tbl td { padding: 8px; }
+
+    /* Pack items */
+    .pack-item { padding: 10px 12px; gap: 8px; }
+    .pack-icon { width: 30px; height: 30px; font-size: 15px; }
+    .pack-name { font-size: 12px; }
+    .pack-meta { font-size: 11px; }
+
+    /* Bulk bar */
+    .bulk-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+    .bulk-bar select, .bulk-bar input { width: 100%; }
+
+    /* Buttons */
+    .btn { padding: 10px 16px; font-size: 13px; width: 100%; text-align: center; }
+    .btn-ghost { font-size: 12px; }
+
+    /* Modals — full screen on mobile */
+    .modal-backdrop { padding: 0; align-items: flex-end; }
+    .modal {
+      border-radius: var(--radius) var(--radius) 0 0;
+      max-width: 100% !important;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 20px 16px;
+    }
+    .modal-actions { flex-direction: column-reverse; gap: 8px; }
+    .modal-actions button { width: 100%; justify-content: center; }
+
+    /* Dashboard donut chart */
+    #chart-set-doughnut { width: 120px !important; height: 120px !important; }
+    #chart-set-center-val { font-size: 12px !important; }
+
+    /* Upload zones */
+    .upload-zone { padding: 12px; }
+    .upload-zone .uz-label { font-size: 11px; }
+
+    /* Sell button in table — keep small */
+    .btn-sell { font-size: 11px; padding: 4px 8px; }
+
+    /* Sort selects in section headers */
+    .sort-select { font-size: 11px; padding: 5px 8px; }
+  }
+
+  /* Extra small — very narrow phones */
+  @media (max-width: 380px) {
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+    .sync-btn span:not(.sync-dot) { display: none; }
+    .sync-btn { padding: 5px 7px; }
+    /* Show only icon for export/import */
+  }
+
 </style>
 </head>
 <body>
@@ -316,10 +450,10 @@
   </div>
   <div class="sync-group">
     <div class="sync-dot" id="sync-dot" title="GitHub sync status"></div>
-    <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ Pull</button>
-    <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ Push</button>
-    <button class="sync-btn" onclick="exportToExcel()" title="Export all data to Excel" style="border-color:rgba(82,212,208,.3)">📊 Export</button>
-    <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import from Excel, CSV, or Numbers" style="border-color:rgba(245,200,66,.3)">📥 Import</button>
+    <button class="sync-btn pull" onclick="githubPull()" title="Pull latest data from GitHub">⬇ <span class="sync-label">Pull</span></button>
+    <button class="sync-btn push" onclick="githubPush()" title="Push data to GitHub">⬆ <span class="sync-label">Push</span></button>
+    <button class="sync-btn" onclick="exportToExcel()" title="Export all data to Excel" style="border-color:rgba(82,212,208,.3)">📊 <span class="sync-label">Export</span></button>
+    <button class="sync-btn" onclick="document.getElementById('import-file-input').click()" title="Import from Excel, CSV, or Numbers" style="border-color:rgba(245,200,66,.3)">📥 <span class="sync-label">Import</span></button>
     <input type="file" id="import-file-input" accept=".xlsx,.xls,.csv,.numbers" style="display:none" onchange="handleImportFile(this.files[0]);this.value=''">
     <button class="sync-btn" onclick="openSyncModal()" title="Configure GitHub sync">⚙</button>
   </div>
@@ -355,7 +489,7 @@
           <h3 class="mini" style="margin-bottom:0">Stash Cost by Pokémon Set</h3>
           <span id="stash-set-total" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold)"></span>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:20px">
+        <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
           <div style="flex-shrink:0;width:180px;height:180px;position:relative">
             <canvas id="chart-set-doughnut"></canvas>
             <div id="chart-set-center" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">
@@ -670,7 +804,7 @@ let state = { packs:[], cards:[], sealed:[], sales:[] };
 const RARITY_ORDER = ['secret','ultra','ex','holo','rare','uncommon','common'];
 const HIT_RARITIES = new Set(['rare','holo','ex','ultra','secret']);
 
-function save() { localStorage.setItem('pt_state', JSON.stringify(state)); }
+function save() { localStorage.setItem('pt_state', JSON.stringify(state)); localStorage.setItem('pt_last_save', Date.now()); }
 function load() { try { const d = localStorage.getItem('pt_state'); if(d) state = JSON.parse(d); } catch(e){} }
 
 function toast(msg, dur=2400) {
@@ -762,6 +896,9 @@ async function githubPush() {
       body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error((await res.json()).message || res.status);
+    const now = Date.now();
+    localStorage.setItem('pt_last_push', now);
+    localStorage.setItem('pt_last_save', now); // in sync after push
     setSyncDot('ok');
     toast('✅ Data pushed to GitHub!');
   } catch(err) {
@@ -795,6 +932,9 @@ async function githubPull() {
     if (page === 'inventory') renderInventory();
     if (page === 'sealed') renderSealed();
     if (page === 'sales') renderSales();
+    const now = Date.now();
+    localStorage.setItem('pt_last_pull', now);
+    localStorage.setItem('pt_last_save', now);
     setSyncDot('ok');
     toast('✅ Data pulled from GitHub!');
   } catch(err) {
@@ -2246,6 +2386,64 @@ document.getElementById('p-date').value=new Date().toISOString().slice(0,10);
 document.getElementById('s-date').value=new Date().toISOString().slice(0,10);
 document.getElementById('sl-date').value=new Date().toISOString().slice(0,10);
 updateSetLists(); updateHeader(); renderDashboard();
+
+// Auto-pull from GitHub on page load
+// Rules:
+//   1. Skip if GitHub is not configured
+//   2. Skip if local data was modified after the last push (unpushed changes)
+//   3. Skip if we pulled successfully less than 1 hour ago
+async function autoPull() {
+  const c = ghConfig();
+  if (!c.user || !c.repo || !c.token) return; // Not configured
+
+  const lastSave = parseInt(localStorage.getItem('pt_last_save') || '0');
+  const lastPush = parseInt(localStorage.getItem('pt_last_push') || '0');
+  const lastPull = parseInt(localStorage.getItem('pt_last_pull') || '0');
+  const ONE_HOUR = 60 * 60 * 1000;
+
+  // Skip if there are local changes that haven't been pushed
+  if (lastSave > lastPush) {
+    console.info('Auto-pull skipped: unpushed local changes exist. Push first to sync.');
+    setSyncDot('ok');
+    return;
+  }
+
+  // Skip if last pull was less than 1 hour ago
+  if (Date.now() - lastPull < ONE_HOUR) {
+    console.info('Auto-pull skipped: pulled less than 1 hour ago.');
+    setSyncDot('ok');
+    return;
+  }
+
+  setSyncDot('busy');
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${c.user}/${c.repo}/contents/${DATA_FILE}`,
+      { headers: { Authorization: `token ${c.token}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (res.status === 404) { setSyncDot('ok'); return; }
+    if (!res.ok) throw new Error((await res.json()).message || res.status);
+    const j = await res.json();
+    const decoded = decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
+    const remote = JSON.parse(decoded);
+    state = {
+      packs:  mergeById(state.packs,  remote.packs  || []),
+      cards:  mergeById(state.cards,  remote.cards  || []),
+      sealed: mergeById(state.sealed, remote.sealed || []),
+      sales:  mergeById(state.sales,  remote.sales  || []),
+    };
+    const now = Date.now();
+    localStorage.setItem('pt_last_pull', now);
+    localStorage.setItem('pt_last_save', now);
+    save(); updateSetLists(); updateHeader(); renderDashboard();
+    setSyncDot('ok');
+    toast('🔄 Synced from GitHub', 2000);
+  } catch(err) {
+    setSyncDot('err');
+    console.warn('Auto-pull failed:', err.message);
+  }
+}
+autoPull();
 </script>
 </body>
 </html>
