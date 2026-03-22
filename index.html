@@ -1422,7 +1422,16 @@ function renderSetBreakdownChart() {
     setMap[label] = (setMap[label] || 0) + cost;
     if (!setTypeMap[label]) setTypeMap[label] = {};
     const typeLabel = TYPE_LABELS[s.type] || s.type || 'Other';
-    setTypeMap[label][typeLabel] = (setTypeMap[label][typeLabel] || 0) + cost;
+    if (!setTypeMap[label][typeLabel]) setTypeMap[label][typeLabel] = { cost: 0, qty: 0 };
+    setTypeMap[label][typeLabel].cost += cost;
+    setTypeMap[label][typeLabel].qty  += (s.qty || 0);
+  });
+
+  // Also track total qty per set
+  const setQtyMap = {};
+  state.sealed.forEach(s => {
+    const label = (s.notes && s.notes.trim()) ? s.notes.trim() : 'Other';
+    setQtyMap[label] = (setQtyMap[label] || 0) + (s.qty || 0);
   });
 
   const totalCost = Object.values(setMap).reduce((a, b) => a + b, 0);
@@ -1498,21 +1507,23 @@ function renderSetBreakdownChart() {
 
             let breakdownHtml = '';
             if (setTypeMap[lbl]) {
-              const types = Object.entries(setTypeMap[lbl]).sort((a, b) => b[1] - a[1]);
+              const types = Object.entries(setTypeMap[lbl]).sort((a, b) => b[1].cost - a[1].cost);
               const setTotal = setMap[lbl] || 1;
+              const totalQty = setQtyMap[lbl] || 0;
               breakdownHtml = `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px">` +
-                types.map(([type, cost]) => {
-                  const tp = ((cost / setTotal) * 100).toFixed(0);
+                types.map(([type, d]) => {
+                  const tp = ((d.cost / setTotal) * 100).toFixed(0);
                   return `<div style="display:flex;justify-content:space-between;gap:16px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px">
                     <span style="color:#8889a8">${type}</span>
-                    <span style="color:#f0f0f8">$${cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
+                    <span style="color:#f0f0f8">×${d.qty} &nbsp; $${d.cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
                   </div>`;
                 }).join('') + `</div>`;
             }
 
+            const totalQtyLabel = setQtyMap[lbl] != null ? ` · ×${setQtyMap[lbl]} units` : '';
             ttEl.innerHTML = `
               <div style="font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${lbl}</div>
-              <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${val.toFixed(2)} <span style="color:#8889a8;font-size:11px">(${pct}%)</span></div>
+              <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${val.toFixed(2)} <span style="color:#8889a8;font-size:11px">(${pct}%${totalQtyLabel})</span></div>
               ${breakdownHtml}`;
 
             // Position to the right of the canvas, vertically centered
