@@ -1032,7 +1032,7 @@ function logPack() {
   if (!setName) { toast('⚠ Please enter a set name.'); return; }
   const count = Math.max(0.5, parseFloat(document.getElementById('p-count').value)||1);
   const date  = document.getElementById('p-date').value || new Date().toISOString().slice(0,10);
-  const price = parseFloat(document.getElementById('p-price').value)||0;
+  const price = Math.round((parseFloat(document.getElementById('p-price').value)||0)*100)/100;
   const notes = document.getElementById('p-notes').value.trim();
   const pulls = [];
   document.querySelectorAll('.pull-row').forEach(row => {
@@ -1143,7 +1143,7 @@ function addSealed() {
   const set=document.getElementById('s-set').value.trim(); if(!set){toast('⚠ Please enter a set name.');return;}
   const qty=Math.max(0.5,parseFloat(document.getElementById('s-qty').value)||1), type=document.getElementById('s-type').value,
         date=document.getElementById('s-date').value||new Date().toISOString().slice(0,10),
-        price=parseFloat(document.getElementById('s-price').value)||0, notes=document.getElementById('s-notes').value.trim();
+        price=Math.round((parseFloat(document.getElementById('s-price').value)||0)*100)/100, notes=document.getElementById('s-notes').value.trim();
   const ex=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);
   if(ex) ex.qty+=qty; else state.sealed.push({id:Date.now(),set,qty,type,date,price,notes});
   save(); updateSetLists(); document.getElementById('s-set').value=''; document.getElementById('s-qty').value='1'; document.getElementById('s-price').value=''; document.getElementById('s-notes').value='';
@@ -1217,7 +1217,7 @@ function renderSealed() {
     <td><select class="cell-edit" style="width:100%;min-width:90px" onchange="updateSealed(${s.id},'type',this.value)">${Object.entries(TYPE_LABELS).map(([v,l])=>`<option value="${v}"${s.type===v?' selected':''}>${l}</option>`).join('')}</select></td>
     <td><input class="cell-edit" type="date" value="${s.date}" style="width:100%" onchange="updateSealed(${s.id},'date',this.value)"></td>
     <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="e.g. Surging Sparks" style="width:100%;min-width:100px" oninput="updateSealed(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
-    <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+    <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><div style="display:flex;align-items:center;gap:6px">
       <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},-1)">−</button>
       <input class="cell-edit num-edit" type="number" min="0" step="0.5" value="${s.qty}" style="width:52px;text-align:center;font-family:'DM Mono',monospace;color:var(--gold)" oninput="updateSealed(${s.id},'qty',Math.max(0,parseFloat(this.value)||0))" onkeydown="if(event.key==='Enter')this.blur()">
@@ -1238,8 +1238,8 @@ const PLAT_COLORS={ebay:'var(--gold)',tcgplayer:'var(--accent)',facebook:'var(--
 
 function logSale() {
   const name=document.getElementById('sl-name').value.trim(); if(!name){toast('⚠ Item name required.');return;}
-  const cat=document.getElementById('sl-cat').value, price=parseFloat(document.getElementById('sl-price').value)||0,
-        cost=parseFloat(document.getElementById('sl-cost-input').value)||0, platform=document.getElementById('sl-platform').value,
+  const cat=document.getElementById('sl-cat').value, price=Math.round((parseFloat(document.getElementById('sl-price').value)||0)*100)/100,
+        cost=Math.round((parseFloat(document.getElementById('sl-cost-input').value)||0)*100)/100, platform=document.getElementById('sl-platform').value,
         date=document.getElementById('sl-date').value||new Date().toISOString().slice(0,10), notes=document.getElementById('sl-notes').value.trim();
   state.sales.unshift({id:Date.now(),name,cat,price,cost,platform,date,notes}); save();
   document.getElementById('sl-name').value=''; document.getElementById('sl-price').value=''; document.getElementById('sl-cost-input').value=''; document.getElementById('sl-notes').value='';
@@ -1312,8 +1312,8 @@ function renderSales() {
       <td><select class="cell-edit" style="min-width:80px" onchange="updateSale(${s.id},'cat',this.value)">${catOpts}</select></td>
       <td><select class="cell-edit" style="min-width:90px" onchange="updateSale(${s.id},'platform',this.value)">${platOpts}</select></td>
       <td><input class="cell-edit" type="date" value="${s.date}" style="width:130px" onchange="updateSale(${s.id},'date',this.value)"></td>
-      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.cost||''}" placeholder="0.00" style="width:80px;text-align:right" oninput="updateSale(${s.id},'cost',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
-      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;color:var(--green)" oninput="updateSale(${s.id},'price',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.cost||''}" placeholder="0.00" style="width:80px;text-align:right" oninput="updateSale(${s.id},'cost',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;color:var(--green)" oninput="updateSale(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
       <td class="num" style="color:${pColor};font-weight:600;white-space:nowrap" id="sl-profit-${s.id}">${(p>=0?'+':'')+'$'+Math.abs(p).toFixed(2)}</td>
       <td class="num" style="color:var(--muted);white-space:nowrap" id="sl-margin-${s.id}">${margin!==null?margin+'%':'—'}</td>
       <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="—" style="min-width:90px;width:100%;color:var(--muted)" oninput="updateSale(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
@@ -1674,7 +1674,7 @@ function updateSellCalc() {
   const item = _sellId ? state.sealed.find(s => s.id === _sellId) : null;
   if (!item) return;
   const qty        = Math.max(0.5, parseFloat(document.getElementById('sell-qty').value) || 1);
-  const saleEach   = parseFloat(document.getElementById('sell-price').value) || 0;
+  const saleEach   = Math.round((parseFloat(document.getElementById('sell-price').value)||0)*100)/100;
   const costEach   = item.price || 0;
   const totalSale  = saleEach * qty;
   const totalCost  = costEach * qty;
@@ -1697,7 +1697,7 @@ function confirmSell() {
   if (!item) return;
 
   const qty      = Math.max(0.5, parseFloat(document.getElementById('sell-qty').value) || 1);
-  const saleEach = parseFloat(document.getElementById('sell-price').value) || 0;
+  const saleEach = Math.round((parseFloat(document.getElementById('sell-price').value)||0)*100)/100;
   const platform = document.getElementById('sell-platform').value;
   const date     = document.getElementById('sell-date').value || new Date().toISOString().slice(0, 10);
 
@@ -1783,7 +1783,7 @@ function confirmOpen() {
   if (!item) return;
 
   const qty   = Math.max(0.5, parseFloat(document.getElementById('open-qty').value) || 1);
-  const price = parseFloat(document.getElementById('open-price').value) || 0;
+  const price = Math.round((parseFloat(document.getElementById('open-price').value)||0)*100)/100;
   const date  = document.getElementById('open-date').value  || new Date().toISOString().slice(0, 10);
   const notes = document.getElementById('open-notes').value.trim();
 
@@ -1995,9 +1995,9 @@ function norm(row,...keys){for(const k of keys){const found=Object.keys(row).fin
 function importRows(section,rows){
   const previewEl=document.getElementById('up-'+(section==='inventory'?'inv':section));
   let added=0,skipped=0,preview=[];
-  if(section==='packs'){rows.forEach(r=>{const set=norm(r,'set','setname','name');if(!set){skipped++;return;}const count=parseInt(norm(r,'count','packs','qty','quantity'))||1,date=norm(r,'date')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','paid','pricepaid'))||0,notes=norm(r,'notes','note');state.packs.unshift({id:Date.now()+added,set,count,date,price,notes,pulls:[]});preview.push([set,count,date,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderPacks();updateHeader();}
-  else if(section==='inventory'){rows.forEach(r=>{const name=norm(r,'name','card','cardname');if(!name){skipped++;return;}const set=norm(r,'set','setname'),rarity=(norm(r,'rarity')||'common').toLowerCase().replace(/[^a-z]/g,'');const rarMap={common:'common',uncommon:'uncommon',rare:'rare',holo:'holo',ex:'ex',ultra:'ultra',secret:'secret',holorare:'holo',ultrarare:'ultra',secretrare:'secret',exv:'ex'};const rar=rarMap[rarity]||'common',qty=parseInt(norm(r,'qty','quantity','count'))||1,cond=(norm(r,'cond','condition')||'NM').toUpperCase().slice(0,3);const existing=state.cards.find(c=>c.name===name&&c.set===set&&c.rarity===rar&&c.cond===cond);if(existing)existing.qty+=qty;else state.cards.push({id:Date.now()+added,name,set,rarity:rar,qty,cond});preview.push([name,set||'—',rar,qty]);added++;});save();updateSetLists();renderInventory();updateHeader();}
-  else if(section==='sealed'){const typeMap={'boosterbox':'booster-box','booster-box':'booster-box','boosterpack':'booster-box','upc':'upc','ultrapremiumcollection':'upc','bundle':'bundle','boosterbundle':'bundle','etb':'etb','elitetrainerbox':'etb','blister2':'blister2','2packblister':'blister2','blister3':'blister3','3packblister':'blister3','spc':'spc','sleeves':'sleeves','sleeve':'sleeves','collection':'collection','collectionbox':'collection','poster':'poster','posterbox':'poster','pins':'pins','pinsbox':'pins','tin':'tin','tins':'tin','costco':'costco','costcobox':'costco','promo':'other','other':'other'};rows.forEach(r=>{const set=norm(r,'set','setname','name','product');if(!set){skipped++;return;}const qty=parseInt(norm(r,'qty','quantity','count'))||1,type=typeMap[(norm(r,'type','packtype')||'other').toLowerCase().replace(/[^a-z0-9]/g,'')]||'other',date=norm(r,'date','acquired')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','pricepaid','paid'))||0,notes=norm(r,'notes','note');const existing=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);if(existing)existing.qty+=qty;else state.sealed.push({id:Date.now()+added,set,qty,type,date,price,notes});preview.push([set,qty,type,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderSealed();updateHeader();}
+  if(section==='packs'){rows.forEach(r=>{const set=norm(r,'set','setname','name');if(!set){skipped++;return;}const count=parseFloat(norm(r,'count','packs','qty','quantity'))||1,date=norm(r,'date')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','paid','pricepaid'))||0,notes=norm(r,'notes','note');state.packs.unshift({id:Date.now()+added,set,count,date,price,notes,pulls:[]});preview.push([set,count,date,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderPacks();updateHeader();}
+  else if(section==='inventory'){rows.forEach(r=>{const name=norm(r,'name','card','cardname');if(!name){skipped++;return;}const set=norm(r,'set','setname'),rarity=(norm(r,'rarity')||'common').toLowerCase().replace(/[^a-z]/g,'');const rarMap={common:'common',uncommon:'uncommon',rare:'rare',holo:'holo',ex:'ex',ultra:'ultra',secret:'secret',holorare:'holo',ultrarare:'ultra',secretrare:'secret',exv:'ex'};const rar=rarMap[rarity]||'common',qty=parseFloat(norm(r,'qty','quantity','count'))||1,cond=(norm(r,'cond','condition')||'NM').toUpperCase().slice(0,3);const existing=state.cards.find(c=>c.name===name&&c.set===set&&c.rarity===rar&&c.cond===cond);if(existing)existing.qty+=qty;else state.cards.push({id:Date.now()+added,name,set,rarity:rar,qty,cond});preview.push([name,set||'—',rar,qty]);added++;});save();updateSetLists();renderInventory();updateHeader();}
+  else if(section==='sealed'){const typeMap={'boosterbox':'booster-box','booster-box':'booster-box','boosterpack':'booster-box','upc':'upc','ultrapremiumcollection':'upc','bundle':'bundle','boosterbundle':'bundle','etb':'etb','elitetrainerbox':'etb','blister2':'blister2','2packblister':'blister2','blister3':'blister3','3packblister':'blister3','spc':'spc','sleeves':'sleeves','sleeve':'sleeves','collection':'collection','collectionbox':'collection','poster':'poster','posterbox':'poster','pins':'pins','pinsbox':'pins','tin':'tin','tins':'tin','costco':'costco','costcobox':'costco','promo':'other','other':'other'};rows.forEach(r=>{const set=norm(r,'set','setname','name','product');if(!set){skipped++;return;}const qty=parseFloat(norm(r,'qty','quantity','count'))||1,type=typeMap[(norm(r,'type','packtype')||'other').toLowerCase().replace(/[^a-z0-9]/g,'')]||'other',date=norm(r,'date','acquired')||new Date().toISOString().slice(0,10),price=parseFloat(norm(r,'price','cost','pricepaid','paid'))||0,notes=norm(r,'notes','note');const existing=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);if(existing)existing.qty+=qty;else state.sealed.push({id:Date.now()+added,set,qty,type,date,price,notes});preview.push([set,qty,type,'$'+price.toFixed(2)]);added++;});save();updateSetLists();renderSealed();updateHeader();}
   else if(section==='sales'){rows.forEach(r=>{const name=norm(r,'name','product','item');if(!name){skipped++;return;}let price,cost;const profitVal=norm(r,'profit'),soldVal=norm(r,'sold','saleprice','price','soldfor'),costVal=norm(r,'cost','costbasis');if(profitVal!==''&&soldVal!==''){price=parseFloat(soldVal)||0;cost=parseFloat(costVal)||Math.max(0,price-(parseFloat(profitVal)||0));}else{price=parseFloat(soldVal)||0;cost=parseFloat(costVal)||0;}const yearVal=norm(r,'year'),dateVal=norm(r,'date');let date=dateVal||(yearVal?yearVal+'-01-01':new Date().toISOString().slice(0,10));const catRaw=(norm(r,'cat','category','type')||'other').toLowerCase().replace(/[^a-z]/g,'');const catMap2={single:'single',sealed:'sealed',lot:'lot',graded:'graded',bundle:'bundle',blister:'blister',other:'other',card:'single',pack:'sealed',box:'bundle'};const cat=catMap2[catRaw]||'other';const platRaw=(norm(r,'platform','soldon','soldvia')||'other').toLowerCase().replace(/[^a-z]/g,'');const platMap2={ebay:'ebay',tcgplayer:'tcgplayer',facebook:'facebook',local:'local',friend:'friend',other:'other'};const platform=platMap2[platRaw]||'other';const notes=norm(r,'notes','note');state.sales.unshift({id:Date.now()+added,name,cat,price,cost,platform,date,notes});preview.push([name,'$'+price.toFixed(2),'$'+(price-cost).toFixed(2)]);added++;});save();renderSales();}
   if(isDash())renderDashboard();
   if(previewEl){const cols={packs:['Set','Count','Date','Price'],inventory:['Card','Set','Rarity','Qty'],sealed:['Set','Qty','Type','Price'],sales:['Item','Sold','Profit']};const hdrs=cols[section]||[];previewEl.innerHTML=`<div style="color:var(--green);margin-bottom:6px">✅ Imported <strong>${added}</strong> row${added!==1?'s':''}${skipped?' ('+skipped+' skipped)':''}</div>`+(preview.length?`<table><thead><tr>${hdrs.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`+preview.slice(0,8).map(row=>`<tr>${row.map(v=>`<td>${esc(String(v))}</td>`).join('')}</tr>`).join('')+(preview.length>8?`<tr><td colspan="${hdrs.length}" style="color:var(--muted)">…and ${preview.length-8} more</td></tr>`:'')+`</tbody></table>`:'');setTimeout(()=>{if(previewEl)previewEl.innerHTML='';},8000);}
@@ -2014,7 +2014,7 @@ function exportToExcel() {
   const packRows = state.packs.map(p => ({
     '_id':        p.id,
     'Set':        p.set,
-    'Count':      p.count,
+    'Count':      +p.count,
     'Date':       p.date,
     'Price Paid': p.price || 0,
     'Notes':      p.notes || '',
@@ -2046,7 +2046,7 @@ function exportToExcel() {
     '_id':           s.id,
     'Item Name':     s.set,
     'Type':          TYPE_LABELS[s.type] || s.type,
-    'Qty':           s.qty,
+    'Qty':           +s.qty,
     'Price Each':    s.price || 0,
     'Total Value':   +(s.price * s.qty).toFixed(2),
     'Date':          s.date,
@@ -2236,7 +2236,7 @@ function _importParsedRows(section, rows) {
       const typeRaw  = String(r['Type'] || 'other').toLowerCase().replace(/[^a-z0-9]/g,'');
       const typeNorm = String(r['Type'] || 'other').toLowerCase();
       const type     = typeRev[typeNorm] || typeLegacy[typeRaw] || 'other';
-      const qty      = parseInt(r['Qty'] || 1) || 1;
+      const qty      = parseFloat(r['Qty'] || 1) || 1;
       const price    = parseFloat(r['Price Each'] || r['Price'] || 0) || 0;
       const date     = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
       const notes    = String(r['Pokemon Set'] || r['Notes'] || '').trim();
@@ -2279,7 +2279,7 @@ function _importParsedRows(section, rows) {
       const set    = String(r['Set']  || '').trim();
       const rarRaw = String(r['Rarity'] || 'common').toLowerCase().replace(/[^a-z]/g,'');
       const rarity = rarMap[rarRaw] || 'common';
-      const qty    = parseInt(r['Qty'] || 1) || 1;
+      const qty    = parseFloat(r['Qty'] || 1) || 1;
       const cond   = String(r['Condition'] || 'NM').toUpperCase().slice(0,3);
       const ex = rid ? state.cards.find(c => c.id === rid) : state.cards.find(c => c.name===name && c.set===set && c.rarity===rarity && c.cond===cond);
       if (ex) { ex.name=name; ex.set=set; ex.rarity=rarity; ex.qty=qty; ex.cond=cond; updated++; }
@@ -2293,7 +2293,7 @@ function _importParsedRows(section, rows) {
       const set = String(r['Set'] || '').trim();
       if (!set || /^totals$/i.test(set)) return;
       const rid   = r['_id'] ? Number(r['_id']) : null;
-      const count = parseInt(r['Count'] || 1) || 1;
+      const count = parseFloat(r['Count'] || 1) || 1;
       const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
       const price = parseFloat(r['Price Paid'] || 0) || 0;
       const notes = String(r['Notes'] || '').trim();
@@ -2334,7 +2334,7 @@ function importFromExcel(file) {
           const set = String(r['Set'] || '').trim();
           if (!set || /^totals$/i.test(set)) return;
           const rid   = r['_id'] ? Number(r['_id']) : null;
-          const count = parseInt(r['Count'] || 1) || 1;
+          const count = parseFloat(r['Count'] || 1) || 1;
           const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
           const price = parseFloat(r['Price Paid'] || 0) || 0;
           const notes = String(r['Notes'] || '').trim();
@@ -2355,7 +2355,7 @@ function importFromExcel(file) {
           const set    = String(r['Set']  || '').trim();
           const rarRaw = String(r['Rarity'] || 'common').toLowerCase().replace(/[^a-z]/g,'');
           const rarity = rarMap[rarRaw] || 'common';
-          const qty    = parseInt(r['Qty'] || 1) || 1;
+          const qty    = parseFloat(r['Qty'] || 1) || 1;
           const cond   = String(r['Condition'] || 'NM').toUpperCase().slice(0,3);
           const ex = rid ? state.cards.find(c => c.id === rid) : state.cards.find(c => c.name===name && c.set===set && c.rarity===rarity && c.cond===cond);
           if (ex) { ex.name=name; ex.set=set; ex.rarity=rarity; ex.qty=qty; ex.cond=cond; updated++; }
@@ -2382,7 +2382,7 @@ function importFromExcel(file) {
           const typeNorm = String(r['Type'] || 'other').toLowerCase();
           // Try label match first, then legacy key alias, then default to 'other'
           const type  = typeRev[typeNorm] || typeLegacy[typeRaw] || 'other';
-          const qty   = parseInt(r['Qty'] || 1) || 1;
+          const qty   = parseFloat(r['Qty'] || 1) || 1;
           const price = parseFloat(r['Price Each'] || r['Price'] || 0) || 0;
           const date  = _parseDate(r['Date']) || new Date().toISOString().slice(0,10);
           const notes = String(r['Pokemon Set'] || r['Notes'] || r['notes'] || '').trim();
