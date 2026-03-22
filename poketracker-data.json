@@ -739,7 +739,7 @@
     {
       "id": 1774122939048,
       "name": "Pokemon Calendar",
-      "cat": "other",
+      "cat": "sealed",
       "price": 60,
       "cost": 55,
       "platform": "facebook",
@@ -949,7 +949,7 @@
     {
       "id": 1774122939069,
       "name": "2 Pack AH x2",
-      "cat": "other",
+      "cat": "sealed",
       "price": 50,
       "cost": 23,
       "platform": "facebook",
@@ -969,7 +969,7 @@
     {
       "id": 1774122939071,
       "name": "Charizard Tin",
-      "cat": "other",
+      "cat": "sealed",
       "price": 84,
       "cost": 81.36,
       "platform": "facebook",
@@ -999,7 +999,7 @@
     {
       "id": 1774122939074,
       "name": "OP Sale 2 Pack",
-      "cat": "other",
+      "cat": "sealed",
       "price": 18,
       "cost": 10.85,
       "platform": "facebook",
@@ -1009,7 +1009,7 @@
     {
       "id": 1774122939075,
       "name": "Ascended Heroes ETB",
-      "cat": "other",
+      "cat": "sealed",
       "price": 100,
       "cost": 61.910000000000004,
       "platform": "facebook",
@@ -1019,7 +1019,7 @@
     {
       "id": 1774122939076,
       "name": "Ascended Heroes Pin",
-      "cat": "other",
+      "cat": "sealed",
       "price": 50,
       "cost": 32.550000000000004,
       "platform": "facebook",
@@ -1049,7 +1049,7 @@
     {
       "id": 1774122939079,
       "name": "Charizard Tin",
-      "cat": "other",
+      "cat": "sealed",
       "price": 30,
       "cost": 27.12,
       "platform": "facebook",
@@ -1069,7 +1069,7 @@
     {
       "id": 1774122939081,
       "name": "Ascended Heroes ETB",
-      "cat": "other",
+      "cat": "sealed",
       "price": 100,
       "cost": 61.910000000000004,
       "platform": "facebook",
