@@ -307,7 +307,7 @@
       "type": "upc",
       "date": "2026-03-21",
       "price": 113.5,
-      "notes": "PFL/DR/JT/SS"
+      "notes": "Mix"
     },
     {
       "id": 1774122929047,
@@ -411,7 +411,7 @@
     {
       "id": 1774122929058,
       "set": "Perfect Order ETB",
-      "qty": 2,
+      "qty": 3,
       "type": "etb",
       "date": "2026-03-21",
       "price": 58,
@@ -487,7 +487,7 @@
       "type": "collection",
       "date": "2026-03-21",
       "price": 27.080000000000002,
-      "notes": "DR/ME"
+      "notes": "Mix"
     },
     {
       "id": 1774122929067,
@@ -541,7 +541,7 @@
       "type": "collection",
       "date": "2026-03-21",
       "price": 17.740000000000002,
-      "notes": "PFL/ME"
+      "notes": "Mix"
     },
     {
       "id": 1774122929073,
@@ -550,7 +550,7 @@
       "type": "tin",
       "date": "2026-03-21",
       "price": 13.21,
-      "notes": "DR/JT/SS"
+      "notes": "Mix"
     },
     {
       "id": 1774122929074,
@@ -712,17 +712,17 @@
       "type": "collection",
       "date": "2026-03-21",
       "price": 17.37,
-      "notes": "PFL/ME"
+      "notes": "Mix"
     }
   ],
   "sales": [
     {
       "id": 1774122939046,
       "name": "Hoopa V",
-      "cat": "sealed",
+      "cat": "single",
       "price": 110,
       "cost": 44,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
@@ -732,17 +732,17 @@
       "cat": "sealed",
       "price": 90,
       "cost": 65,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939048,
       "name": "Pokemon Calendar",
-      "cat": "sealed",
+      "cat": "other",
       "price": 60,
       "cost": 55,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2025-01-01",
       "notes": ""
     },
@@ -752,127 +752,127 @@
       "cat": "sealed",
       "price": 160,
       "cost": 108.6,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939050,
       "name": "Paldean Box",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 220,
       "cost": 162.18,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939051,
       "name": "Charizard UPC",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 155,
       "cost": 131,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939052,
       "name": "Venasaur ex Box",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 50,
       "cost": 49,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939053,
       "name": "Heavy Hitters x8",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 530,
       "cost": 480.08,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939054,
       "name": "Heavy Hitters x3",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 210,
       "cost": 185.655,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939055,
       "name": "Heavy Hitter x1",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 70,
       "cost": 61.885000000000005,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939056,
       "name": "PFL Booster Bundle",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 40,
       "cost": 32.47,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939057,
       "name": "Heavy Hitter x2",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 140,
       "cost": 123.77,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939058,
       "name": "Heavy Hitter x2",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 140,
       "cost": 123.77,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939059,
       "name": "Heavy Hitter x1",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 70,
       "cost": 61.885000000000005,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939060,
       "name": "Heavy Hitters x3",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 210,
       "cost": 161.31,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
     {
       "id": 1774122939061,
       "name": "Heavy Hitter x1",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 70,
       "cost": 61.885000000000005,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2025-01-01",
       "notes": ""
     },
@@ -882,37 +882,37 @@
       "cat": "single",
       "price": 60,
       "cost": 0,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939063,
       "name": "Charizard UPC",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 135,
       "cost": 120,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939064,
       "name": "PFL Booster Bundle",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 45,
       "cost": 32.47,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939065,
       "name": "Pokemon Day",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 25,
       "cost": 17.14,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
@@ -922,17 +922,17 @@
       "cat": "single",
       "price": 50,
       "cost": 0,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939067,
       "name": "Charizard UPC",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 135,
       "cost": 113.5,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
@@ -942,87 +942,87 @@
       "cat": "single",
       "price": 2.63,
       "cost": 0,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939069,
       "name": "2 Pack AH x2",
-      "cat": "sealed",
+      "cat": "other",
       "price": 50,
       "cost": 23,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939070,
       "name": "Ascended Heroes",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 100,
       "cost": 54.5,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939071,
       "name": "Charizard Tin",
-      "cat": "sealed",
+      "cat": "other",
       "price": 84,
       "cost": 81.36,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939072,
       "name": "Charizard Tin + 2 AH Tin + 1 Raichu",
-      "cat": "bundle",
+      "cat": "lot",
       "price": 100,
       "cost": 60.82,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939073,
       "name": "OP Sale 4 Pack",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 32,
       "cost": 21.720000000000002,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939074,
       "name": "OP Sale 2 Pack",
-      "cat": "sealed",
+      "cat": "other",
       "price": 18,
       "cost": 10.85,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939075,
       "name": "Ascended Heroes ETB",
-      "cat": "sealed",
+      "cat": "other",
       "price": 100,
       "cost": 61.910000000000004,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939076,
       "name": "Ascended Heroes Pin",
-      "cat": "sealed",
+      "cat": "other",
       "price": 50,
       "cost": 32.550000000000004,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
@@ -1032,27 +1032,27 @@
       "cat": "graded",
       "price": 127,
       "cost": 26.07,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939078,
       "name": "Venasaur Box 1/2",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 27.5,
       "cost": 24.310000000000002,
-      "platform": "facebook",
+      "platform": "other",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939079,
       "name": "Charizard Tin",
-      "cat": "sealed",
+      "cat": "other",
       "price": 30,
       "cost": 27.12,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
@@ -1062,27 +1062,27 @@
       "cat": "sealed",
       "price": 65,
       "cost": 31.12,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939081,
       "name": "Ascended Heroes ETB",
-      "cat": "sealed",
+      "cat": "other",
       "price": 100,
       "cost": 61.910000000000004,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     },
     {
       "id": 1774122939082,
       "name": "DR Booster Bundle",
-      "cat": "sealed",
+      "cat": "bundle",
       "price": 95,
       "cost": 66.02,
-      "platform": "facebook",
+      "platform": "ebay",
       "date": "2026-01-01",
       "notes": ""
     }
