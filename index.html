@@ -1448,7 +1448,16 @@ function renderSetBreakdownChart() {
   const values = sorted.map(([, v]) => v);
   const colors = sorted.map((_, i) => SET_PALETTE[i % SET_PALETTE.length]);
 
-  // Shared tooltip content builder (used by both chart hover and legend hover)
+  // Create/reuse the tooltip element on <body> FIRST so it exists for all listeners
+  let ttEl = document.getElementById('chart-set-tooltip');
+  if (!ttEl) {
+    ttEl = document.createElement('div');
+    ttEl.id = 'chart-set-tooltip';
+    document.body.appendChild(ttEl);
+  }
+  ttEl.style.cssText = 'display:none;position:fixed;z-index:9999;background:rgba(22,23,32,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;pointer-events:none;min-width:180px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.6);font-family:Outfit,sans-serif;';
+
+  // Shared tooltip content builder
   function buildSetTooltipHtml(lbl) {
     const val = setMap[lbl] || 0;
     const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
@@ -1472,6 +1481,21 @@ function renderSetBreakdownChart() {
       ${breakdownHtml}`;
   }
 
+  function showTooltipAt(lbl, anchorRect) {
+    ttEl.innerHTML = buildSetTooltipHtml(lbl);
+    ttEl.style.display = 'block';
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const ttW = ttEl.offsetWidth, ttH = ttEl.offsetHeight;
+    let left = anchorRect.right + 14;
+    if (left + ttW > vw - 8) left = anchorRect.left - ttW - 14;
+    let top = anchorRect.top + (anchorRect.height / 2) - (ttH / 2);
+    top = Math.max(8, Math.min(top, vh - ttH - 8));
+    ttEl.style.left = left + 'px';
+    ttEl.style.top  = top  + 'px';
+  }
+
+  function hideTooltip() { ttEl.style.display = 'none'; }
+
   // Legend — add data-set-label for hover
   const legendEl = ge('chart-set-legend');
   if (legendEl) {
@@ -1485,44 +1509,15 @@ function renderSetBreakdownChart() {
       </div>`;
     }).join('');
 
-    // Wire hover on legend rows
     legendEl.querySelectorAll('[data-set-label]').forEach(row => {
-      row.addEventListener('mouseenter', e => {
-        const lbl = row.dataset.setLabel;
-        let ttEl = document.getElementById('chart-set-tooltip');
-        if (!ttEl) return;
-        ttEl.innerHTML = buildSetTooltipHtml(lbl);
-        ttEl.style.display = 'block';
-        const vw = window.innerWidth, vh = window.innerHeight;
-        const ttW = ttEl.offsetWidth, ttH = ttEl.offsetHeight;
-        const rect = row.getBoundingClientRect();
-        // Show to the right of the legend row; fall back to left if needed
-        let left = rect.right + 12;
-        if (left + ttW > vw - 8) left = rect.left - ttW - 12;
-        let top = rect.top + (rect.height / 2) - (ttH / 2);
-        top = Math.max(8, Math.min(top, vh - ttH - 8));
-        ttEl.style.left = left + 'px';
-        ttEl.style.top  = top  + 'px';
-      });
-      row.addEventListener('mouseleave', () => {
-        const ttEl = document.getElementById('chart-set-tooltip');
-        if (ttEl) ttEl.style.display = 'none';
-      });
+      row.addEventListener('mouseenter', () => showTooltipAt(row.dataset.setLabel, row.getBoundingClientRect()));
+      row.addEventListener('mouseleave', hideTooltip);
     });
   }
 
   const ctx = ge('chart-set-doughnut');
   if (!ctx) return;
   if (_chartSetDoughnut) _chartSetDoughnut.destroy();
-
-  // External tooltip element — move it to body so it's never clipped
-  let ttEl = document.getElementById('chart-set-tooltip');
-  if (!ttEl) {
-    ttEl = document.createElement('div');
-    ttEl.id = 'chart-set-tooltip';
-    document.body.appendChild(ttEl);
-  }
-  ttEl.style.cssText = 'display:none;position:fixed;z-index:9999;background:rgba(22,23,32,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;pointer-events:none;min-width:180px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.6);font-family:Outfit,sans-serif;';
 
   _chartSetDoughnut = new Chart(ctx, {
     type: 'doughnut',
@@ -1546,32 +1541,10 @@ function renderSetBreakdownChart() {
         tooltip: {
           enabled: false,
           external: function({ chart, tooltip }) {
-            if (tooltip.opacity === 0) { ttEl.style.display = 'none'; return; }
-
+            if (tooltip.opacity === 0) { hideTooltip(); return; }
             const dp = tooltip.dataPoints?.[0];
             if (!dp) return;
-
-            const lbl   = dp.label || '';
-            const val   = dp.raw;                 // raw numeric value for doughnut
-            const pct   = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
-
-            ttEl.innerHTML = buildSetTooltipHtml(lbl);
-
-            // Position to the right of the canvas, vertically centered
-            const rect = chart.canvas.getBoundingClientRect();
-            ttEl.style.display = 'block';
-            const ttW = ttEl.offsetWidth;
-            const ttH = ttEl.offsetHeight;
-            const vw  = window.innerWidth;
-            const vh  = window.innerHeight;
-
-            let left = rect.right + 16;
-            if (left + ttW > vw - 8) left = rect.left - ttW - 16;
-            let top = rect.top + (rect.height / 2) - (ttH / 2);
-            top = Math.max(8, Math.min(top, vh - ttH - 8));
-
-            ttEl.style.left = left + 'px';
-            ttEl.style.top  = top  + 'px';
+            showTooltipAt(dp.label || '', chart.canvas.getBoundingClientRect());
           }
         }
       }
@@ -1579,7 +1552,7 @@ function renderSetBreakdownChart() {
   });
 
   // Hide tooltip when mouse leaves canvas — use once-replaced handler to avoid stacking
-  ctx._setTooltipHide = () => { ttEl.style.display = 'none'; };
+  ctx._setTooltipHide = hideTooltip;
   ctx.removeEventListener('mouseleave', ctx._prevSetTooltipHide);
   ctx.addEventListener('mouseleave', ctx._setTooltipHide);
   ctx._prevSetTooltipHide = ctx._setTooltipHide;
