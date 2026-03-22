@@ -493,7 +493,7 @@
       "id": 1774122929067,
       "set": "Prismatic Poster Bundle",
       "qty": 3,
-      "type": "bundle",
+      "type": "poster",
       "date": "2026-03-21",
       "price": 17.94,
       "notes": "Pris"
@@ -592,7 +592,7 @@
       "id": 1774122929078,
       "set": "Mega Zygarde ex Premium Collection",
       "qty": 3,
-      "type": "bundle",
+      "type": "collection",
       "date": "2026-03-21",
       "price": 44.99,
       "notes": "PO"
