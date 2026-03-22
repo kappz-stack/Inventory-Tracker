@@ -559,7 +559,11 @@
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="section-head" style="margin-bottom:12px"><h3 class="mini" style="margin-bottom:0">Sealed stash</h3><button class="btn-ghost" style="font-size:11px" onclick="showPage('sealed')">View all →</button></div>
+        <div class="section-head" style="margin-bottom:10px">
+          <h3 class="mini" style="margin-bottom:0">Search Sealed Stash</h3>
+          <button class="btn-ghost" style="font-size:11px" onclick="showPage('sealed')">View all →</button>
+        </div>
+        <div class="search-wrap" style="margin-bottom:10px"><span class="search-icon">🔍</span><input id="d-sealed-search" type="text" placeholder="Search item name or Pokémon set…" oninput="renderSealedSearchWidget()" style="width:100%"></div>
         <div id="d-sealed-list"><div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div></div>
       </div>
       <div class="card">
@@ -720,7 +724,7 @@
           <div class="stat-card"><div class="label">Pokémon Sets</div><div class="value" id="s-stat-sets" style="color:var(--accent2)">0</div><div class="sub">Unique Pokémon sets</div></div>
         </div>
         <div class="stat-card" style="margin-bottom:12px"><div class="label">Total Spent</div><div class="value" id="s-stat-spent" style="color:var(--gold);font-size:20px">$0.00</div><div class="sub">Across all sealed purchases</div></div>
-        <h3 class="mini">By pack type</h3>
+        <h3 class="mini">By Pokémon Set</h3>
         <div id="s-type-bars"><div style="color:var(--muted);font-size:13px">No sealed packs yet.</div></div>
       </div>
     </div>
@@ -1173,9 +1177,9 @@ function _refreshSealedStats() {
   if(el('s-stat-spent')) el('s-stat-spent').textContent='$'+totalSpent.toFixed(2);
   const total=all.reduce((s,i)=>s+i.qty,0), countEl=el('sealed-count');
   if(countEl) countEl.textContent=`${all.length} entr${all.length!==1?'ies':'y'} · ${total} packs · click any cell to edit`;
-  const typeMap={}; all.forEach(i=>{typeMap[i.type]=(typeMap[i.type]||0)+i.qty;});
-  const maxType=Math.max(1,...Object.values(typeMap)), typeBarsEl=el('s-type-bars');
-  if(typeBarsEl&&Object.keys(typeMap).length) typeBarsEl.innerHTML=Object.entries(typeMap).sort((a,b)=>b[1]-a[1]).map(([t,cnt])=>`<div class="bar-row"><span class="bar-label">${TYPE_LABELS[t]||t}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxType*100)}%;background:${TYPE_COLORS[t]}"></div></div><span class="bar-val">${cnt}</span></div>`).join('');
+  const setMap2={}; all.forEach(i=>{const lbl=(i.notes&&i.notes.trim())?i.notes.trim():'(no set)';setMap2[lbl]=(setMap2[lbl]||0)+(i.price*i.qty);});
+  const maxSet=Math.max(1,...Object.values(setMap2)), setBarsEl=el('s-type-bars');
+  if(setBarsEl&&Object.keys(setMap2).length) setBarsEl.innerHTML=Object.entries(setMap2).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([lbl,cost])=>`<div class="bar-row" data-set-label="${esc(lbl)}" onmouseenter="showSealedSetTooltip(this,event)" onmouseleave="hideSealedSetTooltip(this)" style="cursor:default"><span class="bar-label" title="${esc(lbl)}" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(lbl)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cost/maxSet*100)}%;background:var(--accent)"></div></div><span class="bar-val" style="font-size:10px;min-width:44px">$${cost.toFixed(0)}</span></div>`).join('');
 }
 function clearSealed() { confirmClear('sealed'); }
 function renderSealed() {
@@ -1207,9 +1211,9 @@ function renderSealed() {
   if(el('s-stat-total')) el('s-stat-total').textContent=totalSealed;
   if(el('s-stat-sets'))  el('s-stat-sets').textContent=totalSets;
   if(el('s-stat-spent')) el('s-stat-spent').textContent='$'+totalSpent.toFixed(2);
-  const typeMap={}; all.forEach(i=>{typeMap[i.type]=(typeMap[i.type]||0)+i.qty;});
-  const maxType=Math.max(1,...Object.values(typeMap)), typeBarsEl=el('s-type-bars');
-  if(typeBarsEl){if(!Object.keys(typeMap).length){typeBarsEl.innerHTML='<div style="color:var(--muted);font-size:13px">No sealed packs yet.</div>';}else{typeBarsEl.innerHTML=Object.entries(typeMap).sort((a,b)=>b[1]-a[1]).map(([t,cnt])=>`<div class="bar-row"><span class="bar-label">${TYPE_LABELS[t]||t}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxType*100)}%;background:${TYPE_COLORS[t]}"></div></div><span class="bar-val">${cnt}</span></div>`).join('');}}
+  const setMap2={}; all.forEach(i=>{const lbl=(i.notes&&i.notes.trim())?i.notes.trim():'(no set)';setMap2[lbl]=(setMap2[lbl]||0)+(i.price*i.qty);});
+  const maxSet=Math.max(1,...Object.values(setMap2)), setBarsEl=el('s-type-bars');
+  if(setBarsEl&&Object.keys(setMap2).length) setBarsEl.innerHTML=Object.entries(setMap2).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([lbl,cost])=>`<div class="bar-row" data-set-label="${esc(lbl)}" onmouseenter="showSealedSetTooltip(this,event)" onmouseleave="hideSealedSetTooltip(this)" style="cursor:default"><span class="bar-label" title="${esc(lbl)}" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(lbl)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(cost/maxSet*100)}%;background:var(--accent)"></div></div><span class="bar-val" style="font-size:10px;min-width:44px">$${cost.toFixed(0)}</span></div>`).join('');
   const tbody=el('sealed-table'), count=el('sealed-count');
   if(!items.length){tbody.innerHTML=`<tr><td colspan="10"><div class="empty"><div class="empty-icon">📦</div><p>${state.sealed.length?'No matches.':'No sealed packs yet.'}</p></div></td></tr>`;if(count)count.textContent='';return;}
   tbody.innerHTML=items.map(s=>`<tr data-id="${s.id}" class="${_selection.sealed.has(s.id)?'selected-row':''}">
@@ -1356,36 +1360,8 @@ function renderDashboard() {
   const salesWidgetEl=ge('d-sales-list');
   if(salesWidgetEl){const recent=state.sales.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);if(!recent.length){salesWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">💰</div><p>No sales recorded yet.</p></div>';}else{salesWidgetEl.innerHTML=recent.map(s=>{const profit=s.price-s.cost,margin=s.price>0?((profit/s.price)*100).toFixed(1):null,pColor=profit>=0?'var(--green)':'var(--red)';return`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)"><div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</div><div style="font-size:11px;color:${CAT_COLORS[s.cat]}">${CAT_LABELS[s.cat]||s.cat} · ${s.date}</div></div><div style="text-align:right;flex-shrink:0;margin-left:12px"><div style="font-family:'DM Mono',monospace;font-size:13px;color:${pColor}">${(profit>=0?'+':'')+'$'+Math.abs(profit).toFixed(2)}</div>${margin!==null?`<div style="font-size:10px;color:var(--muted)">${margin}% margin</div>`:''}</div></div>`;}).join('');}}
 
-  // Sealed stash widget
-  const sealedWidgetEl=ge('d-sealed-list');
-  if(sealedWidgetEl){
-    const all=state.sealed;
-    if(!all.length){
-      sealedWidgetEl.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div>';
-    } else {
-      const top=all.slice().sort((a,b)=>(b.price*b.qty)-(a.price*a.qty)).slice(0,8);
-      const totalQty=all.reduce((s,i)=>s+i.qty,0);
-      const totalVal=all.reduce((s,i)=>s+(i.price*i.qty),0);
-      const rows=top.map(s=>{
-        const val=s.price*s.qty;
-        return `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)">
-          <div style="min-width:0;flex:1;overflow:hidden">
-            <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.set)}</div>
-            <div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type}${s.notes?` · <span style="color:var(--muted)">${esc(s.notes)}</span>`:''} · <span style="color:var(--muted)">×${s.qty} @ $${s.price.toFixed(2)}</span></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0;margin-left:12px">
-            <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--gold)">$${val.toFixed(2)}</div>
-            <div style="font-size:10px;color:var(--muted)">${s.qty} unit${s.qty!==1?'s':''}</div>
-          </div>
-        </div>`;
-      }).join('');
-      const footer=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--border2);margin-top:2px">
-        <span style="font-size:11px;color:var(--muted)">${all.length} items · ${totalQty} total units</span>
-        <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--ultra);font-weight:600">$${totalVal.toFixed(2)}</span>
-      </div>`;
-      sealedWidgetEl.innerHTML=rows+footer;
-    }
-  }
+  // Sealed stash search widget — rendered by renderSealedSearchWidget()
+  renderSealedSearchWidget();
 
   // Top sales by profit widget
   const topSalesEl=ge('d-top-sales');
@@ -2019,6 +1995,118 @@ function applyBulk(section) {
   toast(`✅ Applied "${field}" to ${ids.length} row${ids.length!==1?'s':''}`);
   // Keep selection visible after apply so user can do more edits
   updateBulkBar(section);
+}
+
+
+// ===== SEALED SET TOOLTIP (shared for bars in stash summary) =====
+function showSealedSetTooltip(rowEl, e) {
+  const lbl = rowEl.dataset.setLabel;
+  if (!lbl) return;
+  const totalCost = state.sealed.reduce((s, i) => s + (i.price * i.qty), 0);
+  const items = state.sealed.filter(i => ((i.notes && i.notes.trim()) ? i.notes.trim() : '(no set)') === lbl);
+  const setTotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
+  const setQty   = items.reduce((s, i) => s + i.qty, 0);
+  const typeMap  = {};
+  items.forEach(i => {
+    const t = TYPE_LABELS[i.type] || i.type || 'Other';
+    if (!typeMap[t]) typeMap[t] = { cost: 0, qty: 0 };
+    typeMap[t].cost += (i.price * i.qty);
+    typeMap[t].qty  += i.qty;
+  });
+  const pct = totalCost > 0 ? ((setTotal / totalCost) * 100).toFixed(1) : '0.0';
+  let breakdownHtml = '';
+  const types = Object.entries(typeMap).sort((a, b) => b[1].cost - a[1].cost);
+  if (types.length) {
+    breakdownHtml = `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px">` +
+      types.map(([type, d]) => {
+        const tp = ((d.cost / setTotal) * 100).toFixed(0);
+        return `<div style="display:flex;justify-content:space-between;gap:16px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px">
+          <span style="color:#8889a8">${type}</span>
+          <span style="color:#f0f0f8">×${d.qty} &nbsp; $${d.cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
+        </div>`;
+      }).join('') + `</div>`;
+  }
+  let ttEl = document.getElementById('chart-set-tooltip');
+  if (!ttEl) {
+    ttEl = document.createElement('div');
+    ttEl.id = 'chart-set-tooltip';
+    document.body.appendChild(ttEl);
+    ttEl.style.cssText = 'display:none;position:fixed;z-index:9999;background:rgba(22,23,32,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;pointer-events:none;min-width:180px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.6);font-family:Outfit,sans-serif;';
+  }
+  ttEl.innerHTML = `<div style="font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${lbl}</div>
+    <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${setTotal.toFixed(2)}
+    <span style="color:#8889a8;font-size:11px">(${pct}% · ×${setQty} units)</span></div>
+    ${breakdownHtml}`;
+
+  ttEl.style.display = 'block';
+  _positionSealedTooltip(ttEl, e);
+
+  // Follow cursor while hovering
+  rowEl._ttMoveHandler = ev => _positionSealedTooltip(ttEl, ev);
+  rowEl.addEventListener('mousemove', rowEl._ttMoveHandler);
+}
+
+function _positionSealedTooltip(ttEl, e) {
+  const offset = 16;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const ttW = ttEl.offsetWidth, ttH = ttEl.offsetHeight;
+  let left = e.clientX + offset;
+  if (left + ttW > vw - 8) left = e.clientX - ttW - offset;
+  let top = e.clientY - ttH / 2;
+  top = Math.max(8, Math.min(top, vh - ttH - 8));
+  ttEl.style.left = left + 'px';
+  ttEl.style.top  = top  + 'px';
+}
+
+function hideSealedSetTooltip(rowEl) {
+  const ttEl = document.getElementById('chart-set-tooltip');
+  if (ttEl) ttEl.style.display = 'none';
+  if (rowEl && rowEl._ttMoveHandler) {
+    rowEl.removeEventListener('mousemove', rowEl._ttMoveHandler);
+    rowEl._ttMoveHandler = null;
+  }
+}
+
+function renderSealedSearchWidget() {
+  const el = document.getElementById('d-sealed-list');
+  if (!el) return;
+  if (!state.sealed.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📦</div><p>No sealed packs tracked yet.</p></div>';
+    return;
+  }
+  const q = (document.getElementById('d-sealed-search')?.value || '').toLowerCase().trim();
+  const items = q
+    ? state.sealed.filter(s =>
+        s.set.toLowerCase().includes(q) ||
+        (s.notes || '').toLowerCase().includes(q) ||
+        (TYPE_LABELS[s.type] || s.type || '').toLowerCase().includes(q)
+      )
+    : state.sealed.slice().sort((a, b) => (b.price * b.qty) - (a.price * a.qty)).slice(0, 5);
+
+  if (!items.length) {
+    el.innerHTML = `<div style="color:var(--muted);font-size:13px;padding:12px 0;text-align:center">No results for "${esc(q)}"</div>`;
+    return;
+  }
+  const rows = items.map(s => {
+    const val = s.price * s.qty;
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--border)">
+      <div style="min-width:0;flex:1;overflow:hidden">
+        <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.set)}</div>
+        <div style="font-size:11px;color:${TYPE_COLORS[s.type]}">${TYPE_LABELS[s.type]||s.type}${s.notes?` · <span style="color:var(--muted)">${esc(s.notes)}</span>`:''} · <span style="color:var(--muted)">×${s.qty} @ $${s.price.toFixed(2)}</span></div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:12px">
+        <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--gold)">$${val.toFixed(2)}</div>
+        <div style="font-size:10px;color:var(--muted)">${s.qty} unit${s.qty!==1?'s':''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  const totalQty = state.sealed.reduce((s, i) => s + i.qty, 0);
+  const totalVal = state.sealed.reduce((s, i) => s + (i.price * i.qty), 0);
+  const footer = `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--border2);margin-top:2px">
+    <span style="font-size:11px;color:var(--muted)">${q ? items.length + ' result' + (items.length!==1?'s':'') : state.sealed.length + ' items · ' + totalQty + ' units'}</span>
+    <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--ultra);font-weight:600">$${totalVal.toFixed(2)}</span>
+  </div>`;
+  el.innerHTML = rows + footer;
 }
 
 
