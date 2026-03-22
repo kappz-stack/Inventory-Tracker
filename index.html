@@ -543,7 +543,6 @@
             </div>
           </div>
           <div id="chart-set-legend" style="flex:1;overflow-y:auto;max-height:180px;font-size:12px"></div>
-          <div id="chart-set-tooltip" style="display:none;position:fixed;z-index:999;background:rgba(22,23,32,0.97);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:12px 14px;pointer-events:none;min-width:200px;max-width:260px;box-shadow:0 4px 20px rgba(0,0,0,.5)"></div>
         </div>
       </div>
       <div class="card">
@@ -1415,9 +1414,8 @@ function renderSetBreakdownChart() {
   const ge = id => document.getElementById(id);
 
   // Aggregate stash cost by Pokemon Set (s.notes), fallback to 'Other'
-  // Also build a per-set type breakdown for tooltips
   const setMap = {};
-  const setTypeMap = {}; // { setLabel: { typeKey: cost } }
+  const setTypeMap = {};
   state.sealed.forEach(s => {
     const label = (s.notes && s.notes.trim()) ? s.notes.trim() : 'Other';
     const cost = (s.price || 0) * (s.qty || 0);
@@ -1428,11 +1426,8 @@ function renderSetBreakdownChart() {
   });
 
   const totalCost = Object.values(setMap).reduce((a, b) => a + b, 0);
-
-  // Update center value
   if (ge('chart-set-center-val')) ge('chart-set-center-val').textContent = '$' + totalCost.toFixed(0);
 
-  // Sort by value desc
   const sorted = Object.entries(setMap).sort((a, b) => b[1] - a[1]);
 
   if (!sorted.length) {
@@ -1444,7 +1439,7 @@ function renderSetBreakdownChart() {
   const values = sorted.map(([, v]) => v);
   const colors = sorted.map((_, i) => SET_PALETTE[i % SET_PALETTE.length]);
 
-  // Build legend with % and $
+  // Legend
   if (ge('chart-set-legend')) {
     ge('chart-set-legend').innerHTML = sorted.map(([label, val], i) => {
       const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
@@ -1461,10 +1456,15 @@ function renderSetBreakdownChart() {
   if (!ctx) return;
   if (_chartSetDoughnut) _chartSetDoughnut.destroy();
 
-  ctx.addEventListener('mouseleave', () => {
-    const tt = document.getElementById('chart-set-tooltip');
-    if (tt) tt.style.display = 'none';
-  });
+  // External tooltip element — move it to body so it's never clipped
+  let ttEl = document.getElementById('chart-set-tooltip');
+  if (!ttEl) {
+    ttEl = document.createElement('div');
+    ttEl.id = 'chart-set-tooltip';
+    document.body.appendChild(ttEl);
+  }
+  ttEl.style.cssText = 'display:none;position:fixed;z-index:9999;background:rgba(22,23,32,0.97);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;pointer-events:none;min-width:180px;max-width:260px;box-shadow:0 4px 24px rgba(0,0,0,.6);font-family:Outfit,sans-serif;';
+
   _chartSetDoughnut = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -1486,67 +1486,61 @@ function renderSetBreakdownChart() {
         legend: { display: false },
         tooltip: {
           enabled: false,
-          external: function(context) {
-            const tooltipEl = document.getElementById('chart-set-tooltip');
-            if (!tooltipEl) return;
+          external: function({ chart, tooltip }) {
+            if (tooltip.opacity === 0) { ttEl.style.display = 'none'; return; }
 
-            const tooltipModel = context.tooltip;
-            if (tooltipModel.opacity === 0) {
-              tooltipEl.style.display = 'none';
-              return;
-            }
+            const dp = tooltip.dataPoints?.[0];
+            if (!dp) return;
 
-            const item = tooltipModel.dataPoints?.[0];
-            if (!item) return;
-            const label = item.label;
-            const val = item.parsed;
-            const pct = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
+            const lbl   = dp.label || '';
+            const val   = dp.raw;                 // raw numeric value for doughnut
+            const pct   = totalCost > 0 ? ((val / totalCost) * 100).toFixed(1) : '0.0';
 
-            // Build type breakdown
             let breakdownHtml = '';
-            if (setTypeMap[label]) {
-              const types = Object.entries(setTypeMap[label]).sort((a, b) => b[1] - a[1]);
-              const setTotal = setMap[label] || 1;
+            if (setTypeMap[lbl]) {
+              const types = Object.entries(setTypeMap[lbl]).sort((a, b) => b[1] - a[1]);
+              const setTotal = setMap[lbl] || 1;
               breakdownHtml = `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px">` +
                 types.map(([type, cost]) => {
-                  const typePct = ((cost / setTotal) * 100).toFixed(0);
-                  return `<div style="display:flex;justify-content:space-between;gap:12px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px;color:#8889a8">
-                    <span>${type}</span>
-                    <span style="color:#f0f0f8">$${cost.toFixed(2)} <span style="color:#8889a8">(${typePct}%)</span></span>
+                  const tp = ((cost / setTotal) * 100).toFixed(0);
+                  return `<div style="display:flex;justify-content:space-between;gap:16px;padding:2px 0;font-family:'DM Mono',monospace;font-size:11px">
+                    <span style="color:#8889a8">${type}</span>
+                    <span style="color:#f0f0f8">$${cost.toFixed(2)}<span style="color:#8889a8"> (${tp}%)</span></span>
                   </div>`;
                 }).join('') + `</div>`;
             }
 
-            tooltipEl.innerHTML = `
-              <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${label}</div>
+            ttEl.innerHTML = `
+              <div style="font-size:13px;font-weight:600;color:#f0f0f8;margin-bottom:3px">${lbl}</div>
               <div style="font-family:'DM Mono',monospace;font-size:12px;color:#f5c842">$${val.toFixed(2)} <span style="color:#8889a8;font-size:11px">(${pct}%)</span></div>
-              ${breakdownHtml}
-            `;
+              ${breakdownHtml}`;
 
-            // Position to the right of the cursor, using fixed positioning
-            const canvasRect = context.chart.canvas.getBoundingClientRect();
-            tooltipEl.style.display = 'block';
-            // Force reflow to get accurate width
-            const ttW = tooltipEl.offsetWidth;
-            const ttH = tooltipEl.offsetHeight;
-            const vw = window.innerWidth;
-            const vh = window.innerHeight;
+            // Position to the right of the canvas, vertically centered
+            const rect = chart.canvas.getBoundingClientRect();
+            ttEl.style.display = 'block';
+            const ttW = ttEl.offsetWidth;
+            const ttH = ttEl.offsetHeight;
+            const vw  = window.innerWidth;
+            const vh  = window.innerHeight;
 
-            // Try right of canvas first, fall back to left if no room
-            let left = canvasRect.right + 12;
-            if (left + ttW > vw - 8) left = canvasRect.left - ttW - 12;
-
-            // Vertically center on the canvas
-            let top = canvasRect.top + (canvasRect.height / 2) - (ttH / 2);
+            let left = rect.right + 16;
+            if (left + ttW > vw - 8) left = rect.left - ttW - 16;
+            let top = rect.top + (rect.height / 2) - (ttH / 2);
             top = Math.max(8, Math.min(top, vh - ttH - 8));
 
-            tooltipEl.style.left = left + 'px';
-            tooltipEl.style.top  = top  + 'px';
+            ttEl.style.left = left + 'px';
+            ttEl.style.top  = top  + 'px';
           }
         }
       }
     }
   });
+
+  // Hide tooltip when mouse leaves canvas — use once-replaced handler to avoid stacking
+  ctx._setTooltipHide = () => { ttEl.style.display = 'none'; };
+  ctx.removeEventListener('mouseleave', ctx._prevSetTooltipHide);
+  ctx.addEventListener('mouseleave', ctx._setTooltipHide);
+  ctx._prevSetTooltipHide = ctx._setTooltipHide;
 }
 
 
