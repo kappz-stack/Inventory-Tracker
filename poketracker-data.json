@@ -307,7 +307,7 @@
       "type": "upc",
       "date": "2025-12-31",
       "price": 113.5,
-      "notes": "Mix"
+      "notes": "DR/JT/SS/ME/PFL"
     },
     {
       "id": 1774122929047,
@@ -487,7 +487,7 @@
       "type": "collection",
       "date": "2025-12-31",
       "price": 27.08,
-      "notes": "Mix"
+      "notes": "DR/ME"
     },
     {
       "id": 1774122929067,
@@ -541,7 +541,7 @@
       "type": "collection",
       "date": "2025-12-31",
       "price": 17.71,
-      "notes": "Mix"
+      "notes": "PFL/ME"
     },
     {
       "id": 1774122929073,
@@ -550,7 +550,7 @@
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
-      "notes": "Mix"
+      "notes": "DR/JT/SS"
     },
     {
       "id": 1774122929074,
@@ -712,7 +712,7 @@
       "type": "collection",
       "date": "2025-12-31",
       "price": 17.37,
-      "notes": "Mix"
+      "notes": "PFL/ME"
     }
   ],
   "sales": [
