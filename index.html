@@ -244,7 +244,7 @@
     <div class="form-row" style="gap:12px">
       <div class="form-group" style="flex:1;min-width:80px">
         <label class="lbl">Qty to Sell <span class="sell-stock-badge" id="sell-stock-badge">0 in stock</span></label>
-        <input id="sell-qty" type="number" min="1" value="1" oninput="updateSellCalc()">
+        <input id="sell-qty" type="number" min="0.5" step="0.5" value="1" oninput="updateSellCalc()">
       </div>
       <div class="form-group" style="flex:1;min-width:100px">
         <label class="lbl">Sale Price Each ($)</label>
@@ -328,7 +328,7 @@
 <nav>
   <button class="active" onclick="showPage('dashboard')">Dashboard</button>
   <button onclick="showPage('packs')">Pack Log</button>
-  <button onclick="showPage('inventory')">Inventory</button>
+  <!-- <button onclick="showPage('inventory')">Inventory</button> -->
   <button onclick="showPage('sealed')">Sealed Packs</button>
   <button onclick="showPage('sales')">Sales</button>
 </nav>
@@ -372,9 +372,7 @@
       </div>
     </div>
     <div class="stat-card" style="display:flex;align-items:center;gap:20px;margin-bottom:16px;flex-wrap:wrap">
-      <div><div class="label">Cards Owned</div><div class="value" id="d-cards" style="color:var(--gold)">0</div><div class="sub">Collection</div></div>
-      <div style="width:1px;height:40px;background:var(--border)"></div>
-      <div><div class="label">Hit Rate</div><div class="value" id="d-rate" style="color:var(--accent2)">—</div><div class="sub">Per pack</div></div>
+      <div><div class="label">Profit (90 days)</div><div class="value" id="d-profit-90" style="color:var(--green);font-size:20px">$0</div><div class="sub" id="d-profit-90-sub">Last 90 days</div></div>
       <div style="width:1px;height:40px;background:var(--border)"></div>
       <div><div class="label">Items Sold</div><div class="value" id="d-sold" style="color:var(--holo)">0</div><div class="sub">All time</div></div>
       <div style="width:1px;height:40px;background:var(--border)"></div>
@@ -399,7 +397,7 @@
         <div class="section-head"><h2>Log Pack Opening</h2></div>
         <div class="form-row">
           <div class="form-group" style="flex:2"><label class="lbl">Set Name</label><input id="p-set" type="text" placeholder="e.g. Surging Sparks" list="set-list"><datalist id="set-list"></datalist></div>
-          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Packs</label><input id="p-count" type="number" min="1" max="36" value="1"></div>
+          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Packs</label><input id="p-count" type="number" min="0.5" max="36" step="0.5" value="1"></div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1;min-width:100px"><label class="lbl">Date</label><input id="p-date" type="date"></div>
@@ -412,7 +410,7 @@
             <div class="form-group" style="flex:2"><label class="lbl">Card Name</label><input type="text" class="pull-name" placeholder="e.g. Charizard ex"></div>
             <div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Rarity</label>
               <select class="pull-rarity"><option value="">— skip —</option><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select></div>
-            <div class="form-group" style="flex:1;min-width:60px"><label class="lbl">Qty</label><input type="number" class="pull-qty" value="1" min="1"></div>
+            <div class="form-group" style="flex:1;min-width:60px"><label class="lbl">Qty</label><input type="number" class="pull-qty" value="1" min="0.5" step="0.5"></div>
           </div>
         </div>
         <div style="display:flex;gap:8px;margin-top:4px">
@@ -458,7 +456,7 @@
   </div>
 
   <!-- INVENTORY -->
-  <div class="page" id="page-inventory">
+  <div class="page" id="page-inventory" style="display:none!important">
     <div class="card" style="margin-bottom:16px">
       <div class="section-head"><h2>Add Card</h2></div>
       <div class="form-row">
@@ -466,7 +464,7 @@
         <div class="form-group" style="flex:2"><label class="lbl">Set</label><input id="i-set" type="text" placeholder="e.g. Surging Sparks" list="set-list2"><datalist id="set-list2"></datalist></div>
         <div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Rarity</label>
           <select id="i-rarity"><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select></div>
-        <div class="form-group" style="flex:1;min-width:70px"><label class="lbl">Qty</label><input id="i-qty" type="number" min="1" value="1"></div>
+        <div class="form-group" style="flex:1;min-width:70px"><label class="lbl">Qty</label><input id="i-qty" type="number" min="0.5" step="0.5" value="1"></div>
         <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Condition</label>
           <select id="i-cond"><option value="NM">NM/M</option><option value="LP">LP</option><option value="MP">MP</option><option value="HP">HP</option><option value="DMG">Damaged</option></select></div>
         <div class="form-group" style="justify-content:flex-end"><label class="lbl">&nbsp;</label><button class="btn" onclick="addCard()">Add Card</button></div>
@@ -520,7 +518,7 @@
         <div class="section-head"><h2>Add Sealed Packs</h2></div>
         <div class="form-row">
           <div class="form-group" style="flex:2"><label class="lbl">Item Name</label><input id="s-set" type="text" placeholder="e.g. Surging Sparks ETB" list="set-list3"><datalist id="set-list3"></datalist></div>
-          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Quantity</label><input id="s-qty" type="number" min="1" value="1"></div>
+          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Quantity</label><input id="s-qty" type="number" min="0.5" step="0.5" value="1"></div>
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Pack Type</label>
@@ -839,7 +837,7 @@ function addPullRow() {
   div.className = 'form-row pull-row'; div.style.cssText = 'align-items:flex-end;gap:8px';
   div.innerHTML = `<div class="form-group" style="flex:2"><input type="text" class="pull-name" placeholder="Card name (optional)"></div>
     <div class="form-group" style="flex:1;min-width:110px"><select class="pull-rarity"><option value="">— skip —</option><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select></div>
-    <div class="form-group" style="flex:1;min-width:60px"><input type="number" class="pull-qty" value="1" min="1"></div>
+    <div class="form-group" style="flex:1;min-width:60px"><input type="number" class="pull-qty" value="1" min="0.5" step="0.5"></div>
     <button class="btn-ghost" onclick="this.closest('.pull-row').remove()" style="padding:8px 10px">✕</button>`;
   wrap.appendChild(div);
 }
@@ -848,7 +846,7 @@ function addPullRow() {
 function logPack() {
   const setName = document.getElementById('p-set').value.trim();
   if (!setName) { toast('⚠ Please enter a set name.'); return; }
-  const count = Math.max(1, parseInt(document.getElementById('p-count').value)||1);
+  const count = Math.max(0.5, parseFloat(document.getElementById('p-count').value)||1);
   const date  = document.getElementById('p-date').value || new Date().toISOString().slice(0,10);
   const price = parseFloat(document.getElementById('p-price').value)||0;
   const notes = document.getElementById('p-notes').value.trim();
@@ -856,14 +854,14 @@ function logPack() {
   document.querySelectorAll('.pull-row').forEach(row => {
     const name = row.querySelector('.pull-name')?.value.trim();
     const rarity = row.querySelector('.pull-rarity')?.value;
-    const qty = parseInt(row.querySelector('.pull-qty')?.value)||1;
+    const qty = parseFloat(row.querySelector('.pull-qty')?.value)||1;
     if (rarity) pulls.push({ name: name||'(unnamed)', rarity, qty });
   });
   state.packs.unshift({ id:Date.now(), set:setName, count, date, price, notes, pulls });
   save(); updateSetLists();
   document.getElementById('p-set').value=''; document.getElementById('p-count').value='1';
   document.getElementById('p-price').value=''; document.getElementById('p-notes').value='';
-  document.getElementById('pull-inputs').innerHTML=`<div class="form-row pull-row" style="align-items:flex-end;gap:8px"><div class="form-group" style="flex:2"><label class="lbl">Card Name</label><input type="text" class="pull-name" placeholder="e.g. Charizard ex"></div><div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Rarity</label><select class="pull-rarity"><option value="">— skip —</option><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select></div><div class="form-group" style="flex:1;min-width:60px"><label class="lbl">Qty</label><input type="number" class="pull-qty" value="1" min="1"></div></div>`;
+  document.getElementById('pull-inputs').innerHTML=`<div class="form-row pull-row" style="align-items:flex-end;gap:8px"><div class="form-group" style="flex:2"><label class="lbl">Card Name</label><input type="text" class="pull-name" placeholder="e.g. Charizard ex"></div><div class="form-group" style="flex:1;min-width:110px"><label class="lbl">Rarity</label><select class="pull-rarity"><option value="">— skip —</option><option value="common">Common</option><option value="uncommon">Uncommon</option><option value="rare">Rare</option><option value="holo">Holo Rare</option><option value="ex">ex / V</option><option value="ultra">Ultra Rare</option><option value="secret">Secret Rare</option></select></div><div class="form-group" style="flex:1;min-width:60px"><label class="lbl">Qty</label><input type="number" class="pull-qty" value="1" min="0.5" step="0.5"></div></div>`;
   renderPacks(); updateHeader(); toast('✅ Pack logged!');
 }
 
@@ -896,7 +894,7 @@ function clearPacks() { confirmClear('packs'); }
 // ===== INVENTORY =====
 function addCard() {
   const name=document.getElementById('i-name').value.trim(), set=document.getElementById('i-set').value.trim(),
-        rarity=document.getElementById('i-rarity').value, qty=parseInt(document.getElementById('i-qty').value)||1,
+        rarity=document.getElementById('i-rarity').value, qty=parseFloat(document.getElementById('i-qty').value)||1,
         cond=document.getElementById('i-cond').value;
   if (!name) { toast('⚠ Card name required.'); return; }
   const ex=state.cards.find(c=>c.name===name&&c.set===set&&c.rarity===rarity&&c.cond===cond);
@@ -959,7 +957,7 @@ const TYPE_COLORS={
 
 function addSealed() {
   const set=document.getElementById('s-set').value.trim(); if(!set){toast('⚠ Please enter a set name.');return;}
-  const qty=Math.max(1,parseInt(document.getElementById('s-qty').value)||1), type=document.getElementById('s-type').value,
+  const qty=Math.max(0.5,parseFloat(document.getElementById('s-qty').value)||1), type=document.getElementById('s-type').value,
         date=document.getElementById('s-date').value||new Date().toISOString().slice(0,10),
         price=parseFloat(document.getElementById('s-price').value)||0, notes=document.getElementById('s-notes').value.trim();
   const ex=state.sealed.find(s=>s.set===set&&s.type===type&&s.price===price);
@@ -970,7 +968,7 @@ function addSealed() {
 function deleteSealed(id) { state.sealed=state.sealed.filter(s=>s.id!==id); save(); renderSealed(); updateHeader(); if(isDash()) renderDashboard(); toast('Removed from stash'); }
 function adjustSealedQty(id,delta) {
   const item=state.sealed.find(s=>s.id===id); if(!item) return;
-  item.qty=Math.max(0,item.qty+delta);
+  item.qty=Math.round(Math.max(0,(item.qty+delta)*10))/10;
   if(item.qty===0) state.sealed=state.sealed.filter(s=>s.id!==id);
   save(); renderSealed(); updateHeader(); if(isDash()) renderDashboard();
 }
@@ -1023,9 +1021,9 @@ function renderSealed() {
     <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="e.g. Surging Sparks" style="width:100%;min-width:100px" oninput="updateSealed(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',parseFloat(this.value)||0)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><div style="display:flex;align-items:center;gap:6px">
-      <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},-1)">−</button>
-      <input class="cell-edit num-edit" type="number" min="0" value="${s.qty}" style="width:44px;text-align:center;font-family:'DM Mono',monospace;color:var(--gold)" oninput="updateSealed(${s.id},'qty',Math.max(0,parseInt(this.value)||0))" onkeydown="if(event.key==='Enter')this.blur()">
-      <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},1)">+</button>
+      <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},-0.5)">−</button>
+      <input class="cell-edit num-edit" type="number" min="0" step="0.5" value="${s.qty}" style="width:52px;text-align:center;font-family:'DM Mono',monospace;color:var(--gold)" oninput="updateSealed(${s.id},'qty',Math.max(0,parseFloat(this.value)||0))" onkeydown="if(event.key==='Enter')this.blur()">
+      <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},0.5)">+</button>
     </div></td>
     <td><button class="btn-danger" onclick="deleteSealed(${s.id})">✕</button></td>
     <td><button class="btn-sell" onclick="openSellModal(${s.id})">💰 Sell</button></td>
@@ -1140,7 +1138,14 @@ function renderDashboard() {
   const totalSpend = spentPacks + sealedCost - netProfit;
   if(ge('d-total-spend')) { ge('d-total-spend').textContent='$'+Math.abs(totalSpend).toFixed(2); ge('d-total-spend').style.color=totalSpend>0?'var(--gold)':'var(--green)'; }
   const plSub=ge('d-profit-sub'); if(plSub){const m=totalRev>0?((netProfit/totalRev)*100).toFixed(1):null;plSub.textContent=m?`Margin: ${m}%`:'From sales';}
-  ge('d-cards').textContent=totalCards; ge('d-rate').textContent=rate; ge('d-sold').textContent=state.sales.length; ge('d-avg-sale').textContent=avgSale?'$'+avgSale:'—';
+  // 90-day profit
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
+  const cutoffStr = cutoff.toISOString().slice(0,10);
+  const profit90 = state.sales.filter(s => s.date >= cutoffStr).reduce((sum, s) => sum + (s.price - s.cost), 0);
+  const count90  = state.sales.filter(s => s.date >= cutoffStr).length;
+  if(ge('d-profit-90')) { ge('d-profit-90').textContent=(profit90>=0?'+':'')+'$'+Math.abs(profit90).toFixed(2); ge('d-profit-90').style.color=profit90>=0?'var(--green)':'var(--red)'; }
+  if(ge('d-profit-90-sub')) ge('d-profit-90-sub').textContent=`${count90} sale${count90!==1?'s':''} in last 90 days`;
+  ge('d-sold').textContent=state.sales.length; ge('d-avg-sale').textContent=avgSale?'$'+avgSale:'—';
 
   // Recent sales widget
   const salesWidgetEl=ge('d-sales-list');
@@ -1464,7 +1469,7 @@ function closeSellModal() {
 function updateSellCalc() {
   const item = _sellId ? state.sealed.find(s => s.id === _sellId) : null;
   if (!item) return;
-  const qty        = Math.max(1, parseInt(document.getElementById('sell-qty').value) || 1);
+  const qty        = Math.max(0.5, parseFloat(document.getElementById('sell-qty').value) || 1);
   const saleEach   = parseFloat(document.getElementById('sell-price').value) || 0;
   const costEach   = item.price || 0;
   const totalSale  = saleEach * qty;
@@ -1487,7 +1492,7 @@ function confirmSell() {
   const item = _sellId ? state.sealed.find(s => s.id === _sellId) : null;
   if (!item) return;
 
-  const qty      = Math.max(1, parseInt(document.getElementById('sell-qty').value) || 1);
+  const qty      = Math.max(0.5, parseFloat(document.getElementById('sell-qty').value) || 1);
   const saleEach = parseFloat(document.getElementById('sell-price').value) || 0;
   const platform = document.getElementById('sell-platform').value;
   const date     = document.getElementById('sell-date').value || new Date().toISOString().slice(0, 10);
