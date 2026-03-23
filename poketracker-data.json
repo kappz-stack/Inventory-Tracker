@@ -301,6 +301,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1774267217027,
+      "set": "Prismatic Poster",
+      "qty": 5,
+      "type": "poster",
+      "date": "2026-03-23",
+      "price": 17.78,
+      "notes": "Pris"
+    },
+    {
       "id": 1774122929046,
       "set": "Charizard UPC",
       "qty": 10,
@@ -488,15 +497,6 @@
       "date": "2025-12-31",
       "price": 27.08,
       "notes": "DR/ME"
-    },
-    {
-      "id": 1774122929067,
-      "set": "Prismatic Poster Bundle",
-      "qty": 3,
-      "type": "bundle",
-      "date": "2025-12-31",
-      "price": 17.94,
-      "notes": "Pris"
     },
     {
       "id": 1774122929068,
