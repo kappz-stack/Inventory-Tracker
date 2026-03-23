@@ -552,7 +552,7 @@
 
 <nav>
   <button class="active" onclick="showPage('dashboard')">Dashboard</button>
-  <button onclick="showPage('packs')">Rip Log</button>
+  <button onclick="showPage('packs')">Pack Openings</button>
   <!-- <button onclick="showPage('inventory')">Inventory</button> -->
   <button onclick="showPage('sealed')">Sealed Packs</button>
   <button onclick="showPage('sales')">Sales</button>
@@ -830,19 +830,17 @@
     <div class="grid-2" style="margin-bottom:14px">
       <div class="card">
         <div class="section-head" style="margin-bottom:8px"><h2>Log a Sale</h2></div>
-        <div class="form-row">
-          <div class="form-group" style="flex:3"><label class="lbl">Item Name</label><input id="sl-name" type="text" placeholder="e.g. Charizard ex, Surging Sparks booster"></div>
-          <div class="form-group" style="flex:1;min-width:100px"><label class="lbl">Category</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div class="form-group" style="grid-column:1/-1"><label class="lbl">Item Name</label><input id="sl-name" type="text" placeholder="e.g. Charizard ex, Surging Sparks booster"></div>
+          <div class="form-group"><label class="lbl">Category</label>
             <select id="sl-cat"><option value="single">Single Card</option><option value="sealed">Sealed Pack</option><option value="lot">Card Lot</option><option value="graded">Graded Card</option><option value="bundle">Bundle / Box</option><option value="blister">Blister</option><option value="etb">ETB</option><option value="other">Other</option></select></div>
-          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Platform</label>
+          <div class="form-group"><label class="lbl">Platform</label>
             <select id="sl-platform"><option value="ebay">eBay</option><option value="tcgplayer">TCGPlayer</option><option value="facebook">Facebook</option><option value="local">Local / LGS</option><option value="friend">Friend</option><option value="other">Other</option></select></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Sale ($)</label><input id="sl-price" type="number" min="0" step="0.01" placeholder="0.00"></div>
-          <div class="form-group" style="flex:1;min-width:80px"><label class="lbl">Cost ($)</label><input id="sl-cost-input" type="number" min="0" step="0.01" placeholder="0.00"></div>
-          <div class="form-group" style="flex:1;min-width:90px"><label class="lbl">Date</label><input id="sl-date" type="date"></div>
-          <div class="form-group" style="flex:2"><label class="lbl">Notes</label><input id="sl-notes" type="text" placeholder="e.g. PSA 10, holo, lot of 50…"></div>
-          <div class="form-group" style="justify-content:flex-end;min-width:80px"><label class="lbl">&nbsp;</label><button class="btn" onclick="logSale()" style="white-space:nowrap">Log Sale →</button></div>
+          <div class="form-group"><label class="lbl">Sale ($)</label><input id="sl-price" type="number" min="0" step="0.01" placeholder="0.00"></div>
+          <div class="form-group"><label class="lbl">Cost ($)</label><input id="sl-cost-input" type="number" min="0" step="0.01" placeholder="0.00"></div>
+          <div class="form-group"><label class="lbl">Date</label><input id="sl-date" type="date"></div>
+          <div class="form-group"><label class="lbl">Notes</label><input id="sl-notes" type="text" placeholder="e.g. PSA 10, holo, lot of 50…"></div>
+          <div class="form-group" style="grid-column:1/-1;display:flex;justify-content:flex-end"><button class="btn" onclick="logSale()" style="white-space:nowrap">Log Sale →</button></div>
         </div>
         <div class="upload-zone" id="uz-sales" onclick="document.getElementById('uf-sales').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="event.preventDefault();this.classList.remove('drag-over');handleUpload('sales',event.dataTransfer.files[0])">
           <input type="file" id="uf-sales" accept=".xlsx,.xls,.csv" onchange="handleUpload('sales',this.files[0]);this.value=''">
@@ -1134,7 +1132,7 @@ function renderPacks() {
     <td><input class="cell-edit" value="${esc(p.set)}" style="font-weight:500;min-width:140px;width:100%" oninput="updatePack(${p.id},'set',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><input class="cell-edit" type="date" value="${p.date}" style="width:130px" onchange="updatePack(${p.id},'date',this.value)"></td>
     <td><input class="cell-edit num-edit" type="number" min="0.5" step="0.5" value="${p.count}" style="width:60px;text-align:right" oninput="updatePack(${p.id},'count',parseFloat(this.value)||1)" onkeydown="if(event.key==='Enter')this.blur()"></td>
-    <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${p.price||''}" placeholder="0.00" style="width:80px;text-align:right;color:var(--green)" oninput="updatePack(${p.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+    <td><div style="display:flex;align-items:center;gap:2px"><span style="color:var(--muted);font-size:12px">$</span><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${p.price||''}" placeholder="0.00" style="width:72px;text-align:right;color:var(--green)" oninput="updatePack(${p.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></div></td>
     <td><input class="cell-edit" value="${esc(p.notes||'')}" placeholder="—" style="min-width:90px;width:100%;color:var(--muted)" oninput="updatePack(${p.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
     <td><button class="btn-danger" onclick="deletePack(${p.id})">✕</button></td>
   </tr>`).join('');
@@ -1291,7 +1289,7 @@ function renderSealed() {
     <td><select class="cell-edit" style="width:100%;min-width:90px" onchange="updateSealed(${s.id},'type',this.value)">${Object.entries(TYPE_LABELS).map(([v,l])=>`<option value="${v}"${s.type===v?' selected':''}>${l}</option>`).join('')}</select></td>
     <td><input class="cell-edit" type="date" value="${s.date}" style="width:100%" onchange="updateSealed(${s.id},'date',this.value)"></td>
     <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="e.g. Surging Sparks" style="width:100%;min-width:100px" oninput="updateSealed(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
-    <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+    <td><div style="display:flex;align-items:center;gap:2px"><span style="color:var(--muted);font-size:12px">$</span><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:72px;text-align:right;font-family:'DM Mono',monospace" oninput="updateSealed(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></div></td>
     <td><div style="display:flex;align-items:center;gap:6px">
       <button class="btn-ghost" style="padding:2px 8px;font-size:13px;line-height:1" onclick="adjustSealedQty(${s.id},-1)">−</button>
       <input class="cell-edit num-edit" type="number" min="0" step="0.5" value="${s.qty}" style="width:52px;text-align:center;font-family:'DM Mono',monospace;color:var(--gold)" oninput="updateSealed(${s.id},'qty',Math.max(0,parseFloat(this.value)||0))" onkeydown="if(event.key==='Enter')this.blur()">
@@ -1386,8 +1384,8 @@ function renderSales() {
       <td><select class="cell-edit" style="min-width:80px" onchange="updateSale(${s.id},'cat',this.value)">${catOpts}</select></td>
       <td><select class="cell-edit" style="min-width:90px" onchange="updateSale(${s.id},'platform',this.value)">${platOpts}</select></td>
       <td><input class="cell-edit" type="date" value="${s.date}" style="width:130px" onchange="updateSale(${s.id},'date',this.value)"></td>
-      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.cost||''}" placeholder="0.00" style="width:80px;text-align:right" oninput="updateSale(${s.id},'cost',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
-      <td><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:80px;text-align:right;color:var(--green)" oninput="updateSale(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></td>
+      <td><div style="display:flex;align-items:center;gap:2px"><span style="color:var(--muted);font-size:12px">$</span><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.cost||''}" placeholder="0.00" style="width:72px;text-align:right" oninput="updateSale(${s.id},'cost',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></div></td>
+      <td><div style="display:flex;align-items:center;gap:2px"><span style="color:var(--muted);font-size:12px">$</span><input class="cell-edit num-edit" type="number" min="0" step="0.01" value="${s.price||''}" placeholder="0.00" style="width:72px;text-align:right;color:var(--green)" oninput="updateSale(${s.id},'price',Math.round((parseFloat(this.value)||0)*100)/100)" onkeydown="if(event.key==='Enter')this.blur()"></div></td>
       <td class="num" style="color:${pColor};font-weight:600;white-space:nowrap" id="sl-profit-${s.id}">${(p>=0?'+':'')+'$'+Math.abs(p).toFixed(2)}</td>
       <td class="num" style="color:var(--muted);white-space:nowrap" id="sl-margin-${s.id}">${margin!==null?margin+'%':'—'}</td>
       <td><input class="cell-edit" value="${esc(s.notes||'')}" placeholder="—" style="min-width:90px;width:100%;color:var(--muted)" oninput="updateSale(${s.id},'notes',this.value)" onkeydown="if(event.key==='Enter')this.blur()"></td>
@@ -1880,7 +1878,7 @@ function _updateOpenCalc() {
   const total = price * qty;
   const preview = document.getElementById('open-cost-preview');
   const label   = document.getElementById('open-calc-label');
-  label.textContent = `Deducts ${qty} from stash · adds to Pack Log`;
+  label.textContent = `Deducts ${qty} from stash · adds to Pack Openings`;
   preview.textContent = total > 0 ? `Total cost $${total.toFixed(2)}` : '';
 }
 
@@ -1921,7 +1919,7 @@ function confirmOpen() {
   save(); updateSetLists(); renderSealed(); renderPacks(); updateHeader();
   if (isDash()) renderDashboard();
   closeOpenModal();
-  toast(`✅ Logged opening of ${item.set} ×${qty} → Pack Log`);
+  toast(`✅ Logged opening of ${item.set} ×${qty} → Pack Openings`);
 }
 
 document.getElementById('open-modal').addEventListener('click', function(e) {
