@@ -301,6 +301,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1774275137415,
+      "set": "First Partners Pack",
+      "qty": 5,
+      "type": "collection",
+      "date": "2026-03-23",
+      "price": 16.7,
+      "notes": "PFL/ME"
+    },
+    {
       "id": 1774267217027,
       "set": "Prismatic Poster",
       "qty": 5,
@@ -704,15 +713,6 @@
       "date": "2026-02-27",
       "price": 32.58,
       "notes": "AH"
-    },
-    {
-      "id": 1774122929091,
-      "set": "First Partners Pack",
-      "qty": 1,
-      "type": "collection",
-      "date": "2025-12-31",
-      "price": 17.37,
-      "notes": "PFL/ME"
     }
   ],
   "sales": [
