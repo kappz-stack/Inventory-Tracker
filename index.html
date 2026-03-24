@@ -562,9 +562,9 @@
   <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
     <div class="grid-4" style="margin-bottom:14px">
-      <div class="stat-card"><div class="label">Pack Cost</div><div class="value" id="d-spent" style="color:var(--red);font-size:20px">$0</div><div class="sub">Total spent opening</div></div>
+      <div class="stat-card"><div class="label">Pack Cost</div><div class="value" id="d-spent" style="color:var(--red);font-size:20px">$0</div><div class="sub">Total spent opening</div><div class="sub" id="d-spent-30" style="margin-top:3px;color:var(--muted)"></div></div>
       <div class="stat-card"><div class="label">Sealed Inventory</div><div class="value" id="d-sealed-cost" style="color:var(--ultra);font-size:20px">$0</div><div class="sub">Total sealed value</div></div>
-      <div class="stat-card"><div class="label">Net Profit</div><div class="value" id="d-profit" style="color:var(--green);font-size:20px">$0</div><div class="sub" id="d-profit-sub">From sales</div></div>
+      <div class="stat-card"><div class="label">Net Profit</div><div class="value" id="d-profit" style="color:var(--green);font-size:20px">$0</div><div class="sub" id="d-profit-sub">From sales</div><div class="sub" id="d-profit-30" style="margin-top:3px;color:var(--muted)"></div></div>
       <div class="stat-card"><div class="label">Total Spend</div><div class="value" id="d-total-spend" style="color:var(--gold);font-size:20px">$0</div><div class="sub">Pack + Sealed − Profit</div></div>
     </div>
     <div class="card" style="margin-bottom:12px">
@@ -1414,6 +1414,15 @@ function renderDashboard() {
   const totalSpend = spentPacks + sealedCost - netProfit;
   if(ge('d-total-spend')) { ge('d-total-spend').textContent='$'+Math.abs(totalSpend).toFixed(2); ge('d-total-spend').style.color=totalSpend>0?'var(--gold)':'var(--green)'; }
   const plSub=ge('d-profit-sub'); if(plSub){const m=totalRev>0?((netProfit/totalRev)*100).toFixed(1):null;plSub.textContent=m?`Margin: ${m}%`:'From sales';}
+  // 30-day pack cost
+  const cutoff30 = new Date(); cutoff30.setDate(cutoff30.getDate()-30);
+  const cutoff30Str = cutoff30.toISOString().slice(0,10);
+  const spent30 = packs.filter(p=>p.date>=cutoff30Str).reduce((s,p)=>s+(p.price||0),0);
+  if(ge('d-spent-30')) ge('d-spent-30').textContent = spent30>0 ? `$${spent30.toFixed(2)} last 30 days` : 'None in last 30 days';
+  // 30-day profit
+  const sales30 = state.sales.filter(s=>s.date>=cutoff30Str);
+  const profit30 = sales30.reduce((s,sl)=>s+(sl.price-sl.cost),0);
+  if(ge('d-profit-30')) { const p30color=profit30>=0?'var(--green)':'var(--red)'; ge('d-profit-30').textContent=`${profit30>=0?'+':''}$${Math.abs(profit30).toFixed(2)} last 30 days`; ge('d-profit-30').style.color=p30color; }
   // 90-day profit
   const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
   const cutoffStr = cutoff.toISOString().slice(0,10);
