@@ -1243,7 +1243,7 @@ function _refreshSealedStats() {
   if(el('s-stat-sets'))  el('s-stat-sets').textContent=totalSets;
   if(el('s-stat-spent')) el('s-stat-spent').textContent='$'+totalSpent.toFixed(2);
   const typeBreakdownEl=el('s-stat-type-breakdown');
-  if(typeBreakdownEl){const typeQtyMap={};all.forEach(i=>{typeQtyMap[i.type]=(typeQtyMap[i.type]||0)+i.qty;});const typesSorted=Object.entries(typeQtyMap).sort((a,b)=>b[1]-a[1]);typeBreakdownEl.innerHTML=typesSorted.length?typesSorted.map(([t,q])=>`<div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:${TYPE_COLORS[t]||'var(--muted)'}">${TYPE_LABELS[t]||t}</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:600">${q}</span></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:3px 0 0;border-top:1px solid var(--border);margin-top:3px;font-size:11px"><span style="color:var(--text);font-weight:600">Total</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:700">${totalSealed}</span></div>`:'';}
+  if(typeBreakdownEl){const typeQtyMap={};all.forEach(i=>{typeQtyMap[i.type]=(typeQtyMap[i.type]||0)+i.qty;});const typesSorted=Object.entries(typeQtyMap).sort((a,b)=>b[1]-a[1]);typeBreakdownEl.innerHTML=typesSorted.length?typesSorted.map(([t,q])=>`<div onclick="filterSealedByType('${t}')" style="display:flex;justify-content:space-between;padding:3px 4px;font-size:11px;cursor:pointer;border-radius:4px;transition:background .15s" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="this.style.background=''"><span style="color:${TYPE_COLORS[t]||'var(--muted)'}">${TYPE_LABELS[t]||t}</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:600">${q}</span></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:3px 0 0;border-top:1px solid var(--border);margin-top:3px;font-size:11px"><span style="color:var(--text);font-weight:600">Total</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:700">${totalSealed}</span></div>`:'';}
   const total=all.reduce((s,i)=>s+i.qty,0), countEl=el('sealed-count');
   if(countEl) countEl.textContent=`${all.length} entr${all.length!==1?'ies':'y'} · ${total} packs · click any cell to edit`;
   _renderSetTreemap(all, el('s-type-bars'));
@@ -1279,7 +1279,7 @@ function renderSealed() {
   if(el('s-stat-sets'))  el('s-stat-sets').textContent=totalSets;
   if(el('s-stat-spent')) el('s-stat-spent').textContent='$'+totalSpent.toFixed(2);
   const typeBreakdownEl=el('s-stat-type-breakdown');
-  if(typeBreakdownEl){const typeQtyMap={};all.forEach(i=>{typeQtyMap[i.type]=(typeQtyMap[i.type]||0)+i.qty;});const typesSorted=Object.entries(typeQtyMap).sort((a,b)=>b[1]-a[1]);typeBreakdownEl.innerHTML=typesSorted.length?typesSorted.map(([t,q])=>`<div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:${TYPE_COLORS[t]||'var(--muted)'}">${TYPE_LABELS[t]||t}</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:600">${q}</span></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:3px 0 0;border-top:1px solid var(--border);margin-top:3px;font-size:11px"><span style="color:var(--text);font-weight:600">Total</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:700">${totalSealed}</span></div>`:'';}
+  if(typeBreakdownEl){const typeQtyMap={};all.forEach(i=>{typeQtyMap[i.type]=(typeQtyMap[i.type]||0)+i.qty;});const typesSorted=Object.entries(typeQtyMap).sort((a,b)=>b[1]-a[1]);typeBreakdownEl.innerHTML=typesSorted.length?typesSorted.map(([t,q])=>`<div onclick="filterSealedByType('${t}')" style="display:flex;justify-content:space-between;padding:3px 4px;font-size:11px;cursor:pointer;border-radius:4px;transition:background .15s" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="this.style.background=''"><span style="color:${TYPE_COLORS[t]||'var(--muted)'}">${TYPE_LABELS[t]||t}</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:600">${q}</span></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:3px 0 0;border-top:1px solid var(--border);margin-top:3px;font-size:11px"><span style="color:var(--text);font-weight:600">Total</span><span style="font-family:'DM Mono',monospace;color:var(--holo);font-weight:700">${totalSealed}</span></div>`:'';}
   _renderSetTreemap(all, el('s-type-bars'));
   const tbody=el('sealed-table'), count=el('sealed-count');
   if(!items.length){tbody.innerHTML=`<tr><td colspan="10"><div class="empty"><div class="empty-icon">📦</div><p>${state.sealed.length?'No matches.':'No sealed packs yet.'}</p></div></td></tr>`;if(count)count.textContent='';return;}
@@ -2074,6 +2074,39 @@ function applyBulk(section) {
 }
 
 
+// ===== SEALED FILTER SHORTCUTS =====
+function filterSealedBySet(lbl) {
+  // Ensure the Pokemon Set filter dropdown has this option and select it
+  const sel = document.getElementById('sealed-filter-set');
+  if (!sel) return;
+  // If option doesn't exist yet, add it temporarily (renderSealed will repopulate)
+  if (![...sel.options].some(o => o.value === lbl)) {
+    const opt = document.createElement('option');
+    opt.value = lbl; opt.textContent = lbl;
+    sel.appendChild(opt);
+  }
+  sel.value = lbl;
+  // Clear type filter so we see all types for this set
+  const typeSel = document.getElementById('sealed-filter');
+  if (typeSel) typeSel.value = '';
+  renderSealed();
+  // Scroll the sealed table into view
+  const table = document.getElementById('sealed-table');
+  if (table) table.closest('.card')?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function filterSealedByType(typeKey) {
+  const sel = document.getElementById('sealed-filter');
+  if (!sel) return;
+  sel.value = typeKey;
+  // Clear set filter so we see all sets for this type
+  const setSel = document.getElementById('sealed-filter-set');
+  if (setSel) setSel.value = '';
+  renderSealed();
+  const table = document.getElementById('sealed-table');
+  if (table) table.closest('.card')?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
 // ===== POKEMON SET TREEMAP =====
 function _renderSetTreemap(all, container) {
   if (!container) return;
@@ -2136,13 +2169,14 @@ function _renderSetTreemap(all, container) {
     const fontSize  = w < 70 ? '10px' : '11px';
     return `<div
       data-set-label="${esc(lbl)}"
+      onclick="filterSealedBySet('${esc(lbl)}')"
       onmouseenter="showSealedSetTooltip(this,event)"
       onmouseleave="hideSealedSetTooltip(this)"
       style="position:absolute;
              left:${x + GAP/2}px;top:${y + GAP/2}px;
              width:${Math.max(0, w - GAP)}px;height:${Math.max(0, h - GAP)}px;
              background:${color};border-radius:5px;
-             cursor:default;overflow:hidden;box-sizing:border-box;padding:5px 6px;
+             cursor:pointer;overflow:hidden;box-sizing:border-box;padding:5px 6px;
              display:flex;flex-direction:column;justify-content:flex-end">
       ${showName ? `<div style="font-family:'Outfit',sans-serif;font-size:${fontSize};font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.45);max-width:100%">${esc(lbl)}</div>` : ''}
       ${showVal  ? `<div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.85);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">$${val.toFixed(0)}<span style="opacity:.65"> (${pct}%)</span></div>` : ''}
