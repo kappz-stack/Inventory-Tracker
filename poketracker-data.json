@@ -706,6 +706,15 @@
       "notes": "AH"
     },
     {
+      "id": 1774122929091,
+      "set": "First Partners Pack",
+      "qty": 1,
+      "type": "collection",
+      "date": "2025-12-31",
+      "price": 17.37,
+      "notes": "PFL/ME"
+    },
+    {
       "id": 1774267217027,
       "set": "Prismatic Poster",
       "qty": 5,
@@ -716,16 +725,6 @@
     }
   ],
   "sales": [
-    {
-      "id": 1774357941952,
-      "name": "First Partners Pack",
-      "cat": "sealed",
-      "price": 45,
-      "cost": 17.37,
-      "platform": "facebook",
-      "date": "2026-03-24",
-      "notes": "PFL/ME"
-    },
     {
       "id": 1774122939046,
       "name": "Hoopa V",
@@ -1043,7 +1042,7 @@
       "price": 127,
       "cost": 26.07,
       "platform": "ebay",
-      "date": "2026-01-01",
+      "date": "2026-03-02",
       "notes": ""
     },
     {
@@ -1095,6 +1094,16 @@
       "platform": "facebook",
       "date": "2026-01-01",
       "notes": ""
+    },
+    {
+      "id": 1774357941952,
+      "name": "First Partners Pack",
+      "cat": "sealed",
+      "price": 45,
+      "cost": 17.37,
+      "platform": "facebook",
+      "date": "2026-03-24",
+      "notes": "VIK"
     }
   ]
 }
