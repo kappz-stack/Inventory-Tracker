@@ -780,6 +780,26 @@
   ],
   "sales": [
     {
+      "id": 1775692178979,
+      "name": "First Partners Pack",
+      "cat": "sealed",
+      "price": 22.5,
+      "cost": 14.2,
+      "platform": "facebook",
+      "date": "2026-04-08",
+      "notes": ""
+    },
+    {
+      "id": 1775692118532,
+      "name": "First Partners Pack",
+      "cat": "sealed",
+      "price": 45,
+      "cost": 28.4,
+      "platform": "facebook",
+      "date": "2026-04-08",
+      "notes": ""
+    },
+    {
       "id": 1774122939046,
       "name": "Hoopa V",
       "cat": "sealed",
