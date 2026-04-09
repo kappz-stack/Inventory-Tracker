@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1775762560623,
+      "set": "Heavy Hitters Box",
+      "count": 1,
+      "date": "2026-04-09",
+      "price": 53.77,
+      "notes": "Eli Birthday",
+      "pulls": []
+    },
+    {
       "id": 1775762508470,
       "set": "TWM ETB",
       "count": 1,
@@ -348,7 +357,7 @@
     {
       "id": 1775762512513,
       "set": "Heavy Hitters Box",
-      "qty": 7,
+      "qty": 6,
       "type": "costco",
       "date": "2025-12-31",
       "price": 53.77,
@@ -716,6 +725,26 @@
     }
   ],
   "sales": [
+    {
+      "id": 1775762645473,
+      "name": "first partners",
+      "cat": "sealed",
+      "price": 22.5,
+      "cost": 14.2,
+      "platform": "facebook",
+      "date": "2026-04-09",
+      "notes": ""
+    },
+    {
+      "id": 1775762629492,
+      "name": "First Partners",
+      "cat": "sealed",
+      "price": 45,
+      "cost": 28.4,
+      "platform": "facebook",
+      "date": "2026-04-09",
+      "notes": ""
+    },
     {
       "id": 1775762514550,
       "name": "Hoopa V",
