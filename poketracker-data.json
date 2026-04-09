@@ -1178,26 +1178,6 @@
       "platform": "facebook",
       "date": "2026-03-24",
       "notes": "PFL/ME"
-    },
-    {
-      "id": 1775696051587,
-      "name": "First partners",
-      "cat": "sealed",
-      "price": 22.5,
-      "cost": 14.2,
-      "platform": "facebook",
-      "date": "2026-04-09",
-      "notes": ""
-    },
-    {
-      "id": 1775696038275,
-      "name": "First partners",
-      "cat": "sealed",
-      "price": 45,
-      "cost": 28.4,
-      "platform": "facebook",
-      "date": "2026-04-09",
-      "notes": ""
     }
   ]
 }
