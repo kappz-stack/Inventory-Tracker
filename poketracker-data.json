@@ -573,7 +573,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 18,
+      "qty": 15,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
@@ -731,15 +731,6 @@
       "date": "2026-02-27",
       "price": 32.58,
       "notes": "AH"
-    },
-    {
-      "id": 1775763341621,
-      "set": "Pokemon balls",
-      "qty": 15,
-      "type": "booster-box",
-      "date": "2026-04-09",
-      "price": 13.21,
-      "notes": ""
     }
   ],
   "sales": [
