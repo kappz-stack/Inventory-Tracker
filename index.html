@@ -909,7 +909,49 @@ let state = { packs:[], cards:[], sealed:[], sales:[] };
 const RARITY_ORDER = ['secret','ultra','ex','holo','rare','uncommon','common'];
 const HIT_RARITIES = new Set(['rare','holo','ex','ultra','secret']);
 
-function save() { localStorage.setItem('pt_state', JSON.stringify(state)); localStorage.setItem('pt_last_save', Date.now()); }
+function save() {
+  localStorage.setItem('pt_state', JSON.stringify(state));
+  localStorage.setItem('pt_last_save', Date.now());
+  _scheduleAutoPush();
+}
+
+// Debounced auto-push: batches rapid edits into a single push 3s after the last change
+let _autoPushTimer = null;
+function _scheduleAutoPush() {
+  if (!ghConfig().token) return; // Only auto-push if GitHub is configured
+  clearTimeout(_autoPushTimer);
+  setSyncDot('busy');
+  _autoPushTimer = setTimeout(_doAutoPush, 3000);
+}
+
+async function _doAutoPush() {
+  const c = ghConfig();
+  if (!c.user || !c.repo || !c.token) return;
+  try {
+    const apiBase = `https://api.github.com/repos/${c.user}/${c.repo}/contents/${DATA_FILE}`;
+    let sha = null;
+    try {
+      const check = await fetch(apiBase, { headers:{ Authorization:`token ${c.token}`, Accept:'application/vnd.github.v3+json' }});
+      if (check.ok) { const j = await check.json(); sha = j.sha; }
+    } catch(e) {}
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(state, null, 2))));
+    const body = { message:`PokéTracker auto-sync ${new Date().toISOString().slice(0,16).replace('T',' ')}`, content };
+    if (sha) body.sha = sha;
+    const res = await fetch(apiBase, {
+      method:'PUT',
+      headers:{ Authorization:`token ${c.token}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error((await res.json()).message || res.status);
+    const now = Date.now();
+    localStorage.setItem('pt_last_push', now);
+    localStorage.setItem('pt_last_save', now);
+    setSyncDot('ok');
+  } catch(err) {
+    setSyncDot('err');
+    console.warn('Auto-push failed:', err.message);
+  }
+}
 function load() { try { const d = localStorage.getItem('pt_state'); if(d) state = JSON.parse(d); } catch(e){} }
 
 function toast(msg, dur=2400) {
@@ -983,6 +1025,7 @@ function saveSyncConfig() {
 async function githubPush() {
   const c = ghConfig();
   if (!c.user || !c.repo || !c.token) { openSyncModal(); return; }
+  clearTimeout(_autoPushTimer); // Cancel any pending auto-push
   setSyncDot('busy');
   try {
     const apiBase = `https://api.github.com/repos/${c.user}/${c.repo}/contents/${DATA_FILE}`;
@@ -2948,31 +2991,13 @@ document.getElementById('s-date').value=new Date().toISOString().slice(0,10);
 document.getElementById('sl-date').value=new Date().toISOString().slice(0,10);
 updateSetLists(); updateHeader(); renderDashboard();
 
-// Auto-pull from GitHub on page load
-// Rules:
-//   1. Skip if GitHub is not configured
-//   2. Skip if local data was modified after the last push (unpushed changes)
-//   3. Skip if we pulled successfully less than 1 hour ago
+// Auto-pull from GitHub on every page load — GitHub is the source of truth.
+// If GitHub has data, it wins. If GitHub has no file yet, use local state.
+// If GitHub is not configured, just use local state.
 async function autoPull() {
   const c = ghConfig();
-  if (!c.user || !c.repo || !c.token) return; // Not configured
-
-  const lastSave = parseInt(localStorage.getItem('pt_last_save') || '0');
-  const lastPush = parseInt(localStorage.getItem('pt_last_push') || '0');
-  const lastPull = parseInt(localStorage.getItem('pt_last_pull') || '0');
-  const ONE_HOUR = 60 * 60 * 1000;
-
-  // Skip if there are local changes that haven't been pushed
-  if (lastSave > lastPush) {
-    console.info('Auto-pull skipped: unpushed local changes exist. Push first to sync.');
-    setSyncDot('ok');
-    return;
-  }
-
-  // Skip if last pull was less than 1 hour ago
-  if (Date.now() - lastPull < ONE_HOUR) {
-    console.info('Auto-pull skipped: pulled less than 1 hour ago.');
-    setSyncDot('ok');
+  if (!c.user || !c.repo || !c.token) {
+    setSyncDot(c.user ? 'ok' : '');
     return;
   }
 
@@ -2982,26 +3007,41 @@ async function autoPull() {
       `https://api.github.com/repos/${c.user}/${c.repo}/contents/${DATA_FILE}`,
       { headers: { Authorization: `token ${c.token}`, Accept: 'application/vnd.github.v3+json' } }
     );
-    if (res.status === 404) { setSyncDot('ok'); return; }
+
+    if (res.status === 404) {
+      // No remote file yet — push local state up as the first save
+      setSyncDot('ok');
+      _scheduleAutoPush();
+      return;
+    }
+
     if (!res.ok) throw new Error((await res.json()).message || res.status);
+
     const j = await res.json();
     const decoded = decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
     const remote = JSON.parse(decoded);
+
+    // GitHub wins — replace local state entirely with remote
     state = {
-      packs:  mergeById(state.packs,  remote.packs  || []),
-      cards:  mergeById(state.cards,  remote.cards  || []),
-      sealed: mergeById(state.sealed, remote.sealed || []),
-      sales:  mergeById(state.sales,  remote.sales  || []),
+      packs:  remote.packs  || [],
+      cards:  remote.cards  || [],
+      sealed: remote.sealed || [],
+      sales:  remote.sales  || [],
     };
+
     const now = Date.now();
     localStorage.setItem('pt_last_pull', now);
     localStorage.setItem('pt_last_save', now);
-    save(); updateSetLists(); updateHeader(); renderDashboard();
+    localStorage.setItem('pt_last_push', now);
+    localStorage.setItem('pt_state', JSON.stringify(state));
+
+    updateSetLists(); updateHeader(); renderDashboard();
     setSyncDot('ok');
     toast('🔄 Synced from GitHub', 2000);
   } catch(err) {
     setSyncDot('err');
     console.warn('Auto-pull failed:', err.message);
+    toast('⚠ Could not sync from GitHub — using local data', 3500);
   }
 }
 autoPull();
