@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1775695983934,
+      "set": "Heavy Hitters Box",
+      "count": 1,
+      "date": "2026-04-09",
+      "price": 53.77,
+      "notes": "Eli Birthday",
+      "pulls": []
+    },
+    {
       "id": 1774536450517,
       "set": "Pokéballs",
       "count": 1,
@@ -366,7 +375,7 @@
     {
       "id": 1774122929049,
       "set": "Heavy Hitters Box",
-      "qty": 7,
+      "qty": 6,
       "type": "costco",
       "date": "2025-12-31",
       "price": 53.77,
@@ -752,6 +761,26 @@
     }
   ],
   "sales": [
+    {
+      "id": 1775696051587,
+      "name": "First partners",
+      "cat": "sealed",
+      "price": 22.5,
+      "cost": 14.2,
+      "platform": "facebook",
+      "date": "2026-04-09",
+      "notes": ""
+    },
+    {
+      "id": 1775696038275,
+      "name": "First partners",
+      "cat": "sealed",
+      "price": 45,
+      "cost": 28.4,
+      "platform": "facebook",
+      "date": "2026-04-09",
+      "notes": ""
+    },
     {
       "id": 1774122939046,
       "name": "Hoopa V",
