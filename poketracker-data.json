@@ -321,7 +321,7 @@
     {
       "id": 1775762512503,
       "set": "First Partners Pack",
-      "qty": 5,
+      "qty": 4,
       "type": "collection",
       "date": "2026-03-23",
       "price": 16.7,
@@ -743,6 +743,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1775765085664,
+      "name": "First Partners Pack",
+      "cat": "sealed",
+      "price": 45,
+      "cost": 16.7,
+      "platform": "facebook",
+      "date": "2026-03-26",
+      "notes": "PFL/ME"
+    },
     {
       "id": 1775762645473,
       "name": "first partners",
