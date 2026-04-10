@@ -742,39 +742,12 @@
       "notes": "PO"
     },
     {
-      "id": 1775820146264,
-      "set": "3 Pack walgreens tin",
-      "qty": 2,
-      "type": "booster-box",
-      "date": "2026-04-10",
-      "price": 17.37,
-      "notes": "Mix"
-    },
-    {
-      "id": 1775824021552,
-      "set": "PFL Checklane",
-      "qty": 2,
-      "type": "sleeves",
-      "date": "2026-04-10",
-      "price": 7,
-      "notes": "PFL"
-    },
-    {
-      "id": 1775824040103,
-      "set": "PFL Mini Portfolio",
-      "qty": 2,
-      "type": "sleeves",
-      "date": "2026-04-10",
-      "price": 6.5,
-      "notes": "PFL"
-    },
-    {
-      "id": 1775837735651,
+      "id": 1775837811447,
       "set": "Perfect Order",
-      "qty": 1,
+      "qty": 5,
       "type": "bundle",
       "date": "2026-04-10",
-      "price": 30.95,
+      "price": 32.55,
       "notes": "PO"
     }
   ],
@@ -791,7 +764,7 @@
     },
     {
       "id": 1775762645473,
-      "name": "First Partners -Tims sale",
+      "name": "first partners",
       "cat": "sealed",
       "price": 22.5,
       "cost": 14.2,
@@ -801,7 +774,7 @@
     },
     {
       "id": 1775762629492,
-      "name": "First Partners - Tims sale",
+      "name": "First Partners",
       "cat": "sealed",
       "price": 45,
       "cost": 28.4,
