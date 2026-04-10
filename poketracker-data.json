@@ -758,6 +758,15 @@
       "date": "2026-04-10",
       "price": 7,
       "notes": "PFL"
+    },
+    {
+      "id": 1775824040103,
+      "set": "PFL Mini Portfolio",
+      "qty": 2,
+      "type": "sleeves",
+      "date": "2026-04-10",
+      "price": 6.5,
+      "notes": "PFL"
     }
   ],
   "sales": [
