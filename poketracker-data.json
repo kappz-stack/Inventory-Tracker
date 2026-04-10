@@ -749,6 +749,15 @@
       "date": "2026-04-10",
       "price": 17.37,
       "notes": "Mix"
+    },
+    {
+      "id": 1775824021552,
+      "set": "PFL Checklane",
+      "qty": 2,
+      "type": "sleeves",
+      "date": "2026-04-10",
+      "price": 7,
+      "notes": "PFL"
     }
   ],
   "sales": [
