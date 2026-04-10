@@ -749,6 +749,15 @@
       "date": "2026-04-10",
       "price": 32.55,
       "notes": "PO"
+    },
+    {
+      "id": 1775837900484,
+      "set": "Perfect Order",
+      "qty": 1,
+      "type": "bundle",
+      "date": "2026-04-10",
+      "price": 30.25,
+      "notes": "PO"
     }
   ],
   "sales": [
