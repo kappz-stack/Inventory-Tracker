@@ -767,6 +767,15 @@
       "date": "2026-04-10",
       "price": 6.5,
       "notes": "PFL"
+    },
+    {
+      "id": 1775837735651,
+      "set": "Perfect Order",
+      "qty": 1,
+      "type": "bundle",
+      "date": "2026-04-10",
+      "price": 30.95,
+      "notes": "PO"
     }
   ],
   "sales": [
