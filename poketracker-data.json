@@ -1,24 +1,6 @@
 {
   "packs": [
     {
-      "id": 1775846867305,
-      "set": "Pokéballs",
-      "count": 1,
-      "date": "2026-04-10",
-      "price": 13.21,
-      "notes": "DR/JT/SS",
-      "pulls": []
-    },
-    {
-      "id": 1775845662451,
-      "set": "Perfect Order Booster Bundle",
-      "count": 1,
-      "date": "2026-04-10",
-      "price": 31.44,
-      "notes": "PO",
-      "pulls": []
-    },
-    {
       "id": 1775763352901,
       "set": "Pokemon balls",
       "count": 3,
@@ -339,7 +321,7 @@
     {
       "id": 1775837948179,
       "set": "Perfect Order Booster Bundle",
-      "qty": 7,
+      "qty": 8,
       "type": "bundle",
       "date": "2026-03-27",
       "price": 31.44,
@@ -591,7 +573,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 14,
+      "qty": 15,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
