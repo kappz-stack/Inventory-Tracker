@@ -348,7 +348,7 @@
     {
       "id": 1775762512503,
       "set": "First Partners Pack",
-      "qty": 4,
+      "qty": 2,
       "type": "collection",
       "date": "2026-03-23",
       "price": 16.7,
@@ -761,6 +761,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1776030406982,
+      "name": "First Partners Pack ×2",
+      "cat": "sealed",
+      "price": 90,
+      "cost": 33.4,
+      "platform": "facebook",
+      "date": "2026-04-12",
+      "notes": "PFL/ME"
+    },
     {
       "id": 1775905410290,
       "name": "Graded Gaurd",
