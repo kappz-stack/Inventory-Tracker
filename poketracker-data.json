@@ -762,6 +762,16 @@
   ],
   "sales": [
     {
+      "id": 1776113998294,
+      "name": "Graded Guard",
+      "cat": "single",
+      "price": 32.5,
+      "cost": 22.81,
+      "platform": "ebay",
+      "date": "2026-04-13",
+      "notes": ""
+    },
+    {
       "id": 1776030406982,
       "name": "First Partners Pack ×2",
       "cat": "sealed",
