@@ -758,6 +758,15 @@
       "date": "2026-04-09",
       "price": 5.5,
       "notes": "PO"
+    },
+    {
+      "id": 1776166969002,
+      "set": "Chaos Rising",
+      "qty": 2,
+      "type": "booster-box",
+      "date": "2026-04-14",
+      "price": 175.59,
+      "notes": "CR"
     }
   ],
   "sales": [
