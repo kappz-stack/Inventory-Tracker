@@ -767,6 +767,15 @@
       "date": "2026-04-14",
       "price": 175.59,
       "notes": "CR"
+    },
+    {
+      "id": 1776167013394,
+      "set": "PKC Chaos Rising",
+      "qty": 2,
+      "type": "etb",
+      "date": "2026-04-14",
+      "price": 65.16,
+      "notes": "CR"
     }
   ],
   "sales": [
