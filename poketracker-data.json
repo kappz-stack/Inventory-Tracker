@@ -816,16 +816,6 @@
   ],
   "sales": [
     {
-      "id": 1776450879248,
-      "name": "Pin Collections (BK)",
-      "cat": "bundle",
-      "price": 16.83,
-      "cost": 22.5,
-      "platform": "ebay",
-      "date": "2026-04-17",
-      "notes": ""
-    },
-    {
       "id": 1776113998294,
       "name": "Graded Guard",
       "cat": "single",
