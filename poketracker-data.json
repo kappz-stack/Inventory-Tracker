@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777135606704,
+      "set": "Ascended Heroes Booster Bundle",
+      "qty": 6,
+      "type": "bundle",
+      "date": "2026-04-24",
+      "price": 31.63,
+      "notes": "AH"
+    },
+    {
       "id": 1775837948179,
       "set": "Perfect Order Booster Bundle",
       "qty": 7,
@@ -461,15 +470,6 @@
       "date": "2026-03-27",
       "price": 65.16,
       "notes": "PO"
-    },
-    {
-      "id": 1775762512527,
-      "set": "Ascended Heroes Booster Bundle",
-      "qty": 4,
-      "type": "bundle",
-      "date": "2026-02-27",
-      "price": 29.26,
-      "notes": "AH"
     },
     {
       "id": 1775762512529,
@@ -820,15 +820,6 @@
       "type": "booster-box",
       "date": "2026-04-24",
       "price": 34.75,
-      "notes": "AH"
-    },
-    {
-      "id": 1777046425109,
-      "set": "Ascended Heroes Booster Bundle",
-      "qty": 2,
-      "type": "bundle",
-      "date": "2026-04-24",
-      "price": 36.38,
       "notes": "AH"
     },
     {
