@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777135629562,
+      "set": "Walgreens Triple Wammie",
+      "qty": 7,
+      "type": "tin",
+      "date": "2026-04-25",
+      "price": 17.5,
+      "notes": "Mix"
+    },
+    {
       "id": 1777135606704,
       "set": "Ascended Heroes Booster Bundle",
       "qty": 6,
@@ -796,15 +805,6 @@
       "notes": "CR"
     },
     {
-      "id": 1776205330343,
-      "set": "Walgreens Triple Wammie",
-      "qty": 4,
-      "type": "tin",
-      "date": "2026-04-14",
-      "price": 17.37,
-      "notes": "Mix"
-    },
-    {
       "id": 1776356274190,
       "set": "Vileplume Pack",
       "qty": 2,
@@ -821,15 +821,6 @@
       "date": "2026-04-24",
       "price": 34.75,
       "notes": "AH"
-    },
-    {
-      "id": 1777135573740,
-      "set": "Walgreens Triple Wammie",
-      "qty": 3,
-      "type": "tin",
-      "date": "2026-04-25",
-      "price": 17.67,
-      "notes": "Mix"
     }
   ],
   "sales": [
