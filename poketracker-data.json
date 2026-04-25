@@ -830,6 +830,15 @@
       "date": "2026-04-24",
       "price": 36.38,
       "notes": "AH"
+    },
+    {
+      "id": 1777135573740,
+      "set": "Walgreens Triple Wammie",
+      "qty": 3,
+      "type": "tin",
+      "date": "2026-04-25",
+      "price": 17.67,
+      "notes": "Mix"
     }
   ],
   "sales": [
