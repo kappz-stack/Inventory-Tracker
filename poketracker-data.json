@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777297189111,
+      "set": "Ascended Heroes Booster Bundle",
+      "qty": 8,
+      "type": "bundle",
+      "date": "2026-04-27",
+      "price": 31.46,
+      "notes": "AH"
+    },
+    {
       "id": 1777135629562,
       "set": "Walgreens Triple Wammie",
       "qty": 7,
@@ -353,15 +362,6 @@
       "date": "2026-04-25",
       "price": 17.5,
       "notes": "Mix"
-    },
-    {
-      "id": 1777135606704,
-      "set": "Ascended Heroes Booster Bundle",
-      "qty": 6,
-      "type": "bundle",
-      "date": "2026-04-24",
-      "price": 31.63,
-      "notes": "AH"
     },
     {
       "id": 1775837948179,
@@ -820,15 +820,6 @@
       "type": "booster-box",
       "date": "2026-04-24",
       "price": 34.75,
-      "notes": "AH"
-    },
-    {
-      "id": 1777297157143,
-      "set": "Ascended Heroes Booster Bundle",
-      "qty": 2,
-      "type": "bundle",
-      "date": "2026-04-27",
-      "price": 30.95,
       "notes": "AH"
     }
   ],
