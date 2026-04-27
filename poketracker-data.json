@@ -821,6 +821,15 @@
       "date": "2026-04-24",
       "price": 34.75,
       "notes": "AH"
+    },
+    {
+      "id": 1777297157143,
+      "set": "Ascended Heroes Booster Bundle",
+      "qty": 2,
+      "type": "bundle",
+      "date": "2026-04-27",
+      "price": 30.95,
+      "notes": "AH"
     }
   ],
   "sales": [
