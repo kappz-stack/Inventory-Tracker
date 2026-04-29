@@ -839,6 +839,15 @@
       "date": "2026-04-29",
       "price": 38,
       "notes": "AH"
+    },
+    {
+      "id": 1777429653847,
+      "set": "AH Deluxe Poster",
+      "qty": 1,
+      "type": "poster",
+      "date": "2026-04-29",
+      "price": 80,
+      "notes": "AH"
     }
   ],
   "sales": [
