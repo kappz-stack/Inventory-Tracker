@@ -366,7 +366,7 @@
     {
       "id": 1777469286633,
       "set": "AH Pin collection",
-      "qty": 2,
+      "qty": 1,
       "type": "pins",
       "date": "2026-04-29",
       "price": 35.29,
@@ -833,6 +833,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1777489093286,
+      "name": "AH Pin collection",
+      "cat": "sealed",
+      "price": 50,
+      "cost": 35.29,
+      "platform": "facebook",
+      "date": "2026-04-29",
+      "notes": "AH"
+    },
     {
       "id": 1777489085266,
       "name": "AH EX Boxes ×6",
