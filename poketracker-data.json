@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777469306265,
+      "set": "AH Deluxe Poster",
+      "qty": 2,
+      "type": "poster",
+      "date": "2026-04-29",
+      "price": 69.86,
+      "notes": "AH"
+    },
+    {
       "id": 1777469286633,
       "set": "AH Pin collection",
       "qty": 2,
@@ -760,15 +769,6 @@
       "notes": "AR"
     },
     {
-      "id": 1775762512592,
-      "set": "AH Deluxe Poster",
-      "qty": 1,
-      "type": "poster",
-      "date": "2026-02-27",
-      "price": 59.73,
-      "notes": "AH"
-    },
-    {
       "id": 1775764633450,
       "set": "Perfect Order",
       "qty": 2,
@@ -830,15 +830,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1777429653847,
-      "set": "AH Deluxe Poster",
-      "qty": 1,
-      "type": "poster",
-      "date": "2026-04-29",
-      "price": 80,
-      "notes": "AH"
     }
   ],
   "sales": [
