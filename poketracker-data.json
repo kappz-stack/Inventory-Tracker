@@ -348,7 +348,7 @@
     {
       "id": 1777487929079,
       "set": "AH EX Boxes",
-      "qty": 8,
+      "qty": 2,
       "type": "collection",
       "date": "2026-04-29",
       "price": 24.44,
@@ -833,6 +833,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1777489085266,
+      "name": "AH EX Boxes ×6",
+      "cat": "sealed",
+      "price": 300,
+      "cost": 146.64,
+      "platform": "facebook",
+      "date": "2026-04-29",
+      "notes": "AH"
+    },
     {
       "id": 1776772428047,
       "name": "First Partners (BK)",
