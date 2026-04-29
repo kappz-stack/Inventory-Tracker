@@ -830,6 +830,15 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
+    },
+    {
+      "id": 1777487845850,
+      "set": "AH EX Boxes",
+      "qty": 6,
+      "type": "collection",
+      "date": "2026-04-29",
+      "price": 21,
+      "notes": "AH"
     }
   ],
   "sales": [
