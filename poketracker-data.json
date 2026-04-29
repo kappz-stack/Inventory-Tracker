@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777487929079,
+      "set": "AH EX Boxes",
+      "qty": 8,
+      "type": "collection",
+      "date": "2026-04-29",
+      "price": 24.44,
+      "notes": "AH"
+    },
+    {
       "id": 1777469306265,
       "set": "AH Deluxe Poster",
       "qty": 2,
@@ -814,15 +823,6 @@
       "notes": "PFL/ME"
     },
     {
-      "id": 1777046364615,
-      "set": "AH EX Boxes",
-      "qty": 2,
-      "type": "booster-box",
-      "date": "2026-04-24",
-      "price": 34.75,
-      "notes": "AH"
-    },
-    {
       "id": 1777429405669,
       "set": "3 Pack Blister Perfect Order",
       "qty": 1,
@@ -830,15 +830,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1777487845850,
-      "set": "AH EX Boxes",
-      "qty": 6,
-      "type": "collection",
-      "date": "2026-04-29",
-      "price": 21,
-      "notes": "AH"
     }
   ],
   "sales": [
