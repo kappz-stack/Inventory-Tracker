@@ -830,6 +830,15 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
+    },
+    {
+      "id": 1777429496432,
+      "set": "AH Pin collection",
+      "qty": 1,
+      "type": "pins",
+      "date": "2026-04-29",
+      "price": 38,
+      "notes": "AH"
     }
   ],
   "sales": [
