@@ -346,6 +346,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1777469286633,
+      "set": "AH Pin collection",
+      "qty": 2,
+      "type": "pins",
+      "date": "2026-04-29",
+      "price": 35.29,
+      "notes": "AH"
+    },
+    {
       "id": 1777297189111,
       "set": "Ascended Heroes Booster Bundle",
       "qty": 10,
@@ -760,15 +769,6 @@
       "notes": "AH"
     },
     {
-      "id": 1775762512594,
-      "set": "AH Pins",
-      "qty": 1,
-      "type": "pins",
-      "date": "2026-02-27",
-      "price": 32.58,
-      "notes": "AH"
-    },
-    {
       "id": 1775764633450,
       "set": "Perfect Order",
       "qty": 2,
@@ -830,15 +830,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1777429496432,
-      "set": "AH Pin collection",
-      "qty": 1,
-      "type": "pins",
-      "date": "2026-04-29",
-      "price": 38,
-      "notes": "AH"
     },
     {
       "id": 1777429653847,
