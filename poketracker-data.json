@@ -364,6 +364,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1778273324323,
+      "set": "3 Pack Blister PFL",
+      "qty": 6,
+      "type": "blister3",
+      "date": "2025-12-31",
+      "price": 16.98,
+      "notes": "PFL"
+    },
+    {
       "id": 1778273300139,
       "set": "AH Tech Sticker 3 Pack",
       "qty": 3,
@@ -551,15 +560,6 @@
       "date": "2026-03-27",
       "price": 58,
       "notes": "PO"
-    },
-    {
-      "id": 1775762512533,
-      "set": "3 Pack Blister PFL",
-      "qty": 5,
-      "type": "blister3",
-      "date": "2025-12-31",
-      "price": 17.28,
-      "notes": "PFL"
     },
     {
       "id": 1775762512535,
@@ -857,15 +857,6 @@
       "date": "2026-04-30",
       "price": 23,
       "notes": "AH"
-    },
-    {
-      "id": 1778273261431,
-      "set": "3 Pack PFL",
-      "qty": 1,
-      "type": "blister3",
-      "date": "2026-05-08",
-      "price": 15.5,
-      "notes": "PFL"
     }
   ],
   "sales": [
