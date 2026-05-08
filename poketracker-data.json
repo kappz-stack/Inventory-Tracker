@@ -866,6 +866,15 @@
       "date": "2026-05-08",
       "price": 15.5,
       "notes": "PFL"
+    },
+    {
+      "id": 1778273280557,
+      "set": "AH Tech Sticker 3 Pack",
+      "qty": 1,
+      "type": "blister3",
+      "date": "2026-05-08",
+      "price": 17.5,
+      "notes": "AH"
     }
   ],
   "sales": [
