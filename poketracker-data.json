@@ -857,6 +857,15 @@
       "date": "2026-04-30",
       "price": 23,
       "notes": "AH"
+    },
+    {
+      "id": 1778273261431,
+      "set": "3 Pack PFL",
+      "qty": 1,
+      "type": "blister3",
+      "date": "2026-05-08",
+      "price": 15.5,
+      "notes": "PFL"
     }
   ],
   "sales": [
