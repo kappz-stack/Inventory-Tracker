@@ -1058,6 +1058,7 @@ async function githubPush() {
 async function githubPull() {
   const c = ghConfig();
   if (!c.user || !c.repo || !c.token) { openSyncModal(); return; }
+  clearTimeout(_autoPushTimer); // Cancel any pending auto-push
   setSyncDot('busy');
   try {
     const apiBase = `https://api.github.com/repos/${c.user}/${c.repo}/contents/${DATA_FILE}`;
@@ -1067,22 +1068,24 @@ async function githubPull() {
     const j = await res.json();
     const decoded = decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
     const remote = JSON.parse(decoded);
-    // Merge: remote wins on conflict (remote is source of truth)
+    // GitHub is source of truth — replace entirely, no merging
     state = {
-      packs:  mergeById(state.packs,  remote.packs  || []),
-      cards:  mergeById(state.cards,  remote.cards  || []),
-      sealed: mergeById(state.sealed, remote.sealed || []),
-      sales:  mergeById(state.sales,  remote.sales  || []),
+      packs:  remote.packs  || [],
+      cards:  remote.cards  || [],
+      sealed: remote.sealed || [],
+      sales:  remote.sales  || [],
     };
-    save(); updateSetLists(); updateHeader(); renderDashboard();
+    const now = Date.now();
+    localStorage.setItem('pt_state', JSON.stringify(state));
+    localStorage.setItem('pt_last_pull', now);
+    localStorage.setItem('pt_last_save', now);
+    localStorage.setItem('pt_last_push', now);
+    updateSetLists(); updateHeader(); renderDashboard();
     const page = document.querySelector('.page.active')?.id?.replace('page-','');
     if (page === 'packs') renderPacks();
     if (page === 'inventory') renderInventory();
     if (page === 'sealed') renderSealed();
     if (page === 'sales') renderSales();
-    const now = Date.now();
-    localStorage.setItem('pt_last_pull', now);
-    localStorage.setItem('pt_last_save', now);
     setSyncDot('ok');
     toast('✅ Data pulled from GitHub!');
   } catch(err) {
@@ -2910,6 +2913,10 @@ function _parseDate(val) {
 
 load();
 
+// Only preload sample data if GitHub sync is NOT configured.
+// When GitHub is configured, autoPull() will load the real data.
+if (!ghConfig().token) {
+
 // Preload sealed if empty
 if(state.sealed.length===0){
   const today=new Date().toISOString().slice(0,10);
@@ -2982,6 +2989,8 @@ if(state.sales.length===0){
   sd.forEach((s,i)=>{state.sales.push({id:sid+i,name:s.name,cat:s.cat,price:s.price,cost:s.cost,platform:s.platform,date:s.year+'-01-01',notes:''});});
   save();
 }
+
+} // end preload guard (only runs when GitHub not configured)
 
 // Init sync dot
 setSyncDot(ghConfig().user ? 'ok' : '');
