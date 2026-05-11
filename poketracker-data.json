@@ -465,7 +465,7 @@
     {
       "id": 1775762512507,
       "set": "Charizard UPC",
-      "qty": 10,
+      "qty": 9,
       "type": "upc",
       "date": "2025-12-31",
       "price": 113.5,
@@ -869,6 +869,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1778535767020,
+      "name": "Charizard UPC",
+      "cat": "sealed",
+      "price": 220,
+      "cost": 113.5,
+      "platform": "facebook",
+      "date": "2026-05-11",
+      "notes": "DR/JT/SS/ME/PFL"
+    },
     {
       "id": 1777653099753,
       "name": "Pikachu Day",
