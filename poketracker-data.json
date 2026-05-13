@@ -373,6 +373,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1778693460134,
+      "set": "AH EX boxes",
+      "qty": 4,
+      "type": "collection",
+      "date": "2026-04-30",
+      "price": 23.36,
+      "notes": "AH"
+    },
+    {
       "id": 1778273324323,
       "set": "3 Pack Blister PFL",
       "qty": 6,
@@ -388,15 +397,6 @@
       "type": "blister3",
       "date": "2026-05-08",
       "price": 20.33,
-      "notes": "AH"
-    },
-    {
-      "id": 1777487929079,
-      "set": "AH EX Boxes",
-      "qty": 1,
-      "type": "collection",
-      "date": "2026-04-29",
-      "price": 24.44,
       "notes": "AH"
     },
     {
@@ -857,15 +857,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1777569781230,
-      "set": "AH EX boxes",
-      "qty": 3,
-      "type": "collection",
-      "date": "2026-04-30",
-      "price": 23,
-      "notes": "AH"
     }
   ],
   "sales": [
