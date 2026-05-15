@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1778882464444,
+      "set": "First Partners Pack",
+      "count": 1,
+      "date": "2026-05-15",
+      "price": 16.7,
+      "notes": "PFL/ME",
+      "pulls": []
+    },
+    {
       "id": 1778517846660,
       "set": "ACO MAY",
       "count": 1,
@@ -447,7 +456,7 @@
     {
       "id": 1775762512503,
       "set": "First Partners Pack",
-      "qty": 4,
+      "qty": 3,
       "type": "collection",
       "date": "2026-03-23",
       "price": 16.7,
