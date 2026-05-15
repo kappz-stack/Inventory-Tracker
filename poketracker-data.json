@@ -861,6 +861,16 @@
   ],
   "sales": [
     {
+      "id": 1778864110214,
+      "name": "One Piece x4",
+      "cat": "sealed",
+      "price": 22,
+      "cost": 36,
+      "platform": "tcgplayer",
+      "date": "2026-05-15",
+      "notes": ""
+    },
+    {
       "id": 1778535819169,
       "name": "First Partners Pack",
       "cat": "sealed",
