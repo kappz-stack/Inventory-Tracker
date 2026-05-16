@@ -870,6 +870,16 @@
   ],
   "sales": [
     {
+      "id": 1778892390012,
+      "name": "Kanto",
+      "cat": "single",
+      "price": 122.93,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-05-15",
+      "notes": ""
+    },
+    {
       "id": 1778864485588,
       "name": "AH EX boxes",
       "cat": "sealed",
