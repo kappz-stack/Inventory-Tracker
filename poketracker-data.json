@@ -875,6 +875,15 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
+    },
+    {
+      "id": 1779116274120,
+      "set": "Latias Box",
+      "qty": 1,
+      "type": "booster-box",
+      "date": "2026-05-18",
+      "price": 0,
+      "notes": ""
     }
   ],
   "sales": [
