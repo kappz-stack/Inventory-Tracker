@@ -391,6 +391,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1779478802726,
+      "set": "Chaos Rising",
+      "qty": 3,
+      "type": "booster-box",
+      "date": "2026-04-14",
+      "price": 184.2,
+      "notes": "CR"
+    },
+    {
       "id": 1779472353833,
       "set": "CR Booster Bundle",
       "qty": 3,
@@ -850,15 +859,6 @@
       "notes": "PO"
     },
     {
-      "id": 1776166969002,
-      "set": "Chaos Rising",
-      "qty": 2,
-      "type": "booster-box",
-      "date": "2026-04-14",
-      "price": 175.59,
-      "notes": "CR"
-    },
-    {
       "id": 1776167013394,
       "set": "PKC Chaos Rising",
       "qty": 2,
@@ -910,15 +910,6 @@
       "type": "blister3",
       "date": "2026-05-22",
       "price": 17.4,
-      "notes": "CR"
-    },
-    {
-      "id": 1779478777736,
-      "set": "CR Booster BoX",
-      "qty": 1,
-      "type": "booster-box",
-      "date": "2026-05-22",
-      "price": 201.41,
       "notes": "CR"
     }
   ],
