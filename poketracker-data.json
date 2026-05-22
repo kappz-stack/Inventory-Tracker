@@ -409,6 +409,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1779493113332,
+      "set": "CR  3 Pack",
+      "qty": 7,
+      "type": "blister3",
+      "date": "2026-05-22",
+      "price": 16.44,
+      "notes": "CR"
+    },
+    {
       "id": 1779493097311,
       "set": "CR ETB",
       "qty": 9,
@@ -920,24 +929,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1779472503980,
-      "set": "CR  3 Pack",
-      "qty": 1,
-      "type": "blister3",
-      "date": "2026-05-22",
-      "price": 17.4,
-      "notes": "CR"
-    },
-    {
-      "id": 1779478228454,
-      "set": "CR",
-      "qty": 6,
-      "type": "blister3",
-      "date": "2026-05-22",
-      "price": 16.28,
-      "notes": "CR"
     }
   ],
   "sales": [
