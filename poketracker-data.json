@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1779480550705,
+      "set": "CR Booster Bundle",
+      "count": 1,
+      "date": "2026-05-22",
+      "price": 30.39,
+      "notes": "CR",
+      "pulls": []
+    },
+    {
       "id": 1778893372602,
       "set": "First Partners Pack",
       "count": 1,
@@ -391,18 +400,18 @@
   "cards": [],
   "sealed": [
     {
-      "id": 1779478802726,
-      "set": "Chaos Rising",
-      "qty": 3,
-      "type": "booster-box",
-      "date": "2026-04-14",
-      "price": 184.2,
-      "notes": "CR"
+      "id": 1779476995072,
+      "set": "Prismatic ETB",
+      "qty": 4,
+      "type": "etb",
+      "date": "2026-05-22",
+      "price": 52.25,
+      "notes": "Pris"
     },
     {
       "id": 1779472353833,
       "set": "CR Booster Bundle",
-      "qty": 3,
+      "qty": 6,
       "type": "bundle",
       "date": "2026-05-22",
       "price": 30.39,
@@ -634,15 +643,6 @@
       "notes": "SC"
     },
     {
-      "id": 1775762512539,
-      "set": "Prismatic ETB",
-      "qty": 2,
-      "type": "etb",
-      "date": "2025-12-31",
-      "price": 32.1,
-      "notes": "Pris"
-    },
-    {
       "id": 1775762512541,
       "set": "DR Booster Bundle",
       "qty": 3,
@@ -859,6 +859,15 @@
       "notes": "PO"
     },
     {
+      "id": 1776166969002,
+      "set": "Chaos Rising",
+      "qty": 2,
+      "type": "booster-box",
+      "date": "2026-04-14",
+      "price": 175.59,
+      "notes": "CR"
+    },
+    {
       "id": 1776167013394,
       "set": "PKC Chaos Rising",
       "qty": 2,
@@ -897,7 +906,7 @@
     {
       "id": 1779472400453,
       "set": "CR ETB",
-      "qty": 1,
+      "qty": 3,
       "type": "etb",
       "date": "2026-05-22",
       "price": 65.16,
@@ -910,6 +919,24 @@
       "type": "blister3",
       "date": "2026-05-22",
       "price": 17.4,
+      "notes": "CR"
+    },
+    {
+      "id": 1779478201138,
+      "set": "CR ETB",
+      "qty": 6,
+      "type": "etb",
+      "date": "2026-05-22",
+      "price": 61.5,
+      "notes": "CR"
+    },
+    {
+      "id": 1779478228454,
+      "set": "CR",
+      "qty": 6,
+      "type": "blister3",
+      "date": "2026-05-22",
+      "price": 16.28,
       "notes": "CR"
     }
   ],
