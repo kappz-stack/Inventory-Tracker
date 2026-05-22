@@ -391,6 +391,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1779472217780,
+      "set": "CR Sleeve",
+      "qty": 10,
+      "type": "sleeves",
+      "date": "2026-05-22",
+      "price": 5.43,
+      "notes": "CR"
+    },
+    {
       "id": 1778693460134,
       "set": "AH EX boxes",
       "qty": 3,
@@ -875,33 +884,6 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
-    },
-    {
-      "id": 1779472149863,
-      "set": "CR Sleeve",
-      "qty": 2,
-      "type": "sleeves",
-      "date": "2026-05-22",
-      "price": 5.15,
-      "notes": "CR"
-    },
-    {
-      "id": 1779472176492,
-      "set": "CR Sleeves",
-      "qty": 4,
-      "type": "sleeves",
-      "date": "2026-05-22",
-      "price": 4.5,
-      "notes": "CR"
-    },
-    {
-      "id": 1779472189928,
-      "set": "CR Sleeves",
-      "qty": 4,
-      "type": "sleeves",
-      "date": "2026-05-22",
-      "price": 6.5,
-      "notes": "CR"
     }
   ],
   "sales": [
