@@ -391,18 +391,9 @@
   "cards": [],
   "sealed": [
     {
-      "id": 1779476995072,
-      "set": "Prismatic ETB",
-      "qty": 4,
-      "type": "etb",
-      "date": "2026-05-22",
-      "price": 52.25,
-      "notes": "Pris"
-    },
-    {
       "id": 1779472353833,
       "set": "CR Booster Bundle",
-      "qty": 7,
+      "qty": 3,
       "type": "bundle",
       "date": "2026-05-22",
       "price": 30.39,
@@ -632,6 +623,15 @@
       "date": "2025-12-31",
       "price": 65.16,
       "notes": "SC"
+    },
+    {
+      "id": 1775762512539,
+      "set": "Prismatic ETB",
+      "qty": 2,
+      "type": "etb",
+      "date": "2025-12-31",
+      "price": 32.1,
+      "notes": "Pris"
     },
     {
       "id": 1775762512541,
@@ -897,7 +897,7 @@
     {
       "id": 1779472400453,
       "set": "CR ETB",
-      "qty": 3,
+      "qty": 1,
       "type": "etb",
       "date": "2026-05-22",
       "price": 65.16,
@@ -913,21 +913,12 @@
       "notes": "CR"
     },
     {
-      "id": 1779478201138,
-      "set": "CR ETB",
-      "qty": 6,
-      "type": "etb",
+      "id": 1779478777736,
+      "set": "CR Booster BoX",
+      "qty": 1,
+      "type": "booster-box",
       "date": "2026-05-22",
-      "price": 61.5,
-      "notes": "CR"
-    },
-    {
-      "id": 1779478228454,
-      "set": "CR",
-      "qty": 6,
-      "type": "blister3",
-      "date": "2026-05-22",
-      "price": 16.28,
+      "price": 201.41,
       "notes": "CR"
     }
   ],
