@@ -893,6 +893,15 @@
       "date": "2026-05-22",
       "price": 32.58,
       "notes": "CR"
+    },
+    {
+      "id": 1779472345827,
+      "set": "CR Booster Bundle",
+      "qty": 1,
+      "type": "bundle",
+      "date": "2026-05-22",
+      "price": 26,
+      "notes": "CR"
     }
   ],
   "sales": [
