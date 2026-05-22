@@ -409,6 +409,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1779493097311,
+      "set": "CR ETB",
+      "qty": 9,
+      "type": "etb",
+      "date": "2026-05-22",
+      "price": 62.72,
+      "notes": "CR"
+    },
+    {
       "id": 1779476995072,
       "set": "Prismatic ETB",
       "qty": 4,
@@ -913,30 +922,12 @@
       "notes": "PO"
     },
     {
-      "id": 1779472400453,
-      "set": "CR ETB",
-      "qty": 3,
-      "type": "etb",
-      "date": "2026-05-22",
-      "price": 65.16,
-      "notes": "CR"
-    },
-    {
       "id": 1779472503980,
       "set": "CR  3 Pack",
       "qty": 1,
       "type": "blister3",
       "date": "2026-05-22",
       "price": 17.4,
-      "notes": "CR"
-    },
-    {
-      "id": 1779478201138,
-      "set": "CR ETB",
-      "qty": 6,
-      "type": "etb",
-      "date": "2026-05-22",
-      "price": 61.5,
       "notes": "CR"
     },
     {
