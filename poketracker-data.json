@@ -510,7 +510,7 @@
     {
       "id": 1775762512503,
       "set": "First Partners Pack",
-      "qty": 4,
+      "qty": 2,
       "type": "collection",
       "date": "2026-03-23",
       "price": 17,
@@ -950,6 +950,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1779489162537,
+      "name": "First Partners Pack ×2",
+      "cat": "sealed",
+      "price": 104,
+      "cost": 34,
+      "platform": "ebay",
+      "date": "2026-05-22",
+      "notes": "PFL/ME"
+    },
     {
       "id": 1778892390012,
       "name": "Kanto",
