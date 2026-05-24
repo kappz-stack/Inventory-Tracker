@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1779663986749,
+      "set": "CR Sleeve",
+      "count": 2,
+      "date": "2026-05-24",
+      "price": 10.76,
+      "notes": "CR",
+      "pulls": []
+    },
+    {
       "id": 1779480583439,
       "set": "First Partners Pack",
       "count": 1,
@@ -447,7 +456,7 @@
     {
       "id": 1779472256703,
       "set": "CR Sleeve",
-      "qty": 12,
+      "qty": 10,
       "type": "sleeves",
       "date": "2026-05-22",
       "price": 5.38,
