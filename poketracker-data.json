@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1779747893564,
+      "set": "Erika 2 Pack",
+      "count": 1,
+      "date": "2026-05-25",
+      "price": 10.82,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
       "id": 1779663986749,
       "set": "CR Sleeve",
       "count": 2,
@@ -861,7 +870,7 @@
     {
       "id": 1775762512586,
       "set": "Erika 2 Pack",
-      "qty": 5,
+      "qty": 4,
       "type": "blister2",
       "date": "2026-02-27",
       "price": 10.82,
