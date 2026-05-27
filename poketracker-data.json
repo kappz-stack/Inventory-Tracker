@@ -436,6 +436,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1779924735869,
+      "set": "CR Booster Bundle",
+      "qty": 8,
+      "type": "bundle",
+      "date": "2026-05-22",
+      "price": 30.11,
+      "notes": "CR"
+    },
+    {
       "id": 1779493113332,
       "set": "CR  3 Pack",
       "qty": 7,
@@ -461,15 +470,6 @@
       "date": "2026-05-22",
       "price": 52.25,
       "notes": "Pris"
-    },
-    {
-      "id": 1779472353833,
-      "set": "CR Booster Bundle",
-      "qty": 6,
-      "type": "bundle",
-      "date": "2026-05-22",
-      "price": 30.39,
-      "notes": "CR"
     },
     {
       "id": 1779472256703,
@@ -928,15 +928,6 @@
       "type": "etb",
       "date": "2026-04-14",
       "price": 65.16,
-      "notes": "CR"
-    },
-    {
-      "id": 1776167038137,
-      "set": "Chaos Rising",
-      "qty": 2,
-      "type": "bundle",
-      "date": "2026-04-14",
-      "price": 29.26,
       "notes": "CR"
     },
     {
