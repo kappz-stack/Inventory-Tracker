@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1780009325167,
+      "set": "CR Booster Bundle",
+      "count": 1,
+      "date": "2026-05-28",
+      "price": 30.11,
+      "notes": "CR",
+      "pulls": []
+    },
+    {
       "id": 1779924704606,
       "set": "CR Sleeve",
       "count": 1,
@@ -438,7 +447,7 @@
     {
       "id": 1779924735869,
       "set": "CR Booster Bundle",
-      "qty": 9,
+      "qty": 8,
       "type": "bundle",
       "date": "2026-05-22",
       "price": 30.11,
