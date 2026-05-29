@@ -974,6 +974,15 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
+    },
+    {
+      "id": 1780085358734,
+      "set": "Hops EX Box",
+      "qty": 1,
+      "type": "collection",
+      "date": "2026-05-29",
+      "price": 26,
+      "notes": "DR/SS"
     }
   ],
   "sales": [
