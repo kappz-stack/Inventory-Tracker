@@ -974,6 +974,15 @@
       "date": "2026-05-27",
       "price": 14.11,
       "notes": "SS/TM"
+    },
+    {
+      "id": 1780058064650,
+      "set": "Prismatic ETB",
+      "qty": 1,
+      "type": "etb",
+      "date": "2026-05-27",
+      "price": 76.03,
+      "notes": "Pris"
     }
   ],
   "sales": [
