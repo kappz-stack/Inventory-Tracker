@@ -965,6 +965,15 @@
       "date": "2026-04-29",
       "price": 17.26,
       "notes": "PO"
+    },
+    {
+      "id": 1780058038556,
+      "set": "2 pack",
+      "qty": 1,
+      "type": "blister2",
+      "date": "2026-05-27",
+      "price": 14.11,
+      "notes": "SS/TM"
     }
   ],
   "sales": [
