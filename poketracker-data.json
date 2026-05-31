@@ -983,6 +983,15 @@
       "date": "2026-05-29",
       "price": 26,
       "notes": "DR/SS"
+    },
+    {
+      "id": 1780271986783,
+      "set": "SPC",
+      "qty": 2,
+      "type": "spc",
+      "date": "2026-05-31",
+      "price": 76.02,
+      "notes": "Pris"
     }
   ],
   "sales": [
