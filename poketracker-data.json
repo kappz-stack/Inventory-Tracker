@@ -996,6 +996,16 @@
   ],
   "sales": [
     {
+      "id": 1780318886587,
+      "name": "Mega Zygard premium collection",
+      "cat": "bundle",
+      "price": 98,
+      "cost": 92.85,
+      "platform": "ebay",
+      "date": "2026-06-01",
+      "notes": "josh"
+    },
+    {
       "id": 1780318739073,
       "name": "CR ETB",
       "cat": "sealed",
