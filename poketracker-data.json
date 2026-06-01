@@ -492,7 +492,7 @@
     {
       "id": 1779493097311,
       "set": "CR ETB",
-      "qty": 9,
+      "qty": 8,
       "type": "etb",
       "date": "2026-05-22",
       "price": 62.72,
@@ -995,6 +995,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780318739073,
+      "name": "CR ETB",
+      "cat": "sealed",
+      "price": 66,
+      "cost": 62.72,
+      "platform": "ebay",
+      "date": "2026-06-01",
+      "notes": "CR"
+    },
     {
       "id": 1779664037645,
       "name": "BN Promo Card",
