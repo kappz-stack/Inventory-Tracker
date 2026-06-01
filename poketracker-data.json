@@ -1001,7 +1001,7 @@
       "cat": "bundle",
       "price": 98,
       "cost": 92.85,
-      "platform": "ebay",
+      "platform": "friend",
       "date": "2026-06-01",
       "notes": "josh"
     },
@@ -1011,7 +1011,7 @@
       "cat": "sealed",
       "price": 66,
       "cost": 62.72,
-      "platform": "ebay",
+      "platform": "friend",
       "date": "2026-06-01",
       "notes": "josh"
     },
