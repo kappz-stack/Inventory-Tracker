@@ -992,6 +992,15 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
+    },
+    {
+      "id": 1780329294804,
+      "set": "PFL Sleeves",
+      "qty": 6,
+      "type": "sleeves",
+      "date": "2026-06-01",
+      "price": 4.88,
+      "notes": "PFL"
     }
   ],
   "sales": [
