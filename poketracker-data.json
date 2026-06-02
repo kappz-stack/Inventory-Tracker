@@ -1,15 +1,6 @@
 {
   "packs": [
     {
-      "id": 1780346263657,
-      "set": "CR ETB",
-      "count": 1,
-      "date": "2026-06-01",
-      "price": 62.72,
-      "notes": "CR",
-      "pulls": []
-    },
-    {
       "id": 1780081829917,
       "set": "2 pack",
       "count": 1,
@@ -501,7 +492,7 @@
     {
       "id": 1779493097311,
       "set": "CR ETB",
-      "qty": 7,
+      "qty": 8,
       "type": "etb",
       "date": "2026-05-22",
       "price": 62.72,
@@ -1013,6 +1004,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780361595203,
+      "name": "First Partners set Sale",
+      "cat": "lot",
+      "price": 19.5,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-06-01",
+      "notes": ""
+    },
     {
       "id": 1780318886587,
       "name": "Mega Zygard premium collection",
