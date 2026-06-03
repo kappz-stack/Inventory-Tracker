@@ -573,7 +573,7 @@
     {
       "id": 1775837948179,
       "set": "Perfect Order Booster Bundle",
-      "qty": 8,
+      "qty": 7,
       "type": "bundle",
       "date": "2026-03-27",
       "price": 31.44,
@@ -1004,6 +1004,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780521798508,
+      "name": "Perfect Order Booster Bundle",
+      "cat": "sealed",
+      "price": 35,
+      "cost": 31.44,
+      "platform": "ebay",
+      "date": "2026-06-03",
+      "notes": "PO"
+    },
     {
       "id": 1780361595203,
       "name": "First Partners set Sale",
