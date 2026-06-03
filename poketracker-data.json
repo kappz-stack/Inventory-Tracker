@@ -474,7 +474,7 @@
     {
       "id": 1779924735869,
       "set": "CR Booster Bundle",
-      "qty": 8,
+      "qty": 7,
       "type": "bundle",
       "date": "2026-05-22",
       "price": 30.11,
@@ -1004,6 +1004,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780521815136,
+      "name": "CR Booster Bundle",
+      "cat": "sealed",
+      "price": 40,
+      "cost": 30.11,
+      "platform": "ebay",
+      "date": "2026-06-03",
+      "notes": "CR"
+    },
     {
       "id": 1780521798508,
       "name": "Perfect Order Booster Bundle",
