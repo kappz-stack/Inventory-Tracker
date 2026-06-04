@@ -573,7 +573,7 @@
     {
       "id": 1775837948179,
       "set": "Perfect Order Booster Bundle",
-      "qty": 7,
+      "qty": 6,
       "type": "bundle",
       "date": "2026-03-27",
       "price": 31.44,
@@ -1004,6 +1004,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780533109939,
+      "name": "Perfect Order Booster Bundle",
+      "cat": "sealed",
+      "price": 40,
+      "cost": 31.44,
+      "platform": "facebook",
+      "date": "2026-06-04",
+      "notes": "PO"
+    },
     {
       "id": 1780533098786,
       "name": "Perfect Order ETB",
