@@ -699,7 +699,7 @@
     {
       "id": 1775762512531,
       "set": "Perfect Order ETB",
-      "qty": 3,
+      "qty": 2,
       "type": "etb",
       "date": "2026-03-27",
       "price": 58,
@@ -1004,6 +1004,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780533098786,
+      "name": "Perfect Order ETB",
+      "cat": "sealed",
+      "price": 70,
+      "cost": 58,
+      "platform": "facebook",
+      "date": "2026-06-04",
+      "notes": "PO"
+    },
     {
       "id": 1780521833472,
       "name": "Pokéballs",
