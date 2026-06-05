@@ -1001,6 +1001,15 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
+    },
+    {
+      "id": 1780690960263,
+      "set": "Clefairy EX Tin",
+      "qty": 2,
+      "type": "tin",
+      "date": "2026-06-05",
+      "price": 40.15,
+      "notes": ""
     }
   ],
   "sales": [
