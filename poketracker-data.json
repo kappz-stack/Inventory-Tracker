@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1780646190508,
+      "set": "PFL Sleeves",
+      "count": 2,
+      "date": "2026-06-05",
+      "price": 10.46,
+      "notes": "PFL",
+      "pulls": []
+    },
+    {
       "id": 1780081829917,
       "set": "2 pack",
       "count": 1,
@@ -465,7 +474,7 @@
     {
       "id": 1780646178180,
       "set": "PFL Sleeves",
-      "qty": 14,
+      "qty": 12,
       "type": "sleeves",
       "date": "2026-06-01",
       "price": 5.23,
