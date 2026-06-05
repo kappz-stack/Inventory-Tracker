@@ -463,6 +463,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1780646178180,
+      "set": "PFL Sleeves",
+      "qty": 14,
+      "type": "sleeves",
+      "date": "2026-06-01",
+      "price": 5.23,
+      "notes": "PFL"
+    },
+    {
       "id": 1780058122840,
       "set": "Prismatic ETB",
       "qty": 5,
@@ -886,15 +895,6 @@
       "notes": "PFL/ME"
     },
     {
-      "id": 1775762512580,
-      "set": "PFL Sleeves",
-      "qty": 8,
-      "type": "sleeves",
-      "date": "2025-12-31",
-      "price": 5.43,
-      "notes": "PFL"
-    },
-    {
       "id": 1775762512582,
       "set": "2 Pack Wide PFL Mega",
       "qty": 4,
@@ -992,15 +992,6 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
-    },
-    {
-      "id": 1780646153825,
-      "set": "PFL Sleeves",
-      "qty": 6,
-      "type": "sleeves",
-      "date": "2026-06-01",
-      "price": 4.96,
-      "notes": "PFL"
     }
   ],
   "sales": [
