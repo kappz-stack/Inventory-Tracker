@@ -474,7 +474,7 @@
     {
       "id": 1779924735869,
       "set": "CR Booster Bundle",
-      "qty": 7,
+      "qty": 8,
       "type": "bundle",
       "date": "2026-05-22",
       "price": 30.11,
@@ -573,7 +573,7 @@
     {
       "id": 1775837948179,
       "set": "Perfect Order Booster Bundle",
-      "qty": 6,
+      "qty": 8,
       "type": "bundle",
       "date": "2026-03-27",
       "price": 31.44,
@@ -699,7 +699,7 @@
     {
       "id": 1775762512531,
       "set": "Perfect Order ETB",
-      "qty": 2,
+      "qty": 3,
       "type": "etb",
       "date": "2026-03-27",
       "price": 58,
@@ -798,7 +798,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 11,
+      "qty": 12,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
@@ -994,76 +994,16 @@
       "notes": "Pris"
     },
     {
-      "id": 1780329294804,
+      "id": 1780646153825,
       "set": "PFL Sleeves",
       "qty": 6,
       "type": "sleeves",
       "date": "2026-06-01",
-      "price": 4.88,
+      "price": 4.96,
       "notes": "PFL"
     }
   ],
   "sales": [
-    {
-      "id": 1780533109939,
-      "name": "Perfect Order Booster Bundle",
-      "cat": "sealed",
-      "price": 40,
-      "cost": 31.44,
-      "platform": "facebook",
-      "date": "2026-06-04",
-      "notes": "PO"
-    },
-    {
-      "id": 1780533098786,
-      "name": "Perfect Order ETB",
-      "cat": "sealed",
-      "price": 70,
-      "cost": 58,
-      "platform": "facebook",
-      "date": "2026-06-04",
-      "notes": "PO"
-    },
-    {
-      "id": 1780521833472,
-      "name": "Pokéballs",
-      "cat": "sealed",
-      "price": 25,
-      "cost": 13.21,
-      "platform": "ebay",
-      "date": "2026-06-03",
-      "notes": "DR/JT/SS"
-    },
-    {
-      "id": 1780521815136,
-      "name": "CR Booster Bundle",
-      "cat": "sealed",
-      "price": 40,
-      "cost": 30.11,
-      "platform": "ebay",
-      "date": "2026-06-03",
-      "notes": "CR"
-    },
-    {
-      "id": 1780521798508,
-      "name": "Perfect Order Booster Bundle",
-      "cat": "sealed",
-      "price": 35,
-      "cost": 31.44,
-      "platform": "ebay",
-      "date": "2026-06-03",
-      "notes": "PO"
-    },
-    {
-      "id": 1780361595203,
-      "name": "First Partners set Sale",
-      "cat": "lot",
-      "price": 19.5,
-      "cost": 0,
-      "platform": "ebay",
-      "date": "2026-06-01",
-      "notes": ""
-    },
     {
       "id": 1780318886587,
       "name": "Mega Zygard premium collection",
