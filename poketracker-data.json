@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1780745158742,
+      "set": "Dropsdirect",
+      "count": 1,
+      "date": "2026-06-06",
+      "price": 31,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1780646190508,
       "set": "PFL Sleeves",
       "count": 2,
