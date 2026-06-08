@@ -499,6 +499,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1780923803547,
+      "set": "Clefairy EX Tin",
+      "qty": 10,
+      "type": "tin",
+      "date": "2026-06-05",
+      "price": 28.83,
+      "notes": "PO/CR"
+    },
+    {
       "id": 1780646178180,
       "set": "PFL Sleeves",
       "qty": 12,
@@ -1028,24 +1037,6 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
-    },
-    {
-      "id": 1780690960263,
-      "set": "Clefairy EX Tin",
-      "qty": 2,
-      "type": "tin",
-      "date": "2026-06-05",
-      "price": 40.15,
-      "notes": "PO/CR"
-    },
-    {
-      "id": 1780691009332,
-      "set": "Gengar EX Tins",
-      "qty": 8,
-      "type": "tin",
-      "date": "2026-06-05",
-      "price": 26,
-      "notes": "PO/CR"
     }
   ],
   "sales": [
