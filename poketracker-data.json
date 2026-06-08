@@ -1046,6 +1046,15 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
+    },
+    {
+      "id": 1780939149608,
+      "set": "Charizard Tin",
+      "qty": 4,
+      "type": "booster-box",
+      "date": "2026-06-08",
+      "price": 24,
+      "notes": "Mix"
     }
   ],
   "sales": [
