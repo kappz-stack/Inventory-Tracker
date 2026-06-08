@@ -508,6 +508,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1780939184283,
+      "set": "Charizard Tin",
+      "qty": 6,
+      "type": "tin",
+      "date": "2026-02-27",
+      "price": 25.04,
+      "notes": "PFL/ME/JT"
+    },
+    {
       "id": 1780923803547,
       "set": "Clefairy/Gengar EX Tin",
       "qty": 7,
@@ -913,15 +922,6 @@
       "notes": "PO"
     },
     {
-      "id": 1775762512572,
-      "set": "Charizard Tin",
-      "qty": 2,
-      "type": "tin",
-      "date": "2026-02-27",
-      "price": 27.12,
-      "notes": "PFL/ME/JT"
-    },
-    {
       "id": 1775762512574,
       "set": "JT Sleeves",
       "qty": 2,
@@ -1046,15 +1046,6 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
-    },
-    {
-      "id": 1780939149608,
-      "set": "Charizard Tin",
-      "qty": 4,
-      "type": "tin",
-      "date": "2026-06-08",
-      "price": 24,
-      "notes": "PFL/ME/JT"
     }
   ],
   "sales": [
