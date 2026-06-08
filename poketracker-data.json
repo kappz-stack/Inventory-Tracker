@@ -501,7 +501,7 @@
     {
       "id": 1780923803547,
       "set": "Clefairy/Gengar EX Tin",
-      "qty": 10,
+      "qty": 7,
       "type": "tin",
       "date": "2026-06-05",
       "price": 28.83,
@@ -1040,6 +1040,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1780923858408,
+      "name": "Clefairy/Gengar EX Tin ×3",
+      "cat": "sealed",
+      "price": 114,
+      "cost": 86.49,
+      "platform": "ebay",
+      "date": "2026-06-08",
+      "notes": "PO/CR"
+    },
     {
       "id": 1780318886587,
       "name": "Mega Zygard premium collection",
