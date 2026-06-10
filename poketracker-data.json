@@ -564,7 +564,7 @@
     {
       "id": 1779493097311,
       "set": "CR ETB",
-      "qty": 8,
+      "qty": 7,
       "type": "etb",
       "date": "2026-05-22",
       "price": 62.72,
@@ -1049,6 +1049,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781061665831,
+      "name": "CR ETB",
+      "cat": "sealed",
+      "price": 80,
+      "cost": 62.72,
+      "platform": "facebook",
+      "date": "2026-06-10",
+      "notes": "CR"
+    },
     {
       "id": 1780923858408,
       "name": "Clefairy/Gengar EX Tin ×3",
