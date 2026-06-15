@@ -591,7 +591,7 @@
     {
       "id": 1778693460134,
       "set": "AH EX boxes",
-      "qty": 3,
+      "qty": 2,
       "type": "collection",
       "date": "2026-04-30",
       "price": 23.36,
@@ -1058,6 +1058,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781527119374,
+      "name": "AH EX boxes",
+      "cat": "sealed",
+      "price": 50,
+      "cost": 23.36,
+      "platform": "facebook",
+      "date": "2026-06-15",
+      "notes": "AH"
+    },
     {
       "id": 1781527085860,
       "name": "Perfect Order Booster Bundle",
