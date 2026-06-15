@@ -915,7 +915,7 @@
     {
       "id": 1775762512568,
       "set": "JT Booster Bundle",
-      "qty": 2,
+      "qty": 1,
       "type": "bundle",
       "date": "2025-12-31",
       "price": 34.8,
@@ -1058,6 +1058,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781527043195,
+      "name": "JT Booster Bundle",
+      "cat": "sealed",
+      "price": 40,
+      "cost": 34.8,
+      "platform": "ebay",
+      "date": "2026-06-15",
+      "notes": "JT"
+    },
     {
       "id": 1781392208813,
       "name": "Prismatic Poster",
