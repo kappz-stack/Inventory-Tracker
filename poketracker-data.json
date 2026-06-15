@@ -825,7 +825,7 @@
     {
       "id": 1775762512547,
       "set": "Latias Box",
-      "qty": 2,
+      "qty": 1,
       "type": "collection",
       "date": "2025-12-31",
       "price": 27.08,
@@ -1058,6 +1058,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781527066587,
+      "name": "Latias Box",
+      "cat": "sealed",
+      "price": 32,
+      "cost": 27.08,
+      "platform": "ebay",
+      "date": "2026-06-15",
+      "notes": "DR/ME"
+    },
     {
       "id": 1781527043195,
       "name": "JT Booster Bundle",
