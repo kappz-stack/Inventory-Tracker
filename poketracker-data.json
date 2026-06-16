@@ -913,15 +913,6 @@
       "notes": "JT"
     },
     {
-      "id": 1775762512568,
-      "set": "JT Booster Bundle",
-      "qty": 1,
-      "type": "bundle",
-      "date": "2025-12-31",
-      "price": 34.8,
-      "notes": "JT"
-    },
-    {
       "id": 1775762512570,
       "set": "Mega Zygarde ex Premium Collection",
       "qty": 3,
@@ -1058,6 +1049,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781652875837,
+      "name": "JT Booster Bundle",
+      "cat": "sealed",
+      "price": 40,
+      "cost": 34.8,
+      "platform": "facebook",
+      "date": "2026-06-16",
+      "notes": "JT"
+    },
     {
       "id": 1781527119374,
       "name": "AH EX boxes",
