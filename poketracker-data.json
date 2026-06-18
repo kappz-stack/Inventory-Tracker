@@ -1050,6 +1050,16 @@
   ],
   "sales": [
     {
+      "id": 1781775600887,
+      "name": "Graded Guard labrynth",
+      "cat": "lot",
+      "price": 45,
+      "cost": 65,
+      "platform": "ebay",
+      "date": "2026-06-18",
+      "notes": ""
+    },
+    {
       "id": 1781652875837,
       "name": "JT Booster Bundle",
       "cat": "sealed",
