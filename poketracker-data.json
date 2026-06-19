@@ -555,7 +555,7 @@
     {
       "id": 1780923803547,
       "set": "Clefairy/Gengar EX Tin",
-      "qty": 7,
+      "qty": 4,
       "type": "tin",
       "date": "2026-06-05",
       "price": 28.83,
@@ -1085,6 +1085,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1781895403828,
+      "name": "Clefairy/Gengar EX Tin ×3",
+      "cat": "sealed",
+      "price": 90,
+      "cost": 86.49,
+      "platform": "ebay",
+      "date": "2026-06-19",
+      "notes": "PO/CR"
+    },
     {
       "id": 1781895341268,
       "name": "CR Booster Bundle",
