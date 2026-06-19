@@ -1064,6 +1064,15 @@
       "date": "2026-05-31",
       "price": 76.02,
       "notes": "Pris"
+    },
+    {
+      "id": 1781875717452,
+      "set": "PFL Mini Port",
+      "qty": 2,
+      "type": "sleeves",
+      "date": "2026-06-19",
+      "price": 6.5,
+      "notes": "PFL"
     }
   ],
   "sales": [
