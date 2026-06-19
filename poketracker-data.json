@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1781895013462,
+      "set": "Pokéballs",
+      "count": 3,
+      "date": "2026-06-19",
+      "price": 39.63,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
       "id": 1781855531747,
       "set": "PFL Sleeves",
       "count": 1,
@@ -897,7 +906,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 10,
+      "qty": 7,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
