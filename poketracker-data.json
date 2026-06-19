@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1781855463607,
+      "set": "PFL Sleeves",
+      "count": 1,
+      "date": "2026-06-19",
+      "price": 5.23,
+      "notes": "PFL",
+      "pulls": []
+    },
+    {
       "id": 1781393289469,
       "set": "Perfect Order Booster Bundle",
       "count": 1,
@@ -537,7 +546,7 @@
     {
       "id": 1780646178180,
       "set": "PFL Sleeves",
-      "qty": 10,
+      "qty": 9,
       "type": "sleeves",
       "date": "2026-06-01",
       "price": 5.23,
