@@ -1185,6 +1185,16 @@
   ],
   "sales": [
     {
+      "id": 1783083242540,
+      "name": "Hilda",
+      "cat": "single",
+      "price": 1.5,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-07-03",
+      "notes": ""
+    },
+    {
       "id": 1782647290864,
       "name": "hitmontop",
       "cat": "single",
