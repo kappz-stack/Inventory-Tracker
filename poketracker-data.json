@@ -1,6 +1,60 @@
 {
   "packs": [
     {
+      "id": 1783081782125,
+      "set": "Chaos Rising Booster Bundle",
+      "count": 1,
+      "date": "2026-07-03",
+      "price": 35,
+      "notes": "",
+      "pulls": []
+    },
+    {
+      "id": 1782756499336,
+      "set": "L25 Pokeball",
+      "count": 1,
+      "date": "2026-06-29",
+      "price": 18.45,
+      "notes": "Mix",
+      "pulls": []
+    },
+    {
+      "id": 1782504639419,
+      "set": "3 Pack Prismatic Sleeve",
+      "count": 1,
+      "date": "2026-06-26",
+      "price": 18.31,
+      "notes": "Pris",
+      "pulls": []
+    },
+    {
+      "id": 1782504615347,
+      "set": "Perfect Order",
+      "count": 1,
+      "date": "2026-06-26",
+      "price": 5.5,
+      "notes": "PO",
+      "pulls": []
+    },
+    {
+      "id": 1782489814412,
+      "set": "Erika 2 Pack",
+      "count": 1,
+      "date": "2026-06-26",
+      "price": 10.82,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
+      "id": 1781968815559,
+      "set": "Pokeball",
+      "count": 1,
+      "date": "2026-06-20",
+      "price": 16.51,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1781895013462,
       "set": "Pokéballs",
       "count": 3,
@@ -544,6 +598,24 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1782481378568,
+      "set": "Prismatic Booster Bundle",
+      "qty": 7,
+      "type": "bundle",
+      "date": "2026-06-26",
+      "price": 30.89,
+      "notes": "Pris"
+    },
+    {
+      "id": 1782480535111,
+      "set": "CR ETB",
+      "qty": 9,
+      "type": "etb",
+      "date": "2026-06-26",
+      "price": 62.99,
+      "notes": "CR"
+    },
+    {
       "id": 1780939184283,
       "set": "Charizard Tin",
       "qty": 6,
@@ -598,18 +670,9 @@
       "notes": "CR"
     },
     {
-      "id": 1779493097311,
-      "set": "CR ETB",
-      "qty": 7,
-      "type": "etb",
-      "date": "2026-05-22",
-      "price": 62.72,
-      "notes": "CR"
-    },
-    {
       "id": 1779472256703,
       "set": "CR Sleeve",
-      "qty": 9,
+      "qty": 11,
       "type": "sleeves",
       "date": "2026-05-22",
       "price": 5.38,
@@ -834,7 +897,7 @@
     {
       "id": 1775762512541,
       "set": "DR Booster Bundle",
-      "qty": 3,
+      "qty": 2,
       "type": "bundle",
       "date": "2025-12-31",
       "price": 33.01,
@@ -915,19 +978,10 @@
     {
       "id": 1775762512562,
       "set": "3 Pack Prismatic Sleeve",
-      "qty": 11,
+      "qty": 10,
       "type": "blister3",
       "date": "2025-12-31",
       "price": 18.31,
-      "notes": "Pris"
-    },
-    {
-      "id": 1775762512564,
-      "set": "Prismatic Booster Bundle",
-      "qty": 7,
-      "type": "bundle",
-      "date": "2025-12-31",
-      "price": 31.12,
       "notes": "Pris"
     },
     {
@@ -987,7 +1041,7 @@
     {
       "id": 1775762512586,
       "set": "Erika 2 Pack",
-      "qty": 4,
+      "qty": 3,
       "type": "blister2",
       "date": "2026-02-27",
       "price": 10.82,
@@ -1082,9 +1136,84 @@
       "date": "2026-06-19",
       "price": 6.5,
       "notes": "PFL"
+    },
+    {
+      "id": 1781957743659,
+      "set": "Pitch Black",
+      "qty": 1,
+      "type": "booster-box",
+      "date": "2026-06-19",
+      "price": 175.6,
+      "notes": "PB"
+    },
+    {
+      "id": 1781957791439,
+      "set": "PKC Pitch Black",
+      "qty": 3,
+      "type": "etb",
+      "date": "2026-06-19",
+      "price": 65.17,
+      "notes": "PB"
+    },
+    {
+      "id": 1781957830045,
+      "set": "Pitch Black",
+      "qty": 3,
+      "type": "bundle",
+      "date": "2026-06-19",
+      "price": 29.26,
+      "notes": "PB"
+    },
+    {
+      "id": 1782480581443,
+      "set": "Pokeball 6 Pack",
+      "qty": 4,
+      "type": "other",
+      "date": "2026-06-26",
+      "price": 110.67,
+      "notes": "Mix"
+    },
+    {
+      "id": 1782756441416,
+      "set": "L25 Pokeball",
+      "qty": 5,
+      "type": "booster-box",
+      "date": "2026-06-29",
+      "price": 18.45,
+      "notes": "Mix"
     }
   ],
   "sales": [
+    {
+      "id": 1782647290864,
+      "name": "hitmontop",
+      "cat": "single",
+      "price": 7.45,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-06-28",
+      "notes": ""
+    },
+    {
+      "id": 1782497610708,
+      "name": "Clefairy/Gengar EX Tin",
+      "cat": "sealed",
+      "price": 30,
+      "cost": 28.83,
+      "platform": "ebay",
+      "date": "2026-06-26",
+      "notes": "PO/CR"
+    },
+    {
+      "id": 1782497570176,
+      "name": "Clefairy/Gengar EX Tin",
+      "cat": "sealed",
+      "price": 30,
+      "cost": 28.83,
+      "platform": "ebay",
+      "date": "2026-06-26",
+      "notes": "PO/CR"
+    },
     {
       "id": 1781895403828,
       "name": "Clefairy/Gengar EX Tin ×3",
@@ -1093,7 +1222,7 @@
       "cost": 86.49,
       "platform": "ebay",
       "date": "2026-06-19",
-      "notes": "PO/CR"
+      "notes": "steve"
     },
     {
       "id": 1781895341268,
