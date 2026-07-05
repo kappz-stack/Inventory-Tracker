@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1783267705542,
+      "set": "Ascended Heroes Booster Bundle",
+      "count": 1,
+      "date": "2026-07-05",
+      "price": 31.46,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
       "id": 1783081782125,
       "set": "Chaos Rising Booster Bundle",
       "count": 1,
@@ -726,7 +735,7 @@
     {
       "id": 1777297189111,
       "set": "Ascended Heroes Booster Bundle",
-      "qty": 10,
+      "qty": 9,
       "type": "bundle",
       "date": "2026-04-27",
       "price": 31.46,
