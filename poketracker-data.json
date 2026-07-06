@@ -1194,7 +1194,7 @@
     {
       "id": 1783343082483,
       "set": "Mega Greninja EX",
-      "qty": 6,
+      "qty": 4,
       "type": "collection",
       "date": "2026-07-05",
       "price": 46.43,
@@ -1202,6 +1202,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1783343100262,
+      "name": "Mega Greninja EX ×2",
+      "cat": "sealed",
+      "price": 100,
+      "cost": 92.86,
+      "platform": "friend",
+      "date": "2026-07-06",
+      "notes": "CR"
+    },
     {
       "id": 1783083242540,
       "name": "Hilda",
