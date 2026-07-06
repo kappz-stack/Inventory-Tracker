@@ -1190,6 +1190,15 @@
       "date": "2026-06-29",
       "price": 18.45,
       "notes": "Mix"
+    },
+    {
+      "id": 1783343082483,
+      "set": "Mega Greninja EX",
+      "qty": 6,
+      "type": "collection",
+      "date": "2026-07-05",
+      "price": 46.43,
+      "notes": "CR"
     }
   ],
   "sales": [
