@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1783343174204,
+      "set": "Monthly ACO",
+      "count": 1,
+      "date": "2026-07-05",
+      "price": 31.49,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1783267705542,
       "set": "Ascended Heroes Booster Bundle",
       "count": 1,
