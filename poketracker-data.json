@@ -1226,6 +1226,15 @@
       "date": "2026-07-07",
       "price": 19.56,
       "notes": "CR/PO"
+    },
+    {
+      "id": 1783436480740,
+      "set": "FP Series 2",
+      "qty": 1,
+      "type": "collection",
+      "date": "2026-07-07",
+      "price": 32.58,
+      "notes": "CR/PO"
     }
   ],
   "sales": [
