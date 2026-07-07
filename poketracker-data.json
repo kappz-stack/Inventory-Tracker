@@ -625,6 +625,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1783436501429,
+      "set": "FP Series 2",
+      "qty": 2,
+      "type": "collection",
+      "date": "2026-07-07",
+      "price": 26.07,
+      "notes": "CR/PO"
+    },
+    {
       "id": 1782481378568,
       "set": "Prismatic Booster Bundle",
       "qty": 7,
@@ -1217,24 +1226,6 @@
       "date": "2026-07-05",
       "price": 46.43,
       "notes": "CR"
-    },
-    {
-      "id": 1783436435892,
-      "set": "Series 2",
-      "qty": 1,
-      "type": "collection",
-      "date": "2026-07-07",
-      "price": 19.56,
-      "notes": "CR/PO"
-    },
-    {
-      "id": 1783436480740,
-      "set": "FP Series 2",
-      "qty": 1,
-      "type": "collection",
-      "date": "2026-07-07",
-      "price": 32.58,
-      "notes": "CR/PO"
     }
   ],
   "sales": [
