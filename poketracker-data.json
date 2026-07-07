@@ -1217,6 +1217,15 @@
       "date": "2026-07-05",
       "price": 46.43,
       "notes": "CR"
+    },
+    {
+      "id": 1783436435892,
+      "set": "Series 2",
+      "qty": 1,
+      "type": "collection",
+      "date": "2026-07-07",
+      "price": 19.56,
+      "notes": "CR/PO"
     }
   ],
   "sales": [
