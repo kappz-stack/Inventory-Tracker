@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1783601465490,
+      "set": "PFL Mini Port",
+      "count": 1,
+      "date": "2026-07-09",
+      "price": 6.5,
+      "notes": "PFL",
+      "pulls": []
+    },
+    {
       "id": 1783601452936,
       "set": "Pokéballs",
       "count": 1,
@@ -1185,7 +1194,7 @@
     {
       "id": 1781875717452,
       "set": "PFL Mini Port",
-      "qty": 3,
+      "qty": 2,
       "type": "sleeves",
       "date": "2026-06-19",
       "price": 6.5,
