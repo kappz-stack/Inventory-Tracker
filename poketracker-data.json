@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1783601447597,
+      "set": "L25 Pokeball",
+      "count": 1,
+      "date": "2026-07-09",
+      "price": 18.45,
+      "notes": "Mix",
+      "pulls": []
+    },
+    {
       "id": 1783371299141,
       "set": "L25 Pokeball",
       "count": 1,
@@ -1212,7 +1221,7 @@
     {
       "id": 1782756441416,
       "set": "L25 Pokeball",
-      "qty": 4,
+      "qty": 3,
       "type": "booster-box",
       "date": "2026-06-29",
       "price": 18.45,
