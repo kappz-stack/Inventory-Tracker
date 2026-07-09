@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1783601452936,
+      "set": "Pokéballs",
+      "count": 1,
+      "date": "2026-07-09",
+      "price": 13.21,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
       "id": 1783601447597,
       "set": "L25 Pokeball",
       "count": 1,
@@ -1014,7 +1023,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 6,
+      "qty": 5,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
