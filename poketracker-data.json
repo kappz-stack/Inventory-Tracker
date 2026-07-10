@@ -652,12 +652,12 @@
   "cards": [],
   "sealed": [
     {
-      "id": 1783436501429,
+      "id": 1783686793292,
       "set": "FP Series 2",
-      "qty": 2,
+      "qty": 3,
       "type": "collection",
-      "date": "2026-07-07",
-      "price": 26.07,
+      "date": "2026-07-10",
+      "price": 23.38,
       "notes": "CR/PO"
     },
     {
@@ -1253,15 +1253,6 @@
       "date": "2026-07-05",
       "price": 46.43,
       "notes": "CR"
-    },
-    {
-      "id": 1783686731721,
-      "set": "FP Series 2",
-      "qty": 1,
-      "type": "collection",
-      "date": "2026-07-10",
-      "price": 18,
-      "notes": "CR/PO"
     }
   ],
   "sales": [
