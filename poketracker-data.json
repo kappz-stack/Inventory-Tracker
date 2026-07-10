@@ -1266,6 +1266,16 @@
   ],
   "sales": [
     {
+      "id": 1783719347125,
+      "name": "Series 2 Johto Partners",
+      "cat": "single",
+      "price": 55.91,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-07-10",
+      "notes": ""
+    },
+    {
       "id": 1783343100262,
       "name": "Mega Greninja EX ×2",
       "cat": "sealed",
