@@ -1266,6 +1266,16 @@
   ],
   "sales": [
     {
+      "id": 1783975338595,
+      "name": "One Piece ST30",
+      "cat": "single",
+      "price": 29.31,
+      "cost": 21.88,
+      "platform": "ebay",
+      "date": "2026-07-13",
+      "notes": ""
+    },
+    {
       "id": 1783813132513,
       "name": "One Piece ST30",
       "cat": "single",
