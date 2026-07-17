@@ -1316,6 +1316,15 @@
       "date": "2026-07-17",
       "price": 4.9,
       "notes": "PB"
+    },
+    {
+      "id": 1784301043196,
+      "set": "PB Booster Bundle",
+      "qty": 1,
+      "type": "bundle",
+      "date": "2026-07-17",
+      "price": 29.32,
+      "notes": "PB"
     }
   ],
   "sales": [
