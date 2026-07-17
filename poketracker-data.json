@@ -1307,6 +1307,15 @@
       "date": "2026-07-17",
       "price": 5.5,
       "notes": "PB"
+    },
+    {
+      "id": 1784301018505,
+      "set": "PB SLeeve",
+      "qty": 4,
+      "type": "sleeves",
+      "date": "2026-07-17",
+      "price": 4.9,
+      "notes": "PB"
     }
   ],
   "sales": [
