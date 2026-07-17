@@ -1280,6 +1280,15 @@
       "date": "2026-07-17",
       "price": 33,
       "notes": "PB"
+    },
+    {
+      "id": 1784293660058,
+      "set": "PB ETB",
+      "qty": 1,
+      "type": "etb",
+      "date": "2026-07-17",
+      "price": 62,
+      "notes": "PB"
     }
   ],
   "sales": [
