@@ -679,6 +679,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1784316495607,
+      "set": "Pitch Black Booster Bundle",
+      "qty": 5,
+      "type": "bundle",
+      "date": "2026-07-17",
+      "price": 30.02,
+      "notes": "PB"
+    },
+    {
       "id": 1783686793292,
       "set": "FP Series 2",
       "qty": 3,
@@ -1246,15 +1255,6 @@
       "notes": "PB"
     },
     {
-      "id": 1781957830045,
-      "set": "Pitch Black",
-      "qty": 3,
-      "type": "bundle",
-      "date": "2026-06-19",
-      "price": 29.26,
-      "notes": "PB"
-    },
-    {
       "id": 1782480581443,
       "set": "Pokeball 6 Pack",
       "qty": 4,
@@ -1280,15 +1280,6 @@
       "date": "2026-07-05",
       "price": 46.43,
       "notes": "CR"
-    },
-    {
-      "id": 1784293638098,
-      "set": "Pitch Black Booster Bundle",
-      "qty": 1,
-      "type": "bundle",
-      "date": "2026-07-17",
-      "price": 33,
-      "notes": "PB"
     },
     {
       "id": 1784293660058,
@@ -1324,15 +1315,6 @@
       "type": "sleeves",
       "date": "2026-07-17",
       "price": 4.9,
-      "notes": "PB"
-    },
-    {
-      "id": 1784301043196,
-      "set": "PB Booster Bundle",
-      "qty": 1,
-      "type": "bundle",
-      "date": "2026-07-17",
-      "price": 29.32,
       "notes": "PB"
     }
   ],
