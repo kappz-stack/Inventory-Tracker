@@ -1307,6 +1307,15 @@
       "date": "2026-07-17",
       "price": 15.5,
       "notes": "PB"
+    },
+    {
+      "id": 1784316639547,
+      "set": "PB",
+      "qty": 0.5,
+      "type": "booster-box",
+      "date": "2026-07-17",
+      "price": 100,
+      "notes": "PB"
     }
   ],
   "sales": [
