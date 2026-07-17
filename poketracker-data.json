@@ -1289,6 +1289,15 @@
       "date": "2026-07-17",
       "price": 62,
       "notes": "PB"
+    },
+    {
+      "id": 1784293697848,
+      "set": "3 Pack Blister PB",
+      "qty": 3,
+      "type": "blister3",
+      "date": "2026-07-17",
+      "price": 15.5,
+      "notes": "PB"
     }
   ],
   "sales": [
