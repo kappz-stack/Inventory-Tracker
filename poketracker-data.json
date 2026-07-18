@@ -1,15 +1,6 @@
 {
   "packs": [
     {
-      "id": 1784323792292,
-      "set": "Pitch Black Booster Bundle",
-      "count": 1,
-      "date": "2026-07-17",
-      "price": 30.02,
-      "notes": "PB",
-      "pulls": []
-    },
-    {
       "id": 1784316292509,
       "set": "3 Pack Blister",
       "count": 1,
@@ -699,7 +690,7 @@
     {
       "id": 1784316495607,
       "set": "Pitch Black Booster Bundle",
-      "qty": 4,
+      "qty": 5,
       "type": "bundle",
       "date": "2026-07-17",
       "price": 30.02,
@@ -1338,10 +1329,10 @@
   ],
   "sales": [
     {
-      "id": 1784343724145,
-      "name": "BN Promo",
+      "id": 1784370890417,
+      "name": "Bestbuy Promo",
       "cat": "single",
-      "price": 24.59,
+      "price": 24.5,
       "cost": 0,
       "platform": "ebay",
       "date": "2026-07-17",
