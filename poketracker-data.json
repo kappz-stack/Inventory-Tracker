@@ -697,6 +697,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1784410936757,
+      "set": "Pitch Black",
+      "qty": 4,
+      "type": "booster-box",
+      "date": "2026-06-19",
+      "price": 179.2,
+      "notes": "PB"
+    },
+    {
       "id": 1784316511156,
       "set": "PB SLeeve",
       "qty": 8,
@@ -1264,15 +1273,6 @@
       "notes": "PFL"
     },
     {
-      "id": 1781957743659,
-      "set": "Pitch Black",
-      "qty": 3,
-      "type": "booster-box",
-      "date": "2026-06-19",
-      "price": 175.6,
-      "notes": "PB"
-    },
-    {
       "id": 1781957791439,
       "set": "PKC Pitch Black",
       "qty": 3,
@@ -1315,15 +1315,6 @@
       "type": "blister3",
       "date": "2026-07-17",
       "price": 15.5,
-      "notes": "PB"
-    },
-    {
-      "id": 1784316639547,
-      "set": "PB Box",
-      "qty": 1,
-      "type": "booster-box",
-      "date": "2026-07-17",
-      "price": 190,
       "notes": "PB"
     },
     {
