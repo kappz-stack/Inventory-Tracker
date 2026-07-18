@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784410693723,
+      "set": "PB ETB",
+      "count": 1,
+      "date": "2026-07-18",
+      "price": 62,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1784316292509,
       "set": "3 Pack Blister",
       "count": 1,
@@ -1289,15 +1298,6 @@
       "date": "2026-07-05",
       "price": 46.43,
       "notes": "CR"
-    },
-    {
-      "id": 1784293660058,
-      "set": "PB ETB",
-      "qty": 1,
-      "type": "etb",
-      "date": "2026-07-17",
-      "price": 62,
-      "notes": "PB"
     },
     {
       "id": 1784293697848,
