@@ -1338,6 +1338,16 @@
   ],
   "sales": [
     {
+      "id": 1784343724145,
+      "name": "BN Promo",
+      "cat": "single",
+      "price": 24.59,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-07-17",
+      "notes": ""
+    },
+    {
       "id": 1784120065700,
       "name": "Perfect Order ETB",
       "cat": "sealed",
