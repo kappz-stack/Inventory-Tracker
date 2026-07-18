@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784410704083,
+      "set": "Pitch Black Booster Bundle",
+      "count": 1,
+      "date": "2026-07-18",
+      "price": 30.02,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1784410693723,
       "set": "PB ETB",
       "count": 1,
@@ -699,7 +708,7 @@
     {
       "id": 1784316495607,
       "set": "Pitch Black Booster Bundle",
-      "qty": 5,
+      "qty": 4,
       "type": "bundle",
       "date": "2026-07-17",
       "price": 30.02,
