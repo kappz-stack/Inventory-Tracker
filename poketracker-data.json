@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784471934465,
+      "set": "AH EX boxes",
+      "count": 1,
+      "date": "2026-07-19",
+      "price": 23.36,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
       "id": 1784410704083,
       "set": "Pitch Black Booster Bundle",
       "count": 1,
@@ -816,7 +825,7 @@
     {
       "id": 1778693460134,
       "set": "AH EX boxes",
-      "qty": 2,
+      "qty": 1,
       "type": "collection",
       "date": "2026-04-30",
       "price": 23.36,
