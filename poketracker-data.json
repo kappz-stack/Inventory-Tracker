@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784550355566,
+      "set": "3 Pack Blister PB",
+      "count": 1,
+      "date": "2026-07-20",
+      "price": 15.5,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1784471934465,
       "set": "AH EX boxes",
       "count": 1,
@@ -1320,7 +1329,7 @@
     {
       "id": 1784293697848,
       "set": "3 Pack Blister PB",
-      "qty": 3,
+      "qty": 2,
       "type": "blister3",
       "date": "2026-07-17",
       "price": 15.5,
