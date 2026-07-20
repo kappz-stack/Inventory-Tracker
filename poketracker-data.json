@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784550365062,
+      "set": "Pitch Black Booster Bundle",
+      "count": 1,
+      "date": "2026-07-20",
+      "price": 30.02,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1784550361785,
       "set": "PB SLeeve",
       "count": 2,
@@ -744,7 +753,7 @@
     {
       "id": 1784316495607,
       "set": "Pitch Black Booster Bundle",
-      "qty": 5,
+      "qty": 4,
       "type": "bundle",
       "date": "2026-07-17",
       "price": 30.02,
