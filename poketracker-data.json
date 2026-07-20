@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1784550361785,
+      "set": "PB SLeeve",
+      "count": 2,
+      "date": "2026-07-20",
+      "price": 10.4,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1784550355566,
       "set": "3 Pack Blister PB",
       "count": 1,
@@ -726,7 +735,7 @@
     {
       "id": 1784316511156,
       "set": "PB SLeeve",
-      "qty": 8,
+      "qty": 6,
       "type": "sleeves",
       "date": "2026-07-17",
       "price": 5.2,
