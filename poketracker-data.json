@@ -1406,6 +1406,15 @@
       "date": "2026-07-20",
       "price": 62.91,
       "notes": "PB"
+    },
+    {
+      "id": 1784895797299,
+      "set": "FP Series 2",
+      "qty": 1,
+      "type": "booster-box",
+      "date": "2026-07-24",
+      "price": 17.5,
+      "notes": "CR/PO"
     }
   ],
   "sales": [
