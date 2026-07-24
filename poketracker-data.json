@@ -778,6 +778,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1784898486611,
+      "set": "FP Series 2",
+      "qty": 5,
+      "type": "booster-box",
+      "date": "2026-07-24",
+      "price": 21.03,
+      "notes": "CR/PO"
+    },
+    {
       "id": 1784410936757,
       "set": "Pitch Black",
       "qty": 4,
@@ -803,15 +812,6 @@
       "date": "2026-07-17",
       "price": 31,
       "notes": "PB"
-    },
-    {
-      "id": 1783686793292,
-      "set": "FP Series 2",
-      "qty": 3,
-      "type": "collection",
-      "date": "2026-07-10",
-      "price": 23.38,
-      "notes": "CR/PO"
     },
     {
       "id": 1782481378568,
@@ -1415,15 +1415,6 @@
       "date": "2026-07-20",
       "price": 62.91,
       "notes": "PB"
-    },
-    {
-      "id": 1784895797299,
-      "set": "FP Series 2",
-      "qty": 2,
-      "type": "booster-box",
-      "date": "2026-07-24",
-      "price": 17.5,
-      "notes": "CR/PO"
     }
   ],
   "sales": [
