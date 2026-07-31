@@ -825,7 +825,7 @@
     {
       "id": 1782480535111,
       "set": "CR ETB",
-      "qty": 9,
+      "qty": 7,
       "type": "etb",
       "date": "2026-06-26",
       "price": 62.99,
@@ -1418,6 +1418,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1785516022773,
+      "name": "CR ETB ×2",
+      "cat": "sealed",
+      "price": 132,
+      "cost": 125.98,
+      "platform": "friend",
+      "date": "2026-07-31",
+      "notes": "CR"
+    },
     {
       "id": 1784370975921,
       "name": "BN Promo",
