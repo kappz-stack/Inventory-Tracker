@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1785933243807,
+      "set": "Monthly ACO",
+      "count": 1,
+      "date": "2026-08-05",
+      "price": 31.49,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1784895835819,
       "set": "PB Checklane",
       "count": 2,
