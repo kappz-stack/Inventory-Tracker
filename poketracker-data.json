@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1786383935832,
+      "set": "3 Pack Blister PB",
+      "count": 1,
+      "date": "2026-08-10",
+      "price": 15.5,
+      "notes": "PB",
+      "pulls": []
+    },
+    {
       "id": 1785933243807,
       "set": "Monthly ACO",
       "count": 1,
@@ -1392,7 +1401,7 @@
     {
       "id": 1784293697848,
       "set": "3 Pack Blister PB",
-      "qty": 4,
+      "qty": 3,
       "type": "blister3",
       "date": "2026-07-17",
       "price": 15.5,
