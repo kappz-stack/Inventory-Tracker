@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1786974205526,
+      "set": "L25 Pokeball",
+      "count": 1,
+      "date": "2026-08-17",
+      "price": 18.45,
+      "notes": "Mix",
+      "pulls": []
+    },
+    {
       "id": 1786383947284,
       "set": "CR Sleeve",
       "count": 2,
@@ -1392,7 +1401,7 @@
     {
       "id": 1782756441416,
       "set": "L25 Pokeball",
-      "qty": 3,
+      "qty": 2,
       "type": "booster-box",
       "date": "2026-06-29",
       "price": 18.45,
