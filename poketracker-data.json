@@ -1491,7 +1491,7 @@
     {
       "id": 1787357861558,
       "set": "FP Series 3",
-      "qty": 6,
+      "qty": 2,
       "type": "booster-box",
       "date": "2026-08-22",
       "price": 18.61,
@@ -1499,6 +1499,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1787357904815,
+      "name": "FP Series 3 ×4",
+      "cat": "sealed",
+      "price": 120,
+      "cost": 74.44,
+      "platform": "ebay",
+      "date": "2026-08-22",
+      "notes": "CR/PB"
+    },
     {
       "id": 1787357758921,
       "name": "FP Series 2 ×2",
