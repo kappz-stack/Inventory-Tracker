@@ -933,7 +933,7 @@
     {
       "id": 1779493113332,
       "set": "CR  3 Pack",
-      "qty": 5,
+      "qty": 2,
       "type": "blister3",
       "date": "2026-05-22",
       "price": 16.44,
@@ -1481,6 +1481,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1787357726225,
+      "name": "CR  3 Pack ×3",
+      "cat": "sealed",
+      "price": 63,
+      "cost": 49.32,
+      "platform": "ebay",
+      "date": "2026-08-22",
+      "notes": "CR"
+    },
     {
       "id": 1786634416344,
       "name": "Ascended Heroes Booster Bundle",
