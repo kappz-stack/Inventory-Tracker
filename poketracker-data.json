@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1787357766273,
+      "set": "FP Series 3",
+      "count": 1,
+      "date": "2026-08-22",
+      "price": 18.6,
+      "notes": "CR/PB",
+      "pulls": []
+    },
+    {
       "id": 1787345083028,
       "set": "3 Pack Blister PB",
       "count": 1,
@@ -1473,7 +1482,7 @@
     {
       "id": 1787345160783,
       "set": "FP Series 3",
-      "qty": 2,
+      "qty": 1,
       "type": "collection",
       "date": "2026-08-21",
       "price": 18.6,
