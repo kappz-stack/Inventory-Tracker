@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1787507951858,
+      "set": "Erika 2 Pack",
+      "count": 1,
+      "date": "2026-08-23",
+      "price": 10.82,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
       "id": 1787357766273,
       "set": "FP Series 3",
       "count": 1,
@@ -1320,7 +1329,7 @@
     {
       "id": 1775762512586,
       "set": "Erika 2 Pack",
-      "qty": 3,
+      "qty": 2,
       "type": "blister2",
       "date": "2026-02-27",
       "price": 10.82,
