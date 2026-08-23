@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1787513329961,
+      "set": "Pokéballs",
+      "count": 1,
+      "date": "2026-08-23",
+      "price": 13.21,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
       "id": 1787513262784,
       "set": "Erika 2 Pack",
       "count": 2,
@@ -1266,7 +1275,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 4,
+      "qty": 3,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
