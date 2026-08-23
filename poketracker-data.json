@@ -1500,6 +1500,16 @@
   ],
   "sales": [
     {
+      "id": 1787508014308,
+      "name": "FP series 3 Kalos",
+      "cat": "lot",
+      "price": 19.04,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-08-23",
+      "notes": ""
+    },
+    {
       "id": 1787357904815,
       "name": "FP Series 3 ×4",
       "cat": "sealed",
