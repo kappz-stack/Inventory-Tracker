@@ -1320,7 +1320,7 @@
     {
       "id": 1775762512576,
       "set": "Ascended Heroes",
-      "qty": 5,
+      "qty": 4,
       "type": "etb",
       "date": "2026-02-27",
       "price": 61.91,
@@ -1508,6 +1508,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1787592060475,
+      "name": "Ascended Heroes",
+      "cat": "sealed",
+      "price": 165,
+      "cost": 61.91,
+      "platform": "local",
+      "date": "2026-08-24",
+      "notes": "AH"
+    },
     {
       "id": 1787508014308,
       "name": "FP series 3 Kalos",
