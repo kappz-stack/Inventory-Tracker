@@ -1509,6 +1509,16 @@
   ],
   "sales": [
     {
+      "id": 1788524683303,
+      "name": "OP Sleeves",
+      "cat": "other",
+      "price": 32,
+      "cost": 22.5,
+      "platform": "local",
+      "date": "2026-09-04",
+      "notes": ""
+    },
+    {
       "id": 1788524549389,
       "name": "FP Series 2",
       "cat": "bundle",
