@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1788551870605,
+      "set": "FP Series 2",
+      "count": 1,
+      "date": "2026-09-04",
+      "price": 21.03,
+      "notes": "CR/PO",
+      "pulls": []
+    },
+    {
       "id": 1788539160849,
       "set": "AH Tin Box",
       "count": 1,
@@ -888,7 +897,7 @@
     {
       "id": 1784898486611,
       "set": "FP Series 2",
-      "qty": 3,
+      "qty": 2,
       "type": "booster-box",
       "date": "2026-07-24",
       "price": 21.03,
