@@ -1509,6 +1509,16 @@
   ],
   "sales": [
     {
+      "id": 1788524497556,
+      "name": "AH EX Boxe",
+      "cat": "single",
+      "price": 50,
+      "cost": 27.15,
+      "platform": "ebay",
+      "date": "2026-09-04",
+      "notes": ""
+    },
+    {
       "id": 1787592060475,
       "name": "Ascended Heroes ETB",
       "cat": "sealed",
