@@ -1509,6 +1509,16 @@
   ],
   "sales": [
     {
+      "id": 1788524549389,
+      "name": "FP Series 2",
+      "cat": "bundle",
+      "price": 30,
+      "cost": 19.51,
+      "platform": "local",
+      "date": "2026-09-04",
+      "notes": ""
+    },
+    {
       "id": 1788524497556,
       "name": "AH EX Boxe",
       "cat": "single",
