@@ -1554,6 +1554,16 @@
   ],
   "sales": [
     {
+      "id": 1788900744555,
+      "name": "Series 2 Johto",
+      "cat": "lot",
+      "price": 22.9,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-09-08",
+      "notes": ""
+    },
+    {
       "id": 1788524759337,
       "name": "OP Illustration Box  IB-07 x2",
       "cat": "other",
