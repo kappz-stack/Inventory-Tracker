@@ -1541,6 +1541,15 @@
       "date": "2026-09-04",
       "price": 25.78,
       "notes": "AH"
+    },
+    {
+      "id": 1788873575792,
+      "set": "PKC Prismatic ETB",
+      "qty": 1,
+      "type": "etb",
+      "date": "2026-09-08",
+      "price": 123.09,
+      "notes": "Pris"
     }
   ],
   "sales": [
