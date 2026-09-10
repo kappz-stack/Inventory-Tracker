@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1789041962929,
+      "set": "Pokéballs",
+      "count": 1,
+      "date": "2026-09-10",
+      "price": 13.21,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
       "id": 1788551870605,
       "set": "FP Series 2",
       "count": 1,
@@ -1302,7 +1311,7 @@
     {
       "id": 1775762512560,
       "set": "Pokéballs",
-      "qty": 3,
+      "qty": 2,
       "type": "tin",
       "date": "2026-03-22",
       "price": 13.21,
