@@ -1566,8 +1566,8 @@
       "id": 1789094055445,
       "name": "ah ex box & tin x5",
       "cat": "lot",
-      "price": 135.75,
-      "cost": 250,
+      "price": 250,
+      "cost": 135.75,
       "platform": "local",
       "date": "2026-09-11",
       "notes": ""
