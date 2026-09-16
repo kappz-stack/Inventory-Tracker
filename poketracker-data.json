@@ -1577,6 +1577,15 @@
       "date": "2026-09-16",
       "price": 10.87,
       "notes": ""
+    },
+    {
+      "id": 1789582195169,
+      "set": "30th knockout",
+      "qty": 2,
+      "type": "other",
+      "date": "2026-09-16",
+      "price": 0,
+      "notes": "13.03"
     }
   ],
   "sales": [
