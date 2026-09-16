@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1789589197680,
+      "set": "30th 3 pack tech",
+      "count": 1,
+      "date": "2026-09-16",
+      "price": 16.3,
+      "notes": "30",
+      "pulls": []
+    },
+    {
       "id": 1789588845332,
       "set": "30th Knockout",
       "count": 2,
@@ -1590,7 +1599,7 @@
     {
       "id": 1789582224271,
       "set": "30th 3 pack tech",
-      "qty": 4,
+      "qty": 3,
       "type": "other",
       "date": "2026-09-16",
       "price": 16.3,
