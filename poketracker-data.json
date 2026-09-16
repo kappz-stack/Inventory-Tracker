@@ -1586,6 +1586,15 @@
       "date": "2026-09-16",
       "price": 0,
       "notes": "13.03"
+    },
+    {
+      "id": 1789582224271,
+      "set": "30th 3 pack tech",
+      "qty": 4,
+      "type": "other",
+      "date": "2026-09-16",
+      "price": 16.3,
+      "notes": "30"
     }
   ],
   "sales": [
