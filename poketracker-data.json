@@ -904,6 +904,15 @@
   "cards": [],
   "sealed": [
     {
+      "id": 1789587034841,
+      "set": "30th Knockout",
+      "qty": 5,
+      "type": "other",
+      "date": "2026-09-16",
+      "price": 11.73,
+      "notes": "30"
+    },
+    {
       "id": 1784898486611,
       "set": "FP Series 2",
       "qty": 2,
@@ -1567,24 +1576,6 @@
       "type": "etb",
       "date": "2026-09-16",
       "price": 65.2,
-      "notes": "30"
-    },
-    {
-      "id": 1789582168774,
-      "set": "30th Knockout",
-      "qty": 3,
-      "type": "other",
-      "date": "2026-09-16",
-      "price": 10.87,
-      "notes": "30"
-    },
-    {
-      "id": 1789582195169,
-      "set": "30th knockout",
-      "qty": 2,
-      "type": "other",
-      "date": "2026-09-16",
-      "price": 13.03,
       "notes": "30"
     },
     {
