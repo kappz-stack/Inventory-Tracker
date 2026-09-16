@@ -1599,6 +1599,16 @@
   ],
   "sales": [
     {
+      "id": 1789584998804,
+      "name": "30th Card Lot sale (3etb,2ex,1tin,1poster,2tech)",
+      "cat": "lot",
+      "price": 706,
+      "cost": 348,
+      "platform": "local",
+      "date": "2026-09-16",
+      "notes": ""
+    },
+    {
       "id": 1789094055445,
       "name": "ah ex box & tin x5",
       "cat": "lot",
