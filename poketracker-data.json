@@ -1559,6 +1559,15 @@
       "date": "2026-09-08",
       "price": 123.09,
       "notes": "Pris"
+    },
+    {
+      "id": 1789582130035,
+      "set": "30th PKC ETB",
+      "qty": 4,
+      "type": "etb",
+      "date": "2026-09-16",
+      "price": 65.2,
+      "notes": "30"
     }
   ],
   "sales": [
