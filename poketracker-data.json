@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1789588845332,
+      "set": "30th Knockout",
+      "count": 2,
+      "date": "2026-09-16",
+      "price": 23.46,
+      "notes": "30",
+      "pulls": []
+    },
+    {
       "id": 1789588312924,
       "set": "30th Knockout",
       "count": 3,
@@ -912,15 +921,6 @@
   ],
   "cards": [],
   "sealed": [
-    {
-      "id": 1789587034841,
-      "set": "30th Knockout",
-      "qty": 2,
-      "type": "other",
-      "date": "2026-09-16",
-      "price": 11.73,
-      "notes": "30"
-    },
     {
       "id": 1784898486611,
       "set": "FP Series 2",
