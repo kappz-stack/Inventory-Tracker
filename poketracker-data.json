@@ -1608,6 +1608,16 @@
   ],
   "sales": [
     {
+      "id": 1789729383580,
+      "name": "FP Series 2 & 3 x4",
+      "cat": "single",
+      "price": 92,
+      "cost": 80,
+      "platform": "friend",
+      "date": "2026-09-18",
+      "notes": "steve"
+    },
+    {
       "id": 1789584998804,
       "name": "30th Card Lot sale (3etb,2ex,1tin,1poster,2tech)",
       "cat": "lot",
