@@ -1617,6 +1617,16 @@
   ],
   "sales": [
     {
+      "id": 1790349674096,
+      "name": "poketexas",
+      "cat": "single",
+      "price": 65.53,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-09-25",
+      "notes": ""
+    },
+    {
       "id": 1790349658192,
       "name": "XP collect sale",
       "cat": "single",
