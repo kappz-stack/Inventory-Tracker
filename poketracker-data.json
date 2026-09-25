@@ -1536,7 +1536,7 @@
     {
       "id": 1782480581443,
       "set": "Pokeball 6 Pack",
-      "qty": 4,
+      "qty": 2,
       "type": "other",
       "date": "2026-06-26",
       "price": 110.67,
@@ -1616,6 +1616,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1790349776363,
+      "name": "Pokeball 6 Pack ×2",
+      "cat": "sealed",
+      "price": 250,
+      "cost": 221.34,
+      "platform": "local",
+      "date": "2026-09-25",
+      "notes": "Mix"
+    },
     {
       "id": 1790349740953,
       "name": "hops",
