@@ -1617,6 +1617,16 @@
   ],
   "sales": [
     {
+      "id": 1790349740953,
+      "name": "hops",
+      "cat": "single",
+      "price": 4.85,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-09-25",
+      "notes": ""
+    },
+    {
       "id": 1790349710943,
       "name": "Target ETB",
       "cat": "single",
