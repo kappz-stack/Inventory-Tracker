@@ -1617,6 +1617,16 @@
   ],
   "sales": [
     {
+      "id": 1790349658192,
+      "name": "XP collect sale",
+      "cat": "single",
+      "price": 53.69,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-09-25",
+      "notes": ""
+    },
+    {
       "id": 1789729383580,
       "name": "FP Series 2 & 3 x4",
       "cat": "single",
