@@ -1613,6 +1613,15 @@
       "date": "2026-09-16",
       "price": 65.2,
       "notes": "30"
+    },
+    {
+      "id": 1790517100295,
+      "set": "30th knockout",
+      "qty": 1,
+      "type": "booster-box",
+      "date": "2026-09-27",
+      "price": 16,
+      "notes": "30"
     }
   ],
   "sales": [
