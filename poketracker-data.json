@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1790974259359,
+      "set": "30th knockout",
+      "count": 1,
+      "date": "2026-10-02",
+      "price": 16,
+      "notes": "30",
+      "pulls": []
+    },
+    {
       "id": 1790971102609,
       "set": "Pokéballs",
       "count": 1,
@@ -1630,15 +1639,6 @@
       "type": "etb",
       "date": "2026-09-16",
       "price": 65.2,
-      "notes": "30"
-    },
-    {
-      "id": 1790517100295,
-      "set": "30th knockout",
-      "qty": 1,
-      "type": "booster-box",
-      "date": "2026-09-27",
-      "price": 16,
       "notes": "30"
     }
   ],
