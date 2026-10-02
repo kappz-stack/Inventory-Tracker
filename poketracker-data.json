@@ -1626,6 +1626,16 @@
   ],
   "sales": [
     {
+      "id": 1790942165882,
+      "name": "30th Tin",
+      "cat": "single",
+      "price": 60,
+      "cost": 32.58,
+      "platform": "ebay",
+      "date": "2026-10-02",
+      "notes": ""
+    },
+    {
       "id": 1790942156148,
       "name": "30th Tech Sticker",
       "cat": "single",
