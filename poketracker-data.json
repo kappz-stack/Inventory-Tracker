@@ -1626,6 +1626,16 @@
   ],
   "sales": [
     {
+      "id": 1790941864316,
+      "name": "30th tech",
+      "cat": "single",
+      "price": 40,
+      "cost": 20.63,
+      "platform": "ebay",
+      "date": "2026-10-02",
+      "notes": ""
+    },
+    {
       "id": 1790349776363,
       "name": "Pokeball 6 Pack ×2",
       "cat": "sealed",
