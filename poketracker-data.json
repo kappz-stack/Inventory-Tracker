@@ -1626,6 +1626,16 @@
   ],
   "sales": [
     {
+      "id": 1790941922610,
+      "name": "30th etb",
+      "cat": "single",
+      "price": 150,
+      "cost": 76.2,
+      "platform": "ebay",
+      "date": "2026-10-02",
+      "notes": ""
+    },
+    {
       "id": 1790941864316,
       "name": "30th tech",
       "cat": "single",
