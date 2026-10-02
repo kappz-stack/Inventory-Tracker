@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1790971057323,
+      "set": "30th Booster Bundle",
+      "count": 1,
+      "date": "2026-10-02",
+      "price": 29.26,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1790002473482,
       "set": "30th 3 pack tech",
       "count": 2,
