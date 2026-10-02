@@ -1626,6 +1626,16 @@
   ],
   "sales": [
     {
+      "id": 1790941942120,
+      "name": "30th tin",
+      "cat": "single",
+      "price": 60,
+      "cost": 32.6,
+      "platform": "ebay",
+      "date": "2026-10-02",
+      "notes": ""
+    },
+    {
       "id": 1790941922610,
       "name": "30th etb",
       "cat": "single",
