@@ -1,6 +1,24 @@
 {
   "packs": [
     {
+      "id": 1790971102609,
+      "set": "Pokéballs",
+      "count": 1,
+      "date": "2026-10-02",
+      "price": 13.21,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
+      "id": 1790971101032,
+      "set": "Pokéballs",
+      "count": 1,
+      "date": "2026-10-02",
+      "price": 13.21,
+      "notes": "DR/JT/SS",
+      "pulls": []
+    },
+    {
       "id": 1790971057323,
       "set": "30th Booster Bundle",
       "count": 1,
@@ -1370,15 +1388,6 @@
       "date": "2025-12-31",
       "price": 17.71,
       "notes": "PFL/ME"
-    },
-    {
-      "id": 1775762512560,
-      "set": "Pokéballs",
-      "qty": 2,
-      "type": "tin",
-      "date": "2026-03-22",
-      "price": 13.21,
-      "notes": "DR/JT/SS"
     },
     {
       "id": 1775762512562,
