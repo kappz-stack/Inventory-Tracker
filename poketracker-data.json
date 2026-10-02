@@ -1626,6 +1626,16 @@
   ],
   "sales": [
     {
+      "id": 1790942007530,
+      "name": "30 ETB",
+      "cat": "single",
+      "price": 150,
+      "cost": 76.01,
+      "platform": "ebay",
+      "date": "2026-10-02",
+      "notes": ""
+    },
+    {
       "id": 1790942001068,
       "name": "30 ETB",
       "cat": "single",
