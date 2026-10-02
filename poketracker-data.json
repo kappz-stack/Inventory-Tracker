@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1790974277226,
+      "set": "30th tech sticker",
+      "count": 1,
+      "date": "2026-10-02",
+      "price": 20,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1790974259359,
       "set": "30th knockout",
       "count": 1,
