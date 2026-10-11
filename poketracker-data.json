@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1791752562284,
+      "set": "30 mini tin",
+      "count": 1,
+      "date": "2026-10-11",
+      "price": 10.87,
+      "notes": "30",
+      "pulls": []
+    },
+    {
       "id": 1790974277226,
       "set": "30th tech sticker",
       "count": 1,
@@ -1648,15 +1657,6 @@
       "type": "etb",
       "date": "2026-09-16",
       "price": 65.2,
-      "notes": "30"
-    },
-    {
-      "id": 1790974337918,
-      "set": "30 mini tin",
-      "qty": 1,
-      "type": "tin",
-      "date": "2026-10-02",
-      "price": 10.87,
       "notes": "30"
     }
   ],
