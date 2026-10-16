@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1792169566231,
+      "set": "Month ACO",
+      "count": 1,
+      "date": "2026-10-16",
+      "price": 31.49,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1792152432055,
       "set": "L25 Pokeball",
       "count": 2,
