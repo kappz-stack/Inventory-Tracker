@@ -1653,6 +1653,16 @@
   ],
   "sales": [
     {
+      "id": 1792153286550,
+      "name": "30th booster Bundle",
+      "cat": "lot",
+      "price": 58,
+      "cost": 34.75,
+      "platform": "local",
+      "date": "2026-10-16",
+      "notes": ""
+    },
+    {
       "id": 1792152550701,
       "name": "Pokeball 6 Pack",
       "cat": "sealed",
