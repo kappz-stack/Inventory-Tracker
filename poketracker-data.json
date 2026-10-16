@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1792152432055,
+      "set": "L25 Pokeball",
+      "count": 2,
+      "date": "2026-10-16",
+      "price": 36.9,
+      "notes": "Mix",
+      "pulls": []
+    },
+    {
       "id": 1791752562284,
       "set": "30 mini tin",
       "count": 1,
@@ -1585,15 +1594,6 @@
       "type": "other",
       "date": "2026-06-26",
       "price": 110.67,
-      "notes": "Mix"
-    },
-    {
-      "id": 1782756441416,
-      "set": "L25 Pokeball",
-      "qty": 2,
-      "type": "booster-box",
-      "date": "2026-06-29",
-      "price": 18.45,
       "notes": "Mix"
     },
     {
