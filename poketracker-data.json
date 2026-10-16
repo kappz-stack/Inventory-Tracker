@@ -1588,15 +1588,6 @@
       "notes": "PB"
     },
     {
-      "id": 1782480581443,
-      "set": "Pokeball 6 Pack",
-      "qty": 1,
-      "type": "other",
-      "date": "2026-06-26",
-      "price": 110.67,
-      "notes": "Mix"
-    },
-    {
       "id": 1783343082483,
       "set": "Mega Greninja EX",
       "qty": 3,
@@ -1661,6 +1652,16 @@
     }
   ],
   "sales": [
+    {
+      "id": 1792152550701,
+      "name": "Pokeball 6 Pack",
+      "cat": "sealed",
+      "price": 125,
+      "cost": 110.67,
+      "platform": "ebay",
+      "date": "2026-10-16",
+      "notes": "Mix"
+    },
     {
       "id": 1790971088708,
       "name": "Pokeball 6 Pack",
