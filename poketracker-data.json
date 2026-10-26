@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1793017692473,
+      "set": "Tims bot cost",
+      "count": 1,
+      "date": "2026-10-26",
+      "price": 90,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1792169566231,
       "set": "Month ACO",
       "count": 1,
