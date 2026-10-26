@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1793020339195,
+      "set": "AH Tech Sticker 3 Pack",
+      "count": 1,
+      "date": "2026-10-26",
+      "price": 20.33,
+      "notes": "AH",
+      "pulls": []
+    },
+    {
       "id": 1793017692473,
       "set": "Tims bot cost",
       "count": 1,
@@ -1176,7 +1185,7 @@
     {
       "id": 1778273300139,
       "set": "AH Tech Sticker 3 Pack",
-      "qty": 3,
+      "qty": 2,
       "type": "blister3",
       "date": "2026-05-08",
       "price": 20.33,
