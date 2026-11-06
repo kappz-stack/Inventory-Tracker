@@ -1689,6 +1689,16 @@
   ],
   "sales": [
     {
+      "id": 1793987614345,
+      "name": "Delta ETB and Booster BUndle",
+      "cat": "lot",
+      "price": 130,
+      "cost": 95,
+      "platform": "ebay",
+      "date": "2026-11-06",
+      "notes": ""
+    },
+    {
       "id": 1793017956479,
       "name": "10 30th bb, 2hops, 2 poster, 2 AH tin, 2ex",
       "cat": "single",
