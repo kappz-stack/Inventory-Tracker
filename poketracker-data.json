@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1794065314338,
+      "set": "DR Sleeves",
+      "count": 1,
+      "date": "2026-11-07",
+      "price": 6.24,
+      "notes": "DR",
+      "pulls": []
+    },
+    {
       "id": 1794064396308,
       "set": "Detla 3 pack",
       "count": 1,
@@ -1320,7 +1329,7 @@
     {
       "id": 1775762512517,
       "set": "DR Sleeves",
-      "qty": 38,
+      "qty": 37,
       "type": "sleeves",
       "date": "2025-12-31",
       "price": 6.24,
