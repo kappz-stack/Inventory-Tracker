@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1794065617816,
+      "set": "Delta ETB",
+      "count": 1,
+      "date": "2026-11-07",
+      "price": 65.16,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1794065314338,
       "set": "DR Sleeves",
       "count": 1,
