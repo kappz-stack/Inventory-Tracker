@@ -1716,6 +1716,16 @@
   ],
   "sales": [
     {
+      "id": 1794140937739,
+      "name": "AH 3pack",
+      "cat": "lot",
+      "price": 14.37,
+      "cost": 0,
+      "platform": "local",
+      "date": "2026-11-08",
+      "notes": ""
+    },
+    {
       "id": 1794140886875,
       "name": "30th Minitin x 19",
       "cat": "lot",
