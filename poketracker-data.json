@@ -1716,6 +1716,16 @@
   ],
   "sales": [
     {
+      "id": 1794140156340,
+      "name": "Graded Guard Sale",
+      "cat": "single",
+      "price": 32.73,
+      "cost": 26.07,
+      "platform": "ebay",
+      "date": "2026-11-08",
+      "notes": ""
+    },
+    {
       "id": 1793987614345,
       "name": "Delta ETB and Booster BUndle",
       "cat": "lot",
