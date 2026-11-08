@@ -1716,6 +1716,16 @@
   ],
   "sales": [
     {
+      "id": 1794140417878,
+      "name": "30th Poster x5",
+      "cat": "lot",
+      "price": 17.93,
+      "cost": 0,
+      "platform": "local",
+      "date": "2026-11-08",
+      "notes": ""
+    },
+    {
       "id": 1794140156340,
       "name": "Graded Guard Sale",
       "cat": "single",
