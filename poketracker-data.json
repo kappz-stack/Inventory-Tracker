@@ -1716,6 +1716,16 @@
   ],
   "sales": [
     {
+      "id": 1794140886875,
+      "name": "30th Minitin x 19",
+      "cat": "lot",
+      "price": 105.93,
+      "cost": 0,
+      "platform": "local",
+      "date": "2026-11-08",
+      "notes": ""
+    },
+    {
       "id": 1794140445602,
       "name": "Delta ETB Profit only",
       "cat": "lot",
