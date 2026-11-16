@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1794872865068,
+      "set": "Delta 3 pack",
+      "count": 1,
+      "date": "2026-11-16",
+      "price": 19.54,
+      "notes": "",
+      "pulls": []
+    },
+    {
       "id": 1794065617816,
       "set": "Delta ETB",
       "count": 1,
