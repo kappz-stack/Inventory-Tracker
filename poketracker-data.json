@@ -1,6 +1,15 @@
 {
   "packs": [
     {
+      "id": 1795543414585,
+      "set": "delta 3 pack",
+      "count": 1,
+      "date": "2026-11-24",
+      "price": 22,
+      "notes": "jacob",
+      "pulls": []
+    },
+    {
       "id": 1795091290175,
       "set": "Vileplume Pack",
       "count": 1,
