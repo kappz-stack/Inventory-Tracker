@@ -1743,6 +1743,16 @@
   ],
   "sales": [
     {
+      "id": 1795606926774,
+      "name": "Costco PO Bundle 1/2",
+      "cat": "single",
+      "price": 4.28,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-11-24",
+      "notes": ""
+    },
+    {
       "id": 1795606912777,
       "name": "Delta ETB pnl only",
       "cat": "single",
