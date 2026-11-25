@@ -1743,6 +1743,16 @@
   ],
   "sales": [
     {
+      "id": 1795606899513,
+      "name": "FP 2 Sale PNL only",
+      "cat": "single",
+      "price": 4.7,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-11-24",
+      "notes": ""
+    },
+    {
       "id": 1794140937739,
       "name": "AH 3pack",
       "cat": "lot",
