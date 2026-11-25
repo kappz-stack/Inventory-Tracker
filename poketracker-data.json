@@ -1743,6 +1743,16 @@
   ],
   "sales": [
     {
+      "id": 1795606912777,
+      "name": "Delta ETB pnl only",
+      "cat": "single",
+      "price": 11.47,
+      "cost": 0,
+      "platform": "ebay",
+      "date": "2026-11-24",
+      "notes": ""
+    },
+    {
       "id": 1795606899513,
       "name": "FP 2 Sale PNL only",
       "cat": "single",
